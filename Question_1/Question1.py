@@ -3,9 +3,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    if is_palindrome("Bocab"):
-        return "palindrome"
-    return "not palindrome"
+    return vowel_to_emoji("aeiou")
 
 #we can iterate through strings like lists in python using a for loop
 def is_palindrome(string: str):
@@ -22,3 +20,21 @@ def is_palindrome(string: str):
     if palindrome_counter == len(string)//2:
         return True
     return False
+
+#when python concatenates it creates a new string and we must have a variable to store it in
+def vowel_to_emoji(name: str):
+    emoji_string = ""
+    for i in name:
+        if i.lower() == "a":
+            emoji_string = emoji_string + "🔺"
+        elif i.lower() == "e":
+            emoji_string = emoji_string + "🎗"
+        elif i.lower() == "i":
+            emoji_string = emoji_string + "👁"
+        elif i.lower() == "o":
+            emoji_string = emoji_string + "🔵"
+        elif i.lower() == "u":
+            emoji_string = emoji_string + "🆙"
+        else:
+            emoji_string = emoji_string + i
+    return emoji_string
