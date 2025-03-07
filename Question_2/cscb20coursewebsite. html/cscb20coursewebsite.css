@@ -1,5 +1,5 @@
 .top {
-    background-color: lightpink;
+    background-color: #fddce2;
     padding: 40px;
     width: 100%;
     text-align: center;
@@ -10,7 +10,7 @@
     border: medium solid #F26B8A;
 }
 .left {
-    background-color: #ffb6c1b4;
+    background-color: #fddce2;
     width: 150px;
     height: 100%;
     position: fixed;
