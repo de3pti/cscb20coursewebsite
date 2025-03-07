@@ -77,3 +77,20 @@ img {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
 }
+
+.form_elm{
+    font-size: 16px;
+    border-radius: 5px;
+    border: 0;
+    padding: 7px 12px 7px 12px;
+    margin: 10px 0 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+}
+
+form {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+}
