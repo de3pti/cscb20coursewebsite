@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return vowel_to_emoji("aeiou")
+    return vowel_to_emoji("hanna is fat")
 
 #we can iterate through strings like lists in python using a for loop
 def is_palindrome(string: str):
