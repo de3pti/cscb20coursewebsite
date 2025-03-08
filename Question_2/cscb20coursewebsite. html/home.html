@@ -2,17 +2,63 @@
 <html>
     <head>
         <style>
+            .grid {
+                display: grid;
+                justify-content: center;
+                align-items: stretch;
+                grid-template-columns: 300px 300px 300px;
+                /*grid-template-rows: 300px 300px;*/
+                grid-template-columns: repeat(4, 1fr);
+            }
+
             .flex-container {
+                justify-content: center;  
+                color: #fff;
+                background-color: #5995DA;  /* Blue */
+                padding: 20px 0;
+            }
+            .header {
                 display: flex;
-                justify-content: space-evenly;
-              }
+                justify-content: center;
+                align-items: center;
+                background-color: #7BB1CC;
+                padding: 40px;
+                width: 100%;
+                text-align: center;
+                position: fixed;
+                left: 0;
+                top: 0;
+                height: 40px;
+            }
+
+            .footer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #7BB1CC;
+                padding: 10px;
+                width: 100%;
+                text-align: center;
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                height: 20px;
+            }
+
+            body{
+                background-color: #EDFBFC;
+                /* margin-left: 155px; */
+                margin-top: 0;
+                height: 100%;
+                padding-top: 150px;
+                width: calc(100% - 155px);
+                padding-left: 70px;
+            }
         </style>
     </head>
-    <div>
-        <h1>
-            CSCB20: Introduction to Databases and Web Applications
-        </h1>
-    </div>
+    <header class="header">
+        <h1>CSCB20: Introduction to Databases and Web Applications</h1>
+    </header>
     <h2>Course Description</h2>
     <body>
         <p>
@@ -29,9 +75,56 @@
     </body>
     <h2>Instructors</h2>
     <div class="flex-container">
-        <div>Purva</div>
-        <div>Deepti</div>
-        <div>Hanna</div>
-        <div>Siara</div>
+        <div>Purva Gawde</div>
+        <div>
+            <b>Email:</b> purva.gawde@utoronto.ca<br>
+            <b>Office:</b> IA4056<br>
+            <b>Office Hours:</b> Monday 11:00 to 12:00
+        </div>
     </div>
+    <p>
+        A practical introduction to databases and Web app development. 
+        Databases: terminology and applications; creating, querying and updating databases; 
+        the entity-relationship model for database design. Web documents and applications: static and 
+        interactive documents; Web servers and dynamic server-generated content; Web application 
+        development and interface with databases.
+    </p>
+    <p>
+        A practical introduction to databases and Web app development. 
+        Databases: terminology and applications; creating, querying and updating databases; 
+        the entity-relationship model for database design. Web documents and applications: static and 
+        interactive documents; Web servers and dynamic server-generated content; Web application 
+        development and interface with databases.
+    </p>
+    <p>
+        A practical introduction to databases and Web app development. 
+        Databases: terminology and applications; creating, querying and updating databases; 
+        the entity-relationship model for database design. Web documents and applications: static and 
+        interactive documents; Web servers and dynamic server-generated content; Web application 
+        development and interface with databases.
+    </p>
+    <p>
+        A practical introduction to databases and Web app development. 
+        Databases: terminology and applications; creating, querying and updating databases; 
+        the entity-relationship model for database design. Web documents and applications: static and 
+        interactive documents; Web servers and dynamic server-generated content; Web application 
+        development and interface with databases.
+    </p>
+    <p>
+        A practical introduction to databases and Web app development. 
+        Databases: terminology and applications; creating, querying and updating databases; 
+        the entity-relationship model for database design. Web documents and applications: static and 
+        interactive documents; Web servers and dynamic server-generated content; Web application 
+        development and interface with databases.
+    </p>
+    <p>
+        A practical introduction to databases and Web app development. 
+        Databases: terminology and applications; creating, querying and updating databases; 
+        the entity-relationship model for database design. Web documents and applications: static and 
+        interactive documents; Web servers and dynamic server-generated content; Web application 
+        development and interface with databases.
+    </p>
+    <footer class="footer">
+        <p>footer</p>
+    </footer>
 </html>
