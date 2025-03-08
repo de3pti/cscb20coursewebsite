@@ -61,7 +61,7 @@ iframe {
     flex-direction: row;
     flex-wrap: wrap;
     /*flex-flow: column wrap;*/
-    justify-content: space-evenly;
+    justify-content: space-around;
     order: 3;
 }
 
