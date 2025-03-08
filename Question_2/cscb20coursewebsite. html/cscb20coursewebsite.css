@@ -9,6 +9,17 @@
     height: 60px;
     border: medium solid #254E70;
 }
+
+.top_overlap{
+    text-align: left center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding-left: 40px;
+    padding-top: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 /* .left {
     background-color: #c33c54;
     width: 150px;
@@ -101,8 +112,61 @@ form {
     font-size: 100%;
 }
 
-.dark_mode {
-    background-color: rgb(79, 4, 36);
-    color: whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
+
+/*Light and Dark mode*/
+/*Dark mode: ->light mode is the default*/
+@media (prefers-color-scheme: dark) {
+    .top {
+        background-color: #1F0318;
+        padding: 40px;
+        width: 100%;
+        text-align: center;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 60px;
+        border: medium solid #1E1A1D;
+    }
+
+    body {
+        background-color: #4a073a;
+        /* margin-left: 155px; */
+        margin-top: 0;
+        height: 100%;
+        padding-top: 150px;
+        width: calc(100% - 155px);
+        padding-left: 70px;
+    }  
+
+    h1 {
+        color: #254E70;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 200%;
+    }
+
+    p {
+        color: #eff7de;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+        margin: 0;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .form_elm{
+        font-size: 16px;
+        border-radius: 5px;
+        border: 0;
+        padding: 7px 12px 7px 12px;
+        margin: 10px 0 10px 0;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: #4a073a;
+    }
+    
+    form {
+        color: #eff7de;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+    }
 }
