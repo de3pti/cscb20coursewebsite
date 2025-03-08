@@ -38,7 +38,7 @@ h1 {
     font-size: 200%;
 }
 
-p{
+p {
     color: black;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
@@ -56,7 +56,7 @@ iframe {
     padding: 0;
 }
 
-.container {
+.image_container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -65,13 +65,19 @@ iframe {
     order: 3;
 }
 
+.text_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 /* .image_text {
     text-align: center;
     margin-bottom: 20px;
 } */
 
 img {
-    width: 100px;
+    width: 12em;
     float: left;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
@@ -92,4 +98,10 @@ form {
     color: black;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
+}
+
+.dark_mode {
+    background-color: rgb(79, 4, 36);
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
 }
