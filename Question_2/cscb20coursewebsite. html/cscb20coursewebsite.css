@@ -1,5 +1,5 @@
 .top {
-    background-color: #fddce2;
+    background-color: #7BB1CC;
     padding: 40px;
     width: 100%;
     text-align: center;
@@ -7,10 +7,10 @@
     left: 0;
     top: 0;
     height: 60px;
-    border: medium solid #F26B8A;
+    border: medium solid #254E70;
 }
-.left {
-    background-color: #fddce2;
+/* .left {
+    background-color: #c33c54;
     width: 150px;
     height: 100%;
     position: fixed;
@@ -21,10 +21,10 @@
     font-size: 100%;
     text-align: center;
     padding-top: 10px;
-}
+} */
 
 body {
-    background-color: rgb(255, 240, 247);
+    background-color: #EDFBFC;
     /* margin-left: 155px; */
     margin-top: 0;
     height: 100%;
@@ -34,8 +34,8 @@ body {
 }
 
 h1 {
-    color: #F26B8A;
-    font-family: Arial, Helvetica, sans-serif ;
+    color: #254E70;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 200%;
 }
 
