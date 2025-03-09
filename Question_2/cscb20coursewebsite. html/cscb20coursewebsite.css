@@ -107,7 +107,7 @@ form {
   }
   
   /* The column titles */
-  .header {
+  .column-title {
     background-color: #c164ae;
     color: #fff;
     /* border-radius: 7px; */
