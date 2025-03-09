@@ -1,44 +1,47 @@
-.top {
-    background-color: #fddce2;
-    padding: 40px;
-    width: 100%;
-    text-align: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 60px;
-    border: medium solid #F26B8A;
-}
-.left {
-    background-color: #fddce2;
-    width: 150px;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 145px;
-    margin-top: 0;
+/* Main CSS for the layout of our Website */
+*{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 100%;
-    text-align: center;
-    padding-top: 10px;
 }
 
-body {
-    background-color: rgb(255, 240, 247);
-    margin-left: 155px;
-    margin-top: 0;
-    height: 100%;
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: #EDFBFC;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.header {
+    background-color: #7BB1CC;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    padding: 40px;
+    height: 60px;
+    text-align: center;
+}
+
+.content {
+    flex-grow: 1;
     padding-top: 150px;
-    width: calc(100% - 155px);
+}
+
+.footer {
+    background-color: #7BB1CC;
+    width: 100%;
+    bottom: 0;
 }
 
 h1 {
-    color: #F26B8A;
-    font-family: Arial, Helvetica, sans-serif ;
+    color: #254E70;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 200%;
 }
 
-p{
+p {
     color: black;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
@@ -47,52 +50,115 @@ p{
     text-align: left;
 }
 
-iframe {
-    width: calc(100% - 10px);
-    height: 50em; 
-    display: block; 
-    top: 0;
-    margin-top: 0;
-    padding: 0;
+/* CSS for Assignments */
+.assignmentgrid {
+    display: grid;
+    justify-content: space-evenly;
+    text-align: center;
+    grid-auto-flow: column;  
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;  
 }
 
-.container {
+/*CSS for Course Team*/
+.courseteamgrid{
+    display: grid;
+    justify-content: space-evenly;
+    text-align: left;
+    grid-auto-flow: column;  
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1fr; 
+}
+
+.image_container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    flex-flow: column wrap;
-    justify-content: space-evenly;
+    /*flex-flow: column wrap;*/
+    justify-content: space-around;
     order: 3;
 }
 
-.image_text {
-    text-align: center;
-    margin-bottom: 20px;
+.text_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 img {
-    width: 33.33%;
-    /*height: 50em; */
+    width: 12em;
     float: left;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
 }
 
+/*CSS for Piazza */
+.iframe_container {
+    width: 100vw; 
+    max-width: 100%; 
+    display: flex;
+    justify-content: center; 
+}
+
+.iframe_container iframe {
+    width: 90%;
+    height: 75vh; 
+    display: block; 
+}
+
+/*CSS for Syllabus */
+.courseschedule {
+    display: grid;
+    grid-auto-flow: column;  
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 0.5fr 3fr;    
+}
+
+.coursegrading {
+    display: grid;
+    grid-auto-flow: column;  
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr 3fr;  
+}
+
+/*CSS for Anon. Feedback*/
 .form_elm{
     font-size: 16px;
-    border-radius: 5px;
-    border: 0;
-    padding: 7px 12px 7px 12px;
-    margin: 10px 0 10px 0;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
     width: 100%;
     box-sizing: border-box;
     background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+textarea{
+    border-radius: 10px;
+    border: 1px solid #ccc;
 }
 
 form {
     color: black;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
+}
+
+.btn {
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    background-color: #555;
+    padding: 10px 16px;
+}
+
+.btn-group {
+    text-align: center;
 }
 
 /* Styling the Tutorial content  */
@@ -219,3 +285,85 @@ section{
     display: block
 }
 
+/*Light and Dark mode*/
+/*Dark mode: ->light mode is the default*/
+@media (prefers-color-scheme: dark) {
+    /* Main CSS for the layout of our Website */
+    body{
+        display: flex;
+        flex-direction: column;
+        background-color: #EDFBFC;
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .header {
+        background-color: #7BB1CC;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        padding: 40px;
+        height: 60px;
+        text-align: center;
+    }
+
+    .footer {
+        background-color: #7BB1CC;
+        width: 100%;
+        bottom: 0;
+    }
+
+    h1 {
+        color: #254E70;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 200%;
+    }
+
+    p {
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+        margin: 0;
+        padding: 10px;
+        text-align: left;
+    }
+
+    /*CSS for Anon. Feedback*/
+    .form_elm{
+        font-size: 16px;
+        padding: 10px 16px 10px 16px;
+        margin: 15px 0 15px 0;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: whitesmoke;
+        height: 100px;
+        resize: both;
+        text-align: left;
+        text-align: top;
+    }
+
+    textarea{
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    form {
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+    }
+
+    .btn {
+        text-align: center;
+        font-size: 14px;
+        border-radius: 5px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        background-color: #555;
+        padding: 10px 16px;
+    }
+}
