@@ -1,63 +1,38 @@
-.top {
-    background-color: #7BB1CC;
-    padding: 40px;
-    width: 100%;
-    text-align: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 60px;
-    border: medium solid #254E70;
+/* Main CSS for the layout of our Website */
+*{
+    font-family: Arial, Helvetica, sans-serif;
 }
-/* .bottom {
-    background-color: #7BB1CC;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 30px;
-    border: medium solid #254E70;
-}
-.bottom p{
+
+body{
     display: flex;
-    font-family: Arial, Helvetica, sans-serif;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-} */
-
-.top_overlap{
-    text-align: left center;
-    top: 0;
-    left: 0;
-    position: absolute;
-    padding-left: 40px;
-    padding-top: 60px;
-    font-family: Arial, Helvetica, sans-serif;
+    flex-direction: column;
+    background-color: #EDFBFC;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-/* .left {
-    background-color: #c33c54;
-    width: 150px;
-    height: 100%;
+.header {
+    background-color: #7BB1CC;
+    width: 100%;
     position: fixed;
-    left: 0;
-    top: 145px;
-    margin-top: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 100%;
+    top: 0;
+    padding: 40px;
+    height: 60px;
     text-align: center;
-    padding-top: 10px;
-} */
+}
 
-body {
-    background-color: #EDFBFC;
-    /* margin-left: 155px; */
-    margin-top: 0;
-    height: 100%;
+.content {
+    flex-grow: 1;
     padding-top: 150px;
-    width: calc(100% - 155px);
-    padding-left: 70px;
+}
+
+.footer {
+    background-color: #7BB1CC;
+    width: 100%;
+    bottom: 0;
 }
 
 h1 {
@@ -75,13 +50,24 @@ p {
     text-align: left;
 }
 
-iframe {
-    width: calc(100% - 10px);
-    height: 50em; 
-    display: block; 
-    top: 0;
-    margin-top: 0;
-    padding: 0;
+/* CSS for Assignments */
+.assignmentgrid {
+    display: grid;
+    justify-content: space-evenly;
+    text-align: center;
+    grid-auto-flow: column;  
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;  
+}
+
+/*CSS for Course Team*/
+.courseteamgrid{
+    display: grid;
+    justify-content: space-evenly;
+    text-align: left;
+    grid-auto-flow: column;  
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1fr; 
 }
 
 .image_container {
@@ -99,20 +85,6 @@ iframe {
     justify-content: space-around;
 }
 
-.text_container2{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    text-align: left;
-    justify-content: space-around;
-    background-color: #daeef0;
-}
-
-/* .image_text {
-    text-align: center;
-    margin-bottom: 20px;
-} */
-
 img {
     width: 12em;
     float: left;
@@ -120,16 +92,52 @@ img {
     font-size: 100%;
 }
 
+/*CSS for Piazza */
+.iframe_container {
+    width: 100vw; 
+    max-width: 100%; 
+    display: flex;
+    justify-content: center; 
+}
 
+.iframe_container iframe {
+    width: 90%;
+    height: 75vh; 
+    display: block; 
+}
+
+/*CSS for Syllabus */
+.courseschedule {
+    display: grid;
+    grid-auto-flow: column;  
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 0.5fr 3fr;    
+}
+
+.coursegrading {
+    display: grid;
+    grid-auto-flow: column;  
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr 3fr;  
+}
+
+/*CSS for Anon. Feedback*/
 .form_elm{
     font-size: 16px;
-    border-radius: 5px;
-    border: 0;
-    padding: 7px 12px 7px 12px;
-    margin: 10px 0 10px 0;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
     width: 100%;
     box-sizing: border-box;
     background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+textarea{
+    border-radius: 10px;
+    border: 1px solid #ccc;
 }
 
 form {
@@ -138,31 +146,51 @@ form {
     font-size: 100%;
 }
 
+.btn {
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    background-color: #555;
+    padding: 10px 16px;
+}
+
+.btn-group {
+    text-align: center;
+}
 
 /*Light and Dark mode*/
 /*Dark mode: ->light mode is the default*/
 @media (prefers-color-scheme: dark) {
-    .top {
-        background-color: #1F0318;
-        padding: 40px;
-        width: 100%;
-        text-align: center;
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 60px;
-        border: medium solid #1E1A1D;
+    /* Main CSS for the layout of our Website */
+    body{
+        display: flex;
+        flex-direction: column;
+        background-color: #EDFBFC;
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+        justify-content: flex-start;
+        align-items: center;
     }
 
-    body {
-        background-color: #4a073a;
-        /* margin-left: 155px; */
-        margin-top: 0;
-        height: 100%;
-        padding-top: 150px;
-        width: calc(100% - 155px);
-        padding-left: 70px;
-    }  
+    .header {
+        background-color: #7BB1CC;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        padding: 40px;
+        height: 60px;
+        text-align: center;
+    }
+
+    .footer {
+        background-color: #7BB1CC;
+        width: 100%;
+        bottom: 0;
+    }
 
     h1 {
         color: #254E70;
@@ -171,7 +199,7 @@ form {
     }
 
     p {
-        color: #eff7de;
+        color: black;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 100%;
         margin: 0;
@@ -179,29 +207,39 @@ form {
         text-align: left;
     }
 
+    /*CSS for Anon. Feedback*/
     .form_elm{
         font-size: 16px;
-        border-radius: 5px;
-        border: 0;
-        padding: 7px 12px 7px 12px;
-        margin: 10px 0 10px 0;
+        padding: 10px 16px 10px 16px;
+        margin: 15px 0 15px 0;
         width: 100%;
         box-sizing: border-box;
-        background-color: #4a073a;
+        background-color: whitesmoke;
+        height: 100px;
+        resize: both;
+        text-align: left;
+        text-align: top;
     }
-    
+
+    textarea{
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
     form {
-        color: #eff7de;
+        color: black;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 100%;
     }
 
-    .text_container2{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        text-align: left;
-        justify-content: space-around;
-        background-color: #36042a;
+    .btn {
+        text-align: center;
+        font-size: 14px;
+        border-radius: 5px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        background-color: #555;
+        padding: 10px 16px;
     }
 }
