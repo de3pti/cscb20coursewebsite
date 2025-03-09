@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                display: flex;
+                flex-direction: column;
+                background-color: #EDFBFC;
+                padding: 0;
+                margin: 0;
+                min-height: 100vh;
+                justify-content: flex-start;
+                align-items: center;
+            }
+
+            .header {
+                background-color: #7BB1CC;
+                width: 100%;
+                position: fixed;
+                top: 0;
+                padding: 40px;
+                height: 60px;
+                text-align: center;
+            }
+
+            .content {
+                flex-grow: 1;
+                padding-top: 150px;
+            }
+
+            .footer {
+                background-color: #7BB1CC;
+                width: 100%;
+                bottom: 0;
+            }
+
+            .assignmentgrid {
+                display: grid;
+                justify-content: space-evenly;
+                text-align: center;
+                grid-auto-flow: column;  
+                grid-template-columns: repeat(5, 1fr);
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;  
+            }
+
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <h1>CSCB20: Introduction to Databases and Web Applications</h1>
+        </header>
+
+        <main class="content">
+            <p>Welcome to the assignments page!! Here you'll find all pertinant info for each assignment.</p>
+            <div class="assignmentgrid">
+                <div class="column1">
+                    <p>Exercise</p>
+                    <div class ="cell"><a href="/Users/deepti/Documents/CSCB20 Assignment 1.pdf">A1 Handout</a></div>
+                    <div class ="cell"><a href="/Users/deepti/Documents/CSCB20 Assignment 2.pdf">A2 Handout</a></div>
+                    <div class ="cell"><a href="/Users/deepti/Documents/CSCB20 Assignment 1.pdf">A3 Handout</a></div>
+                </div>
+                <div class="column2">
+                    <p>Topic</p>
+                    <div class ="cell">Relational Algebra and MySQL</div>
+                    <div class ="cell">HTML, CSS, and Flask</div>
+                    <div class ="cell">Web Applications and Databases</div>
+                </div>
+                <div class="column3">
+                    <p>Weight</p>
+                    <div class ="cell">8%</div>
+                    <div class ="cell">10%</div>
+                    <div class ="cell">15%</div>
+                </div>
+                <div class="column4">
+                    <p>Due Date</p>
+                    <div class ="cell">February 12, 2025</div>
+                    <div class ="cell">March 12, 2025</div>
+                    <div class ="cell">Tenative</div>
+                </div>
+                <div class="column5">
+                    <p>Solutions</p>
+                    <div class ="cell">Not Available</div>
+                    <div class ="cell">Not Available</div>
+                    <div class ="cell">Not Available</div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <div>
+                <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a>
+            </div>
+            <p>Site design by Deepti, Hanna, Siara</p>
+        </footer>
+    </body>
+</html>
