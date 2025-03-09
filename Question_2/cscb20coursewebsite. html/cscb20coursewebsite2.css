@@ -1,0 +1,207 @@
+.top {
+    background-color: #7BB1CC;
+    padding: 40px;
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 60px;
+    border: medium solid #254E70;
+}
+/* .bottom {
+    background-color: #7BB1CC;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    border: medium solid #254E70;
+}
+.bottom p{
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+} */
+
+.top_overlap{
+    text-align: left center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding-left: 40px;
+    padding-top: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* .left {
+    background-color: #c33c54;
+    width: 150px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 145px;
+    margin-top: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    text-align: center;
+    padding-top: 10px;
+} */
+
+body {
+    background-color: #EDFBFC;
+    /* margin-left: 155px; */
+    margin-top: 0;
+    height: 100%;
+    padding-top: 150px;
+    width: calc(100% - 155px);
+    padding-left: 70px;
+}
+
+h1 {
+    color: #254E70;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 200%;
+}
+
+p {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    margin: 0;
+    padding: 10px;
+    text-align: left;
+}
+
+iframe {
+    width: calc(100% - 10px);
+    height: 50em; 
+    display: block; 
+    top: 0;
+    margin-top: 0;
+    padding: 0;
+}
+
+.image_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /*flex-flow: column wrap;*/
+    justify-content: space-around;
+    order: 3;
+}
+
+.text_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.text_container2{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    text-align: left;
+    justify-content: space-around;
+    background-color: #daeef0;
+}
+
+/* .image_text {
+    text-align: center;
+    margin-bottom: 20px;
+} */
+
+img {
+    width: 12em;
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+}
+
+
+.form_elm{
+    font-size: 16px;
+    border-radius: 5px;
+    border: 0;
+    padding: 7px 12px 7px 12px;
+    margin: 10px 0 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+}
+
+form {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+}
+
+
+/*Light and Dark mode*/
+/*Dark mode: ->light mode is the default*/
+@media (prefers-color-scheme: dark) {
+    .top {
+        background-color: #1F0318;
+        padding: 40px;
+        width: 100%;
+        text-align: center;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 60px;
+        border: medium solid #1E1A1D;
+    }
+
+    body {
+        background-color: #4a073a;
+        /* margin-left: 155px; */
+        margin-top: 0;
+        height: 100%;
+        padding-top: 150px;
+        width: calc(100% - 155px);
+        padding-left: 70px;
+    }  
+
+    h1 {
+        color: #254E70;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 200%;
+    }
+
+    p {
+        color: #eff7de;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+        margin: 0;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .form_elm{
+        font-size: 16px;
+        border-radius: 5px;
+        border: 0;
+        padding: 7px 12px 7px 12px;
+        margin: 10px 0 10px 0;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: #4a073a;
+    }
+    
+    form {
+        color: #eff7de;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+    }
+
+    .text_container2{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        text-align: left;
+        justify-content: space-around;
+        background-color: #36042a;
+    }
+}
