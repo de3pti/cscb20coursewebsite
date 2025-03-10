@@ -36,33 +36,9 @@ def process_user_name(user_name):
     # Return the updated user's name
     return user_name
 
-@app.route("/")
-def welcome_text():
-     # Get the name from the URL query string
-     user_name = request.args.get('user_name', '')
-
-     # Set the name that will appear as the processed name
-     final_user_name = process_user_name(user_name)
-
-     # If there is no user name given, default to guest
-     if not user_name:
-         return "Welcome, Guest, to my CSCB20 website!"
-
-     # Set the welcome message
-     welcome_message =  f"Welcome, {final_user_name}, to my CSCB20 website!"
-
-     # Return the message
-     return welcome_message
-   
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
-=======
-
+#Question 1.2
 #we can iterate through strings like lists in python using a for loop
-def is_palindrome(string: str):
+def is_palindrome(user_name):
     palindrome_counter = 0
     i = 0;
     j = len(string) - 1
@@ -77,10 +53,27 @@ def is_palindrome(string: str):
         return True
     return False
 
+@app.route('/<name>', methods=['GET'])
+def welcome_text(name):
+    # Process this person's name
+    processed_name = process_user_name(name)
+
+    if not user_name:    # If there is no user name given, default to guest
+        return "Welcome, Guest, to my CSCB20 website!"
+    elif is_palindrome(name):
+        welcome_message = f"Welcome {processed_name}. Your name is a palindrome!"
+    else:
+        welcome_message =  f"Welcome, {processed_name}, to my CSCB20 website!"
+    # Return the message
+    return welcome_message
+   
+
+#Question 1.3
 #when python concatenates it creates a new string and we must have a variable to store it in
-def vowel_to_emoji(name: str):
+def vowel_to_emoji(user_name: str):
+
     emoji_string = ""
-    for i in name:
+    for i in user_name:
         if i.lower() == "a":
             emoji_string = emoji_string + "🔺"
         elif i.lower() == "e":
@@ -94,3 +87,19 @@ def vowel_to_emoji(name: str):
         else:
             emoji_string = emoji_string + i
     return emoji_string
+
+
+@app.route('/emoji/<name>', methods=['GET'])
+def welcome_replace_vowels(name):
+    # final_user_name = vowel_to_emoji(user_name)
+
+    processed_name = vowel_to_emoji(name)
+    # If there is no user name given, default to guest
+    if not name:
+        return "Welcome, Guest, to my CSCB20 website!"
+    else:
+        return f"Welcome, {processed_name}, to my CSCB20 website!"
+   
+
+if __name__ == '__main__':
+    app.run(debug=True)
