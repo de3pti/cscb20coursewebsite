@@ -13,10 +13,16 @@
     src: url(Mont-HeavyDEMO.ttf);
 }
 
+.homeblurbs {
+    background-color: #B9CAC9;
+    padding: 15px;
+    border-radius: 10px;
+}
+
 body{
     display: flex;
     flex-direction: column;
-    background-color: #EAEAD6;
+    background-color: #D0DDDB;
     padding: 0;
     margin: 0;
     min-height: 100vh;
@@ -27,7 +33,7 @@ body{
 .header {
     display: flex;
     flex-direction: row;
-    background-color: #7B8A56;
+    background-color: #A9B9DB;
     width: 100%;
     position: fixed;
     top: 0;
@@ -41,17 +47,21 @@ body{
     flex-grow: 1;
     text-align: right;
     padding-right: 5%;
+    align-items: center;
+    justify-content: center;
+    color: #4E6979;
 }
 
 .content {
     flex-grow: 1;
     padding-top: 150px;
+    margin: 3%;
 }
 
 .footer {
     display: flex;
     flex-direction: column;
-    background-color: #88A5A3;
+    background-color: #677449;
     width: 100%;
     bottom: 0;
     text-align: center;
@@ -67,11 +77,17 @@ h1 {
 
 p {
     color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Mont;
     font-size: 100%;
-    margin: 0;
-    padding: 10px;
-    text-align: left;
+    margin: 0;;
+}
+
+.link {
+    color: #253C33;
+}
+
+.link:hover {
+    color: #B5C09B;
 }
 
 /* CSS for Assignments */
@@ -257,13 +273,9 @@ form {
 		}
 		background: #ffffff70;
 	}
-    .days{
-
-    }
 }
 
 .dropbutton{
-    align-self: center;
     background-color:#C4A645;
     color: #253C33;
     margin: 0.25rem;
@@ -281,6 +293,7 @@ form {
     position: relative;
     display: inline-block;
     padding-right: 5%;
+    align-self: center;
 }
 
 .dropdown-content {
