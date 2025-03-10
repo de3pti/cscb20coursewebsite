@@ -1,12 +1,22 @@
 /* Main CSS for the layout of our Website */
 *{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Mont, Mont, Mont, Mont, Mont;
+}
+
+@font-face {
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
+}
+
+@font-face {
+    font-family: MontBold;
+    src: url(Mont-HeavyDEMO.ttf);
 }
 
 body{
     display: flex;
     flex-direction: column;
-    background-color: #EDFBFC;
+    background-color: #EAEAD6;
     padding: 0;
     margin: 0;
     min-height: 100vh;
@@ -15,12 +25,22 @@ body{
 }
 
 .header {
-    background-color: #7BB1CC;
+    display: flex;
+    flex-direction: row;
+    background-color: #7B8A56;
     width: 100%;
     position: fixed;
     top: 0;
+    flex-grow: 1;
     padding: 30px;
     text-align: center;
+}
+
+.headertext{
+    font-family: MontBold;
+    flex-grow: 1;
+    text-align: right;
+    padding-right: 5%;
 }
 
 .content {
@@ -29,13 +49,18 @@ body{
 }
 
 .footer {
-    background-color: #7BB1CC;
+    display: flex;
+    flex-direction: column;
+    background-color: #88A5A3;
     width: 100%;
     bottom: 0;
+    text-align: center;
+    padding: 10px;
+    gap: 10px;
 }
 
 h1 {
-    color: #254E70;
+    color: #253C33;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 200%;
 }
@@ -149,12 +174,15 @@ form {
     text-align: center;
     font-size: 14px;
     border-radius: 5px;
-    color: white;
+    color: #253C33;
     border: none;
     cursor: pointer;
-    background-color: #555;
+    background-color: #C4A645;
     padding: 10px 16px;
 }
+.btn:hover {
+    background-color: #748DC5;
+    }
 
 .btn-group {
     text-align: center;
@@ -168,25 +196,25 @@ form {
     color: #444;
     /* padding: 5px; */
     max-width:  800px;
-    border: 3px solid #ffadcb;
+    border: 3px solid #4E6979;
   }
   
   /* The column titles */
   .column-title {
-    background-color: #c164ae;
+    background-color: #4E6979;
     color: #fff;
     /* border-radius: 7px; */
     padding: 20px;
     font-size: 150%;
-    border: 3px solid #ffadcb;  }
+    border: 3px solid #88A5A3;  }
 
     /* The items in each column */
   .section {
-    background-color: #ffcbe7;
-    color: #8a095b;
+    background-color: #C5D0E7;
+    color: #253C33;
     padding: 10px;
     font-size: 100%;
-    border: 3px solid #ffadcb;
+    border: 3px solid #89A9A6;
 
   }
 
@@ -235,44 +263,45 @@ form {
 }
 
 .dropbutton{
-    background-color:rgba(214, 89, 75, 0.37);
-    color: red;
+    align-self: center;
+    background-color:#C4A645;
+    color: #253C33;
     margin: 0.25rem;
-    padding: 30px;
+    padding: 10px;
     font-size: 15px; 
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    position: relative;
+    border-radius: 15px;
+    /*border: 1px solid rgba(255, 255, 255, 0.18);*/
     height: auto;
     top: 50%;
     width: 100%; 
     text-align: center;
-    font-size: 18px;
 }
 
 .dropdown{
     position: relative;
     display: inline-block;
+    padding-right: 5%;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #ffadcb;
+    background-color: #88A5A3;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(250, 51, 180, 0.2);
+    /*box-shadow: 0px 8px 16px 0px rgba(250, 51, 180, 0.2);*/
     z-index: 1;
   }
   
   /* Links inside the dropdown */
   .dropdown-content a {
-    color: black;
+    color: #253C33;
     padding: 12px 16px;
     /* text-decoration: none; */
     display: block;
   }
   
   /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #b8308f;}
+  .dropdown-content a:hover {background-color: #748DC5;}
   
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {display: block;}
@@ -365,4 +394,28 @@ section{
         background-color: #555;
         padding: 10px 16px;
     }
+}
+
+.left {
+    background-color: #fddce2;
+    width: 150px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 145px;
+    margin-top: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.top_overlap{
+    text-align: left center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding-left: 40px;
+    padding-top: 60px;
+    font-family: Arial, Helvetica, sans-serif;
 }
