@@ -93,11 +93,34 @@ p {
 /* CSS for Assignments */
 .assignmentgrid {
     display: grid;
-    justify-content: space-evenly;
+    grid-template-columns: repeat(5, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    /* padding: 5px; */
+    max-width:  800px;
+    border: 3px solid #4E6979;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+.cellheader {
+    flex: 1;
+    background-color: #A9B9DB;
+    padding: 10px;
     text-align: center;
-    grid-auto-flow: column;  
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;  
+    border-right: 1px solid black;
+}
+
+.cell {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid black;
 }
 
 /*CSS for Course Team*/
