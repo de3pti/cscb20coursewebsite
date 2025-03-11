@@ -623,6 +623,10 @@ section{
         order: 3;
     }
 
+    img {
+        filter: invert(1);
+    }
+
     .text_container{
         display: flex;
         flex-direction: row;
@@ -748,7 +752,6 @@ and (max-device-width: 600px) {
     .header {
         display: flex;
         flex-direction: row;
-        background-color: #A9B9DB;
         width: 100%;
         position: fixed;
         font-size: 10px;
@@ -756,6 +759,67 @@ and (max-device-width: 600px) {
         flex-grow: 1;
         padding: 10px;
         text-align: right;
+    }
+
+    .tablecontainer {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .gradinggrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        max-width: 800px;
+    }
+
+    .calendargrid {
+        display: none;
+    }
+
+    .tutorialgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        max-width: 800px;
+        text-size-adjust: 70%;
+    }
+
+    .assignmentgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        max-width:  800px;
+        text-size-adjust: 70%;
+    }
+
+    p {
+        padding-left: 10px;
+    }
+
+
+    .topicsgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        max-width:  800px;
+    }
+
+    .row {
+        display: contents;
+        width: 100%;
+    }
+
+    .cellheader {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .cell {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
     }
 
     .dropbutton{
