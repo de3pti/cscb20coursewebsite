@@ -14,6 +14,7 @@
     src: url(Mont-HeavyDEMO.ttf);
 }
 
+/*CSS FOR CARD ANIMATION ON COURSE TEAM*/
 .flip-card {
     background-color: #B9CAC9;
     width: 300px;
@@ -21,8 +22,7 @@
     border-radius: 5px;
     border: 10px solid #B9CAC9;
 }
-  
-  /* This container is needed to position the front and back side */
+
 .flip-card-inner {
     position: relative;
     width: 100%;
@@ -31,43 +31,38 @@
     transition: transform 0.8s;
     transform-style: preserve-3d;
 }
-  
-  /* Do an horizontal flip when you move the mouse over the flip box container */
+
 .flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
 }
   
-  /* Position the front and back side */
 .flip-card-front, .flip-card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     z-index: -1;
 }
   
-  /* Style the front side (fallback if image is missing) */
 .flip-card-front {
     background-color: #bbb;
     color: black;
     border-radius: 5px;
 }
   
-  /* Style the back side */
 .flip-card-back {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: #DCDCBC;
-    color: white;
+    color: black;
     border-radius: 5px;
     transform: rotateY(180deg);
 }
 
-/* Main CSS components of our website */
-
+/* CSS FOR ELEMENTS THAT ARE COMMON TO EVERY PAGE*/
 body{
     display: flex;
     flex-direction: column;
@@ -96,7 +91,7 @@ body{
     font-family: MontBold;
     flex-grow: 1;
     text-align: right;
-    padding-right: 5%;
+    padding-right: 15%;
     align-items: center;
     justify-content: center;
     color: #4E6979;
@@ -123,20 +118,15 @@ body{
     text-align: center;
     padding: 10px;
     gap: 10px;
-    margin-top: 10px
+    margin-top: 20px;
+    color:#B5C09B;
 }
 
 h2 {
     padding-left: 40px;
-    padding-right: 40px;
 }
 
-p {
-    color: black;
-    font-family: Mont;
-    font-size: 100%;
-    margin: 0;
-}
+/*CSS FOR HOVERING LINKS*/
 
 .link {
     color: #253C33;
@@ -155,7 +145,44 @@ p {
     margin-left: 40px;
 }
 
-/* CSS for Assignments */
+/* CSS FOR ALL TABLES*/
+.tablecontainer {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+
+
+.gradinggrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 800px;
+    border: 3px solid #4E6979;
+}
+
+.calendargrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    /*max-width: 800px;*/
+    border: 3px solid #4E6979;
+}
+
+.tutorialgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 800px;
+    border: 3px solid #4E6979;
+}
+
 .assignmentgrid {
     border-radius: 5px;
     display: grid;
@@ -166,24 +193,15 @@ p {
     border: 3px solid #4E6979;
 }
 
-.wrapper {
+.topicsgrid {
     border-radius: 5px;
     display: grid;
     grid-template-columns: repeat(2, auto);
     background-color: #B9CAC9;
     color: #444;
-    max-width: 800px;
+    max-width:  800px;
     border: 3px solid #4E6979;
-    align-self: center;
-    width: 100%;
-  }
-  
-.box {
-    background-color: #A9B9DB;
-    color: #fff;
-    padding: 10px;
-    border: 1px solid black;
-  }
+}
 
 .row {
     display: contents;
@@ -199,6 +217,15 @@ p {
     border-right: 1px solid black;
 }
 
+.calendarcellheader {
+    background-color: #A9B9DB;
+    padding: 10px;
+    text-align: center;
+    border-color: #253C33;
+    border: solid;
+    width: 132px;
+}
+
 .cell {
     flex: 1;
     padding: 10px;
@@ -206,25 +233,16 @@ p {
     border-right: 1px solid black;
 }
 
-/*CSS for Course Team*/
-.courseteamgrid{
-    display: grid;
-    justify-content: space-evenly;
-    text-align: left;
-    grid-auto-flow: column;  
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-columns: 1fr 1fr 1fr;
-    background-color: #DCDCBC;
-    padding: 15px;
-    border-radius: 10px; 
+.calendarcell{
+    height: 100px;
+    width: auto;
+    text-align: center;
+    padding-top: 10px;
+    border-color: #253C33;
+    border: solid;
 }
 
-.cell2 {
-    flex: 1;
-    padding: 10px;
-    text-align: left;
-}
-
+/*CSS FOR COURSE TEAM*/
 .image_container {
     display: flex;
     flex-direction: row;
@@ -241,14 +259,7 @@ p {
     justify-content: space-around;
 }
 
-img {
-    width: 12em;
-    float: left;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 100%;
-}
-
-/*CSS for Piazza */
+/*CSS FOR PIAZZA*/
 .iframe_container {
     width: 100vw; 
     max-width: 100%; 
@@ -262,23 +273,6 @@ img {
     display: block; 
 }
 
-/*CSS for Syllabus */
-.courseschedule {
-    display: grid;
-    grid-auto-flow: column;  
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-columns: 0.5fr 3fr;
-}
-
-.coursegrading {
-    border-radius: 5px;
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    background-color: #B9CAC9;
-    color: #444;
-    max-width: 800px;
-    border: 3px solid #4E6979;
-}
 
 /*CSS for Anon. Feedback*/
 .form_elm{
@@ -323,75 +317,6 @@ form {
     text-align: center;
 }
 
-/* CSS for Tutorials */
-.Tutorials {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    background-color: #cf4d99;
-    color: #444;
-    max-width:  800px;
-    border: 3px solid #4E6979;
-  }
-  
-  /* The column titles */
-  .column-title {
-    background-color: #4E6979;
-    color: #fff;
-    padding: 20px;
-    font-size: 150%;
-    border: 3px solid #88A5A3;  }
-
-    /* The items in each column */
-  .section {
-    background-color: #C5D0E7;
-    color: #253C33;
-    padding: 10px;
-    font-size: 100%;
-    border: 3px solid #89A9A6;
-
-  }
-
-  .row {
-    display: contents;
-}
-
-/* styling the calendar */
- .calendar {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	flex-wrap: wrap;
-	list-style: none;
-
-	.calenderli {
-		display: flex;
-		width: 6rem;
-		height: 6rem;
-		margin: 0.25rem;
-		flex-flow: column;
-		border-radius: 0.2rem;
-		padding: 1rem;
-		font-weight: 300;
-		font-size: 0.8rem;
-		box-sizing: border-box;
-		background: rgba(255, 255, 255, 0.25);
-		box-shadow: 0 5px 32px 0 rgba(214, 89, 75, 0.37);
-		border-radius: 10px;
-		border: 1px solid rgba(255, 255, 255, 0.18);
-
-		time {
-			font-size: 1.5rem;
-			margin: 0 0 1rem 0;
-			font-weight: 500;
-		}
-	}
-	.today {
-		time {
-			font-weight: 800;
-		}
-		background: #ffffff70;
-	}
-}
-
 /* CSS for Dropdown menue */
 .dropbutton{
     background-color:#C4A645;
@@ -408,9 +333,10 @@ form {
 }
 
 .dropdown{
-    position: relative;
+    /*position: relative;*/
     display: inline-block;
-    padding-right: 5%;
+    padding-left: 5%;
+    margin-right: 5%;
     align-self: center;
 }
 
@@ -418,7 +344,7 @@ form {
     display: none;
     position: absolute;
     background-color: #88A5A3;
-    min-width: 160px;
+    min-width: 165px;
     /*box-shadow: 0px 8px 16px 0px rgba(250, 51, 180, 0.2);*/
     z-index: 1;
   }
@@ -429,6 +355,7 @@ form {
     padding: 12px 16px;
     /* text-decoration: none; */
     display: block;
+    text-align:center;
   }
   
   /* Change color of dropdown links on hover */
