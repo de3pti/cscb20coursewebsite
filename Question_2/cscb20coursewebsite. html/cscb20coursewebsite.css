@@ -102,10 +102,26 @@ p {
     border: 3px solid #4E6979;
 }
 
+.wrapper {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 800px;
+    border: 3px solid #4E6979;
+  }
+  
+  .box {
+    background-color: #A9B9DB;
+    color: #fff;
+    padding: 10px;
+    border: 1px solid black;
+  }
+
 .row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: contents;
+    width: 100%;
     border-bottom: 1px solid black;
 }
 
@@ -263,13 +279,13 @@ form {
 }
 
 /* styling the calendar */
- ul {
+ .calendar {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 	flex-wrap: wrap;
 	list-style: none;
 
-	li {
+	.calenderli {
 		display: flex;
 		width: 6rem;
 		height: 6rem;
