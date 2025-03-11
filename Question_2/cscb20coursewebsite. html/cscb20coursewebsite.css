@@ -104,7 +104,14 @@ body{
 
 .content {
     flex-grow: 1;
-    padding-top: 150px;
+    padding-top: 190px;
+}
+
+.contentteam {
+    flex-grow: 1;
+    padding-top: 190px;
+    width: 100%;
+
 }
 
 .footer {
