@@ -1,6 +1,7 @@
-/* Main CSS for the layout of our Website */
+/* Font Adjustments*/
 *{
-    font-family: Mont, Mont, Mont, Mont, Mont;
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
 }
 
 @font-face {
@@ -13,11 +14,7 @@
     src: url(Mont-HeavyDEMO.ttf);
 }
 
-.homeblurbs {
-    background-color: #DCDCBC;
-    padding: 15px;
-    border-radius: 10px;
-}
+/* Main CSS components of our website */
 
 body{
     display: flex;
@@ -90,6 +87,13 @@ p {
 
 .link:hover {
     color: #B5C09B;
+}
+
+/* CSS for Home */
+.homeblurbs {
+    background-color: #DCDCBC;
+    padding: 15px;
+    border-radius: 10px;
 }
 
 /* CSS for Assignments */
@@ -260,13 +264,12 @@ form {
     text-align: center;
 }
 
-/* Styling the Tutorial content  */
+/* CSS for Tutorials */
 .Tutorials {
     display: grid;
     grid-template-columns: repeat(3, auto);
     background-color: #cf4d99;
     color: #444;
-    /* padding: 5px; */
     max-width:  800px;
     border: 3px solid #4E6979;
   }
@@ -275,7 +278,6 @@ form {
   .column-title {
     background-color: #4E6979;
     color: #fff;
-    /* border-radius: 7px; */
     padding: 20px;
     font-size: 150%;
     border: 3px solid #88A5A3;  }
@@ -331,6 +333,7 @@ form {
 	}
 }
 
+/* CSS for Dropdown menue */
 .dropbutton{
     background-color:#C4A645;
     color: #253C33;
@@ -389,7 +392,7 @@ section{
     body{
         display: flex;
         flex-direction: column;
-        background-color: #EDFBFC;
+        background-color: #202E32;
         padding: 0;
         margin: 0;
         min-height: 100vh;
@@ -398,29 +401,46 @@ section{
     }
 
     .header {
-        background-color: #7BB1CC;
+        background-color: #4E6979;
         width: 100%;
         position: fixed;
+        color: #CCC8D0;
         top: 0;
         padding: 40px;
         height: 60px;
         text-align: center;
     }
 
+    .homeblurbs {
+        background-color: #868646;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .headertext{
+        font-family: MontBold;
+        flex-grow: 1;
+        text-align: right;
+        padding-right: 5%;
+        align-items: center;
+        justify-content: center;
+        color: #6894B6;
+    }
+
     .footer {
-        background-color: #7BB1CC;
+        background-color: #593022;
         width: 100%;
         bottom: 0;
     }
 
     h1 {
-        color: #254E70;
+        color: #CCC8D0;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 200%;
     }
 
     p {
-        color: black;
+        color: #E1D9CC;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 100%;
         margin: 0;
@@ -463,30 +483,6 @@ section{
         background-color: #555;
         padding: 10px 16px;
     }
-}
-
-.left {
-    background-color: #fddce2;
-    width: 150px;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 145px;
-    margin-top: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 100%;
-    text-align: center;
-    padding-top: 10px;
-}
-
-.top_overlap{
-    text-align: left center;
-    top: 0;
-    left: 0;
-    position: absolute;
-    padding-left: 40px;
-    padding-top: 60px;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 @media only screen 
