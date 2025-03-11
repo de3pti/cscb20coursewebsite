@@ -14,6 +14,58 @@
     src: url(Mont-HeavyDEMO.ttf);
 }
 
+.flip-card {
+    background-color: #B9CAC9;
+    width: 300px;
+    height: 400px;
+    border-radius: 5px;
+    border: 10px solid #B9CAC9;
+}
+  
+  /* This container is needed to position the front and back side */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+  
+  /* Position the front and back side */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    z-index: -1;
+}
+  
+  /* Style the front side (fallback if image is missing) */
+.flip-card-front {
+    background-color: #bbb;
+    color: black;
+    border-radius: 5px;
+}
+  
+  /* Style the back side */
+.flip-card-back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #DCDCBC;
+    color: white;
+    border-radius: 5px;
+    transform: rotateY(180deg);
+}
+
 /* Main CSS components of our website */
 
 body{
@@ -35,6 +87,7 @@ body{
     position: fixed;
     top: 0;
     flex-grow: 1;
+    z-index: 100;
     padding: 30px;
     text-align: center;
 }
@@ -52,9 +105,6 @@ body{
 .content {
     flex-grow: 1;
     padding-top: 150px;
-    margin: 3%;
-    justify-content: center;
-    align-items: center;
 }
 
 .footer {
@@ -66,19 +116,19 @@ body{
     text-align: center;
     padding: 10px;
     gap: 10px;
+    margin-top: 10px
 }
 
-h1 {
-    color: #253C33;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 200%;
+h2 {
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 p {
     color: black;
     font-family: Mont;
     font-size: 100%;
-    margin: 0;;
+    margin: 0;
 }
 
 .link {
@@ -94,6 +144,8 @@ p {
     background-color: #DCDCBC;
     padding: 15px;
     border-radius: 10px;
+    margin-right: 40px;
+    margin-left: 40px;
 }
 
 /* CSS for Assignments */
@@ -103,7 +155,6 @@ p {
     grid-template-columns: repeat(5, auto);
     background-color: #B9CAC9;
     color: #444;
-    /* padding: 5px; */
     max-width:  800px;
     border: 3px solid #4E6979;
 }
@@ -170,9 +221,10 @@ p {
 .image_container {
     display: flex;
     flex-direction: row;
+    width: 100%;
     flex-wrap: wrap;
     /*flex-flow: column wrap;*/
-    justify-content: space-around;
+    justify-content: space-evenly;
     order: 3;
 }
 
