@@ -56,6 +56,8 @@ body{
     flex-grow: 1;
     padding-top: 150px;
     margin: 3%;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer {
@@ -110,6 +112,7 @@ p {
     color: #444;
     max-width: 800px;
     border: 3px solid #4E6979;
+    align-self: center;
   }
   
   .box {
@@ -191,14 +194,17 @@ img {
     display: grid;
     grid-auto-flow: column;  
     grid-template-columns: repeat(1, 1fr);
-    grid-template-columns: 0.5fr 3fr;    
+    grid-template-columns: 0.5fr 3fr;
 }
 
 .coursegrading {
+    border-radius: 5px;
     display: grid;
-    grid-auto-flow: column;  
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-columns: 1fr 1fr 3fr;  
+    grid-template-columns: repeat(3, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 800px;
+    border: 3px solid #4E6979;
 }
 
 /*CSS for Anon. Feedback*/
