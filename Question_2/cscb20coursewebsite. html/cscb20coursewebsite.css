@@ -228,10 +228,10 @@ h2 {
 }
 
 .calendarcellheader {
-    background-color: #A9B9DB;
+    background-color: #C4A645;
     padding: 10px;
     text-align: center;
-    border-color: #253C33;
+    border-color: #9C8330;
     border: solid;
     width: 132px;
 }
@@ -248,7 +248,8 @@ h2 {
     width: auto;
     text-align: center;
     padding-top: 10px;
-    border-color: #253C33;
+    background-color: #E2D3A1;
+    border-color: #9C8330;
     border: solid;
 }
 
@@ -564,6 +565,16 @@ section{
     }
 
     .assignmentgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width:  800px;
+        border: 3px solid #B9B979;
+    }
+
+    .lecturegrid {
         border-radius: 5px;
         display: grid;
         grid-template-columns: repeat(5, auto);
