@@ -1,0 +1,1 @@
+1. As a student, I should be able to easily see the topics that will be taught for each week of the course, through the syllabus page. 

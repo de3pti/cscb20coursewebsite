@@ -1,0 +1,3 @@
+1. As a student, I should be able to access the Labs page by clicking 'Labs' on the dropdown menu.
+
+2. As a student, I should be able to access the lab handouts and solutions pdfs for each week by clicking the links in the Labs page. 
