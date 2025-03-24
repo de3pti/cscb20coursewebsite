@@ -1,5 +1,17 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, create_engine
+from datetime import datetime, timedelta
 from sqlalchemy.orm import sessionmaker, relationship, declarative_base
+from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+
+app = Flask(__name__)
+bcrypt=Bcrypt(app)
+
+app.config['SECRET_KEY']='8a0f946f1471e113e528d927220ad977ed8b2cce63303beff10c8cb4a15e1a99'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///notes.db'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes = 10)
+db = SQLAlchemy(app)
 
 # Creating an engine that will connect to the SQLite database
 engine = create_engine('sqlite:///assignment3.db')
@@ -64,23 +76,153 @@ class Feedback(Base):
 # Create the tables in the database
 Base.metadata.create_all(engine)
 
-# NOTEE: DELETE EVERYTHING AFTER THIS BEFORE SUBMISSION
-# Inserting new users into the database
-instructor = User(username='jane_doe', email='jane@example.com', password='securepassword', user_type=1)  # INSTRUCTOR = 1
-student = User(username='john_doe', email='john@example.com', password='securepassword', user_type=0)  # STUDENT = 0
-session.add_all([instructor, student])
-session.commit()
+# REndering the pages to make the dropdown work
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-# Example: Add a new assessment
-assessment = Assessment(name="Math Exam", mark=100, instructor_id=instructor.id)
-session.add(assessment)
-session.commit()
+@app.route('/syllabus')
+def syllabus():
+    return render_template('syllabus.html')
 
-# Example: Add feedback from a student about the instructor
-feedback = Feedback(instructor_id=instructor.id, feedback="Great teacher, very clear explanations!")
-session.add(feedback)
-session.commit()
+@app.route('/assignments')
+def assignments():
+    return render_template('assignments.html')
+
+@app.route('/lab')
+def lab():
+    return render_template('lab.html')
+
+@app.route('/lecturenotes')
+def lecturenotes():
+    return render_template('lecturenotes.html')
+
+@app.route('/piazza')
+def piazza():
+    return render_template('piazza.html')
+
+@app.route('/markus')
+def markus():
+    return redirect("https://markus2.utsc.utoronto.ca/")
+
+@app.route('/anonfeedback')
+def anonfeedback():
+    return render_template('anonfeedback.html')
+
+@app.route('/courseteam')
+def courseteam():
+    return render_template('courseteam.html')
+
+@app.route('/studentgrades')
+def studentgrades():
+    return render_template('studentgrades.html')
+
+# Registration, Login, and Logout
+@app.route('/')
+@app.route('/index')
+def index():
+    pagename='index'
+    return render_template('index.html', pagename=pagename)
+
+@app.route('/register', methods = ['GET', 'POST'])
+def register():
+    if request.method=='GET':
+        return render_template('register.html')
+    else:
+        user_name = request.form['Username']
+        email = request.form['Email']
+        hashed_password=bcrypt.generate_password_hash(request.form['Password']).decode('utf-8')
+        new_user = User(username=user_name, email=email, password=hashed_password, user_type=0)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        flash('registration successful! Please login now:')
+        return redirect(url_for('login'))
+    
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        if 'name' in session:
+            flash('You Already logged in!')
+            return redirect(url_for('index'))
+        else:
+            return render_template('login.html')
+    else:
+        username = request.form['Username']
+        password = request.form['Password']
+        user = User.query.filter_by(username = username).first()
+        if not user or not bcrypt.check_password_hash(user.password, password):
+            flash('Please check your login details and try again.', 'error')
+            return render_template('login.html')
+        else:
+            log_details = (
+            username,
+            password
+            )
+            session['name']=username
+            session.permanent=True
+            return redirect(url_for('index'))
+
+@app.route('/logout')
+def logout():
+    session.pop('name', default = None)
+    return redirect(url_for('index'))
+
+# Hannas Section
+@app.route('/studentgrades')
+def student_grades():
+    if 'name' not in session:
+        flash('Please log in to view your grades.', 'error')
+        return redirect(url_for('login'))
+
+    username = session['name']
+    user = User.query.filter_by(username=username).first()
+
+    if user:
+        student_assessments = (db.session.query(AssessmentsStudent, Assessment).join(Assessment, AssessmentsStudent.assessment_id == Assessment.id).filter(AssessmentsStudent.student_id == user.id).all())
+
+        grades = []
+        exam_grades = []
+        lab_grades = []
+
+        for student_assessment, assessment in student_assessments:
+            grade_info = {
+                'assessment_name': assessment.name,
+                'grade': student_assessment.marks
+            }
+
+            if "Lab" in assessment.name:
+                lab_grades.append(grade_info)
+            elif "Midterm" in assessment.name or "Final Exam" in assessment.name:
+                exam_grades.append(grade_info)
+            else:
+                grades.append(grade_info)
+
+        print(f"Grades: {grades}")
+        print(f"Exam Grades: {exam_grades}")
+        print(f"Lab Grades: {lab_grades}")
+
+        return render_template('studentgrades.html', grades=grades, exam_grades=exam_grades, lab_grades=lab_grades)
+
+# # NOTEE: DELETE EVERYTHING AFTER THIS BEFORE SUBMISSION
+# # Inserting new users into the database
+# instructor = User(username='jane_doe', email='jane@example.com', password='securepassword', user_type=1)  # INSTRUCTOR = 1
+# student = User(username='john_doe', email='john@example.com', password='securepassword', user_type=0)  # STUDENT = 0
+# session.add_all([instructor, student])
+# session.commit()
+
+# # Example: Add a new assessment
+# assessment = Assessment(name="Math Exam", mark=100, instructor_id=instructor.id)
+# session.add(assessment)
+# session.commit()
+
+# # Example: Add feedback from a student about the instructor
+# feedback = Feedback(instructor_id=instructor.id, feedback="Great teacher, very clear explanations!")
+# session.add(feedback)
+# session.commit()
 
 # Close the session once done
-session.close()
+if __name__ == '__main__':
+    app.run(debug=True)
 
