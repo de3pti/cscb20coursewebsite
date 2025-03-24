@@ -1,5 +1,10 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, create_engine
 from sqlalchemy.orm import sessionmaker, relationship, declarative_base
+from datetime import datetime
+from flask import Flask, render_template, url_for, flash, redirect, request
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
 
 # Creating an engine that will connect to the SQLite database
 engine = create_engine('sqlite:///assignment3.db')
@@ -66,8 +71,9 @@ Base.metadata.create_all(engine)
 
 # NOTEE: DELETE EVERYTHING AFTER THIS BEFORE SUBMISSION
 # Inserting new users into the database
+'''
 instructor = User(username='jane_doe', email='jane@example.com', password='securepassword', user_type=1)  # INSTRUCTOR = 1
-student = User(username='john_doe', email='john@example.com', password='securepassword', user_type=0)  # STUDENT = 0
+student = User(username='john_doe', email='john@example.com', password='securepassword2', user_type=0)  # STUDENT = 0
 session.add_all([instructor, student])
 session.commit()
 
@@ -83,4 +89,5 @@ session.commit()
 
 # Close the session once done
 session.close()
+'''
 
