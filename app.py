@@ -141,8 +141,8 @@ def register():
         user_type = int(request.form['user_type'])
         new_user = User(username=user_name, email=email, password=hashed_password, user_type=user_type)
         
-        db.session.add(new_user)
-        db.session.commit()
+        session.add(new_user)
+        session.commit()
 
         flash('registration successful! Please login now:')
         return redirect(url_for('login'))
