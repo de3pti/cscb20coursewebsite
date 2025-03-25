@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content = "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    
+    <body>
+        <header class="header">
+            <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
+        </header>
+
+    <main class="content">
+        <div class = "register_button">
+            <div class = "register_row">
+                <form method = "POST">
+                    <div class = "register_form">
+                        <label for = "username">Username : </label>
+                        <input type = "text" name = "username" class = "register_form_text" id = "username">
+                    </div> 
+                    <div class = "register_form">
+                        <label for = "password">Password : </label>
+                        <input type = "text" name = "password" class = "register_form_text" id = "password">
+                    </div>    
+                    <button type = "submit" class = "register_submit">Login</button>                          
+                </form>
+            </div>
+        </div>
+        <div class="direct_to_register">
+            <p>Don't have an account? <a href="{{ url_for('register') }}">Register Now</a>.</p>
+        </div>
+    </main>
+    
+    <footer class="footer">
+            <div>
+                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+            </div>
+            <p>Site design by Deepti, Hanna, Siara</p>
+    </footer>
+
+</body>
+</html>

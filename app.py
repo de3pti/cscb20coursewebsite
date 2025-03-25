@@ -1,12 +1,16 @@
+import sqlalchemy as db
 from sqlalchemy import Column, String, Integer, ForeignKey, create_engine
 from datetime import datetime, timedelta
+from sqlalchemy.dialects.sqlite import *
 from sqlalchemy.orm import sessionmaker, relationship, declarative_base
 from flask import Flask, render_template, request, flash, redirect, url_for, session
+from sqlalchemy.ext.declarative import declarative_base
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 bcrypt=Bcrypt(app)
+app.secret_key = 'super_secret_key'
 
 app.config['SECRET_KEY']='8a0f946f1471e113e528d927220ad977ed8b2cce63303beff10c8cb4a15e1a99'
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///notes.db'
@@ -14,7 +18,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes = 10)
 db = SQLAlchemy(app)
 
 # Creating an engine that will connect to the SQLite database
-engine = create_engine('sqlite:///assignment3.db')
+engine = db.create_engine('sqlite:///assignment3.db', echo = True)
 
 # Session setup
 Session = sessionmaker(bind=engine)
@@ -23,39 +27,39 @@ session = Session()
 Base = declarative_base()
 
 # Table for the users
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    username = Column(String(100), nullable=False)
-    email = Column(String(100), nullable=False, unique=True)
-    password = Column(String(100), nullable=False)
-    first_name = Column(String(100))
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    password = db.Column(db.String(100), nullable=False)
+    first_name = Column(db.String(100))
     # 0 = student, 1 = instructor
-    user_type = Column(Integer, nullable=False)
+    user_type = Column(db.Integer, nullable=False)
 
     # Connecting feedback to the instructor
     instr_feedback = relationship("Feedback", back_populates="instr_to_feedback")
 
 
 # Table for different types of assessments
-class Assessment(Base):
+class Assessment(db.Model):
     __tablename__ = 'assessments'
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    mark = Column(Integer)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    mark = db.Column(db.Integer)
 
     # Connecting assessment with the instructor
-    instructor_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    instructor_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
 # Table with the students and their corresponding assessments
-class AssessmentsStudent(Base):
+class AssessmentsStudent(db.Model):
     __tablename__ = 'student_assessments'
-    student_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
-    assessment_id = Column(Integer, ForeignKey('assessments.id'), primary_key=True)
-    marks = Column(Integer, nullable=True)
+    student_id = db.Column(db.Integer, ForeignKey('users.id'), primary_key=True)
+    assessment_id = db.Column(db.Integer, ForeignKey('assessments.id'), primary_key=True)
+    marks = db.Column(db.Integer, nullable=True)
     # default is NULL, 0 = pending, 1 = approved, 2 = rejected
-    remark_status = Column(Integer, nullable=True)
-    remark_reason = Column(String(500), nullable=True)
+    remark_status = db.Column(db.Integer, nullable=True)
+    remark_reason = db.Column(db.String(500), nullable=True)
 
     # Connecting students to their assessments
     student_to_assess = relationship("User", backref="student_assessments")
@@ -63,11 +67,11 @@ class AssessmentsStudent(Base):
 
 
 # Table for feedback (anonymous feedback from students to instructors)
-class Feedback(Base):
+class Feedback(db.Model):
     __tablename__ = 'feedback'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    instructor_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    feedback = Column(String, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    instructor_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    feedback = db.Column(db.String, nullable=False)
 
     # Connecting the feedback to an instructor
     instr_to_feedback = relationship("User", back_populates="instr_feedback")
@@ -129,11 +133,14 @@ def register():
     if request.method=='GET':
         return render_template('register.html')
     else:
-        user_name = request.form['Username']
-        email = request.form['Email']
-        hashed_password=bcrypt.generate_password_hash(request.form['Password']).decode('utf-8')
-        new_user = User(username=user_name, email=email, password=hashed_password, user_type=0)
-
+        user_name = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        # generating the hashed password
+        hashed_password=bcrypt.generate_password_hash(password).decode('utf-8')
+        user_type = int(request.form['user_type'])
+        new_user = User(username=user_name, email=email, password=hashed_password, user_type=user_type)
+        
         db.session.add(new_user)
         db.session.commit()
 
@@ -142,16 +149,11 @@ def register():
     
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-    if request.method == 'GET':
-        if 'name' in session:
-            flash('You Already logged in!')
-            return redirect(url_for('index'))
-        else:
-            return render_template('login.html')
-    else:
-        username = request.form['Username']
-        password = request.form['Password']
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
         user = User.query.filter_by(username = username).first()
+
         if not user or not bcrypt.check_password_hash(user.password, password):
             flash('Please check your login details and try again.', 'error')
             return render_template('login.html')
@@ -160,9 +162,11 @@ def login():
             username,
             password
             )
-            session['name']=username
+           # session['username']=username
             session.permanent=True
             return redirect(url_for('index'))
+    return render_template('login.html')
+
 
 @app.route('/logout')
 def logout():
@@ -222,7 +226,9 @@ def student_grades():
 # session.add(feedback)
 # session.commit()
 
-# Close the session once done
-if __name__ == '__main__':
+with app.app_context():
+    db.create_all()
+
+if __name__ == "__main__":
     app.run(debug=True)
 

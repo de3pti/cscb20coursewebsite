@@ -1,9 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Register</title>
-</head>
-<body>
-    <h1>Registration Page</h1>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content = "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    
+    <body>
+        <header class="header">
+            <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
+        </header>
+
+    <main class="content">
+        <div class = "register_form">
+            <div class = "register_row">
+                <form method = "POST">
+                    <div class = "register_item">
+                        <label for = "username">Username : </label>
+                        <input type = "text" name = "username" placeholder="Enter Username" 
+                        class = "register_form_text" id = "username" required>
+                    </div>
+                    <div class = "register_item">
+                        <label for = "email">Email : </label>
+                        <input type = "text" name = "email" 
+                        class = "register_form_text" id = "email" placeholder= "Enter Email" required>
+                    </div>      
+                    <div class = "register_item">
+                        <label for = "password">Password : </label>
+                        <input type = "text" name = "password" 
+                        class = "register_form_text" id = "password" placeholder= "Enter Password" required>
+                    </div>   
+                    <div class = "register_item">
+                        <label for = "UserType">Are you a student or instructor? : </label>
+                        <select id="user_type" name="user_type">
+                            <option value="0">Student</option>
+                            <option value="1">Instructor</option>
+                        </select>
+                    </div>
+                    <button type = "submit" class = "register_submit">Register</button>                          
+                </form>
+            </div>
+        </div>
+        <div class="direct_to_signin">
+            <p>Already have an account? <a href="{{ url_for('login') }}">Sign in</a>.</p>
+        </div>
+
+    </main>
+    
+    <footer class="footer">
+            <div>
+                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+            </div>
+            <p>Site design by Deepti, Hanna, Siara</p>
+    </footer>
+
 </body>
 </html>
