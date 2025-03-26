@@ -34,6 +34,8 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     first_name = Column(db.String(100))
+    last_name = Column(db.String(100))
+
     # 0 = student, 1 = instructor
     user_type = Column(db.Integer, nullable=False)
 
@@ -133,13 +135,15 @@ def register():
     if request.method=='GET':
         return render_template('register.html')
     else:
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
         user_name = request.form['username']
         email = request.form['email']
         password = request.form['password']
         # generating the hashed password
         hashed_password=bcrypt.generate_password_hash(password).decode('utf-8')
         user_type = int(request.form['user_type'])
-        new_user = User(username=user_name, email=email, password=hashed_password, user_type=user_type)
+        new_user = User(first_name=first_name, last_name=last_name, username=user_name, email=email, password=hashed_password, user_type=user_type)
         
         db.session.add_all([new_user])
         db.session.commit()
