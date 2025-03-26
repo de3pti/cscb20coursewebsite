@@ -41,7 +41,7 @@
                 {% if grades %}
             {% for grade in grades %}
                 <div class="row">
-                    <div class="cell">{{ grade.assessment_id }}</div>
+                    <div class="cell">{{ grade.assessment_name }}</div>
                     <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
                 </div>
             {% endfor %}

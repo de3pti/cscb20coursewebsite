@@ -119,7 +119,20 @@ def courseteam():
 
 @app.route('/studentgrades')
 def studentgrades():
-    return render_template('studentgrades.html')
+    try:
+        grades = AssessmentsStudent.query.all()
+        print("Query executed successfully")  # Debugging statement
+        for marks in grades:
+            print(marks)
+        return render_template('studentgrades.html', grades=grades)
+    except Exception as e:
+        print("Error:", e)  # This will print any database errors
+        return "An error occurred", 500
+
+@app.route('/viewstudentgrades')
+def viewstudentgrades():
+    data=student_assesements.query.all()
+    return render_template('display.html', data=data)
 
 # Registration, Login, and Logout
 @app.route('/')
@@ -164,6 +177,7 @@ def login():
             password
             )
            # session['username']=username
+            session['username'] = username
             session.permanent=True
             return redirect(url_for('index'))
     return render_template('login.html')
