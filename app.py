@@ -13,16 +13,16 @@ bcrypt=Bcrypt(app)
 app.secret_key = 'super_secret_key'
 
 app.config['SECRET_KEY']='8a0f946f1471e113e528d927220ad977ed8b2cce63303beff10c8cb4a15e1a99'
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///notes.db'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///assignment3.db'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes = 10)
 db = SQLAlchemy(app)
 
 # Creating an engine that will connect to the SQLite database
-engine = db.create_engine('sqlite:///assignment3.db', echo = True)
+#engine = db.create_engine('sqlite:///assignment3.db', echo = True)
 
 # Session setup
-Session = sessionmaker(bind=engine)
-session = Session()
+# Session = sessionmaker(bind=engine)
+# session = Session()
 
 Base = declarative_base()
 
@@ -78,7 +78,7 @@ class Feedback(db.Model):
 
 
 # Create the tables in the database
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
 
 # REndering the pages to make the dropdown work
 @app.route('/')
@@ -141,8 +141,9 @@ def register():
         user_type = int(request.form['user_type'])
         new_user = User(username=user_name, email=email, password=hashed_password, user_type=user_type)
         
-        db.session.add(new_user)
+        db.session.add_all([new_user])
         db.session.commit()
+        db.session.close()
 
         flash('registration successful! Please login now:')
         return redirect(url_for('login'))
@@ -226,9 +227,8 @@ def student_grades():
 # session.add(feedback)
 # session.commit()
 
-with app.app_context():
-    db.create_all()
-
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
 
