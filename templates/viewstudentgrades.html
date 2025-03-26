@@ -32,68 +32,30 @@
             <p>Here you will find all of your grades for the Assignments, the Midterm, the Labs/Tutorials, and the Final Exam. Please feel free to use the Piazza for feedback on grading and for answers.</p>
         </div>
 
-        <h2>Grades</h2>
+        <h2>Student Marks</h2>
 
         <div class="tablecontainer">
-            <div class="topicsgrid">
+            <div class="studentmarks">
+                <div class="cellheader">Student ID</div>
+                <div class="cellheader">Student Name</div>
                 <div class="cellheader">Assignment</div>
                 <div class="cellheader">Grade</div>
-                {% if grades %}
-            {% for grade in grades %}
+                {% if assignments %}
+            {% for assignment in assignments %}
                 <div class="row">
-                    <div class="cell">{{ grade.assessment_name }}</div>
-                    <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
+                    <div class="cell">{{ assignment.AssessmentsStudent.student_id }}</div>
+                    <div class="cell">{{ assignment.AssessmentsStudent.student_id }}</div>
+                    <div class="cell">{{ assignment.Assessment.name }}</div>
+                    <div class="cell">{{ assignment.AssessmentsStudent.marks if assignment.AssessmentsStudent.marks is not none else 'Not Graded' }}</div>
                 </div>
             {% endfor %}
             {% else %}
                 <div class="row">
-                    <div class="cell" colspan="2">No assignments available.</div>
+                    <div class="cell" colspan="2">No assessments available.</div>
                 </div>
             {% endif %}
             </div>
         </div>
-
-        <br>
-
-        <div class="tablecontainer">
-            <div class="topicsgrid">
-                <div class="cellheader">Exam</div>
-                <div class="cellheader">Grade</div>
-                {% if grades %}
-            {% for grade in grades %}
-                <div class="row">
-                    <div class="cell">{{ grade.assessment_name }}</div>
-                    <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
-                </div>
-            {% endfor %}
-            {% else %}
-                <div class="row">
-                    <div class="cell" colspan="2">No assignments available.</div>
-                </div>
-            {% endif %}
-        </div>
-
-        <br>
-
-        <div class="tablecontainer">
-            <div class="topicsgrid">
-                <div class="cellheader">Lab</div>
-                <div class="cellheader">Grade</div>
-                {% if grades %}
-            {% for grade in grades %}
-                <div class="row">
-                    <div class="cell">{{ grade.assessment_name }}</div>
-                    <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
-                </div>
-            {% endfor %}
-            {% else %}
-                <div class="row">
-                    <div class="cell" colspan="2">No assignments available.</div>
-                </div>
-            {% endif %}
-            </div>
-        </div>
-
     </main>
     
     <footer class="footer">

@@ -46,6 +46,7 @@ class Assessment(db.Model):
     __tablename__ = 'assessments'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    type = db.Column(db.String, nullable=False)
     mark = db.Column(db.Integer)
 
     # Connecting assessment with the instructor
@@ -117,22 +118,22 @@ def anonfeedback():
 def courseteam():
     return render_template('courseteam.html')
 
-@app.route('/studentgrades')
+@app.route('/viewstudentgrades')
 def studentgrades():
     try:
-        grades = AssessmentsStudent.query.all()
+        assignments = (
+            db.session.query(AssessmentsStudent, Assessment)
+            .join(Assessment, AssessmentsStudent.assessment_id == Assessment.id)
+            .all()
+        )
+        #assignments = AssessmentsStudent.query.all()
         print("Query executed successfully")  # Debugging statement
-        for marks in grades:
-            print(marks)
-        return render_template('studentgrades.html', grades=grades)
+        for assignment in assignments:
+            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.student_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
+        return render_template('viewstudentgrades.html', assignments=assignments)
     except Exception as e:
         print("Error:", e)  # This will print any database errors
         return "An error occurred", 500
-
-@app.route('/viewstudentgrades')
-def viewstudentgrades():
-    data=student_assesements.query.all()
-    return render_template('display.html', data=data)
 
 # Registration, Login, and Logout
 @app.route('/')

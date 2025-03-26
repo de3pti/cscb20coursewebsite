@@ -213,6 +213,16 @@ h2 {
     border: 3px solid #4E6979;
 }
 
+.studentmarks {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width:  800px;
+    border: 3px solid #4E6979;
+}
+
 .row {
     display: contents;
     width: 100%;
