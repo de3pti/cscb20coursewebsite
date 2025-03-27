@@ -11,7 +11,7 @@
             <div class="dropdown">
                 <button class="dropbutton">Menu</button>
                 <div class="dropdown-content">
-                    <a href="{{ url_for('home') }}">Home</a>
+                    <a href="{{ url_for('index') }}">Home</a>
                     <a href="{{ url_for('syllabus') }}">Syllabus</a>
                     <a href="{{ url_for('assignments') }}">Assignments</a>
                     <a href="{{ url_for('lab') }}">Labs</a>
@@ -39,17 +39,17 @@
                 <div class="cellheader">Assignment</div>
                 <div class="cellheader">Grade</div>
                 {% if grades %}
-            {% for grade in grades %}
-                <div class="row">
-                    <div class="cell">{{ grade.assessment_name }}</div>
-                    <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
-                </div>
-            {% endfor %}
-            {% else %}
-                <div class="row">
-                    <div class="cell" colspan="2">No assignments available.</div>
-                </div>
-            {% endif %}
+                    {% for grade in grades %}
+                        <div class="row">
+                            <div class="cell">{{ grade.assessment_name }}</div>
+                            <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell" colspan="2">No assignments available.</div>
+                    </div>
+                {% endif %}
             </div>
         </div>
 
@@ -59,18 +59,19 @@
             <div class="topicsgrid">
                 <div class="cellheader">Exam</div>
                 <div class="cellheader">Grade</div>
-                {% if grades %}
-            {% for grade in grades %}
-                <div class="row">
-                    <div class="cell">{{ grade.assessment_name }}</div>
-                    <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
-                </div>
-            {% endfor %}
-            {% else %}
-                <div class="row">
-                    <div class="cell" colspan="2">No assignments available.</div>
-                </div>
-            {% endif %}
+                {% if exam_grades %}
+                    {% for grade in exam_grades %}
+                        <div class="row">
+                            <div class="cell">{{ grade.assessment_name }}</div>
+                            <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell" colspan="2">No assignments available.</div>
+                    </div>
+                {% endif %}
+            </div>
         </div>
 
         <br>
@@ -79,18 +80,18 @@
             <div class="topicsgrid">
                 <div class="cellheader">Lab</div>
                 <div class="cellheader">Grade</div>
-                {% if grades %}
-            {% for grade in grades %}
-                <div class="row">
-                    <div class="cell">{{ grade.assessment_name }}</div>
-                    <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
-                </div>
-            {% endfor %}
-            {% else %}
-                <div class="row">
-                    <div class="cell" colspan="2">No assignments available.</div>
-                </div>
-            {% endif %}
+                {% if lab_grades %}
+                    {% for grade in lab_grades %}
+                        <div class="row">
+                            <div class="cell">{{ grade.assessment_name }}</div>
+                            <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell" colspan="2">No assignments available.</div>
+                    </div>
+                {% endif %}
             </div>
         </div>
 

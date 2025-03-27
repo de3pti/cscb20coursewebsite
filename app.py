@@ -87,10 +87,6 @@ class Feedback(db.Model):
 def homepage():
     return render_template('homepage.html')
 
-@app.route('/index')
-def home():
-    return render_template('index.html')
-
 @app.route('/syllabus')
 def syllabus():
     return render_template('syllabus.html')
@@ -127,13 +123,13 @@ def courseteam():
 def studentgrades():
     return render_template('studentgrades.html')
 
-# Registration, Login, and Logout
-@app.route('/')
+
 @app.route('/index')
 def index():
     pagename='index'
-    return render_template('index.html', pagename=pagename)
+    return render_template('index.html')
 
+# Registration, Login, and Logout
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
     if request.method=='GET':
@@ -171,7 +167,6 @@ def login():
             username,
             password
             )
-           # session['username']=username
             session.permanent=True
             return redirect(url_for('index'))
     return render_template('login.html')
@@ -185,38 +180,35 @@ def logout():
 # Hannas Section
 @app.route('/studentgrades')
 def student_grades():
-    if 'name' not in session:
-        flash('Please log in to view your grades.', 'error')
-        return redirect(url_for('login'))
+    user_id = 1
 
-    username = session['name']
-    user = User.query.filter_by(username=username).first()
+    # if not user_id:
+    #     flash('Please log in to view your grades.', 'error')
+    #     return redirect(url_for('login'))
 
-    if user:
-        student_assessments = (db.session.query(AssessmentsStudent, Assessment).join(Assessment, AssessmentsStudent.assessment_id == Assessment.id).filter(AssessmentsStudent.student_id == user.id).all())
+    r1 = (
+        db.session.query(Assessment, AssessmentsStudent)
+        .join(AssessmentsStudent, Assessment.id == AssessmentsStudent.assessment_id)
+    )
+    r2 = r1.filter(AssessmentsStudent.student_id == user_id)
+    r3 = r2.all()
 
-        grades = []
-        exam_grades = []
-        lab_grades = []
+    grades, exam_grades, lab_grades = [], [], []
 
-        for student_assessment, assessment in student_assessments:
-            grade_info = {
-                'assessment_name': assessment.name,
-                'grade': student_assessment.marks
-            }
+    for student_assessment, assessment in r3:
+        grade_info = {
+            'assessment_name': assessment.name,
+            'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded'
+        }
 
-            if "Lab" in assessment.name:
-                lab_grades.append(grade_info)
-            elif "Midterm" in assessment.name or "Final Exam" in assessment.name:
-                exam_grades.append(grade_info)
-            else:
-                grades.append(grade_info)
+        if "Lab" in assessment.name:
+            lab_grades.append(grade_info)
+        elif "Midterm" in assessment.name or "Final" in assessment.name:
+            exam_grades.append(grade_info)
+        else:
+            grades.append(grade_info)
 
-        print(f"Grades: {grades}")
-        print(f"Exam Grades: {exam_grades}")
-        print(f"Lab Grades: {lab_grades}")
-
-        return render_template('studentgrades.html', grades=grades, exam_grades=exam_grades, lab_grades=lab_grades)
+    return render_template('studentgrades.html', grades=grades, exam_grades=exam_grades, lab_grades=lab_grades)
 
 # # NOTEE: DELETE EVERYTHING AFTER THIS BEFORE SUBMISSION
 # # Inserting new users into the database
