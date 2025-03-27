@@ -192,16 +192,12 @@ def studentgrades():
     
     user_id = user.id
 
-    print(f"User ID: {user_id}")
-
     r1 = (
         db.session.query(Assessment, AssessmentsStudent)
         .join(AssessmentsStudent, Assessment.id == AssessmentsStudent.assessment_id)
     )
     r2 = r1.filter(AssessmentsStudent.student_id == user_id)
     r3 = r2.all()
-
-    print(f"Grades Retrieved: {r3}")
 
     grades= []
 
@@ -211,8 +207,6 @@ def studentgrades():
             'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded'
         }
         grades.append(grade_info)
-
-    print(f"All Grades: {grades}")
 
     return render_template('studentgrades.html', grades=grades)
 
