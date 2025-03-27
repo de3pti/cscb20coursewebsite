@@ -169,6 +169,8 @@ def login():
             )
             session['name'] = user.username
             session.permanent=True
+            if (user.user_type == 0 ): 
+                flash(f"Welcome {user.first_name}! Click the Menu button to navigate to your grades.", 'succes')
             return redirect(url_for('index'))
     return render_template('login.html')
 
