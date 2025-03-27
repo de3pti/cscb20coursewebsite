@@ -73,6 +73,7 @@ class Feedback(db.Model):
     __tablename__ = 'feedback'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     instructor_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    feedback_type = db.Column(db.Integer)
     feedback = db.Column(db.String, nullable=False)
 
     # Connecting the feedback to an instructor
@@ -111,9 +112,53 @@ def piazza():
 def markus():
     return redirect("https://markus2.utsc.utoronto.ca/")
 
-@app.route('/anonfeedback')
+@app.route('/anonfeedback', methods = ['GET', 'POST'])
 def anonfeedback():
-    return render_template('anonfeedback.html')
+    username = session['name']
+    user = User.query.filter_by(username=username).first()
+
+    if not user.user_type == 0:
+        return render_template('login.html') #temp, add prof feedback
+    
+    if not user:
+        return render_template('homepage.html')
+    
+    professors = User.query.filter_by(user_type=1).all()
+    if request.method == "POST":
+        professor_id = request.form.get('professor')
+
+        if professor_id:
+
+            instruct_feed = request.form.get('instruct_feed')
+            instruct_tips = request.form.get('instruct_tips')
+            lab_feed = request.form.get('lab_feed')
+            lab_tips = request.form.get('lab_tips')
+
+            if instruct_feed:
+                feedback_instructor = Feedback(instructor_id=professor_id, feedback_type=0, feedback=instruct_feed)
+                db.session.add(feedback_instructor)
+                
+            if instruct_tips:
+                feedback_tips = Feedback(instructor_id=professor_id, feedback_type=1, feedback=instruct_tips)
+                db.session.add(feedback_tips)
+                
+            if lab_feed:
+                feedback_lab = Feedback(instructor_id=professor_id, feedback_type=2, feedback=lab_feed)
+                db.session.add(feedback_lab)
+                
+            if lab_tips:
+                feedback_lab_tips = Feedback(instructor_id=professor_id, feedback_type=3, feedback=lab_tips)
+                db.session.add(feedback_lab_tips)
+                print(feedback_lab_tips)
+
+            db.session.commit()
+            flash('Your feedback has been submitted successfully!', 'success')
+
+            return render_template('anonfeedback.html', success=True, professors=professors)
+        else: 
+            flash('Please select a Professor.', 'warning')
+
+    return render_template('anonfeedback.html', professors=professors)
 
 @app.route('/courseteam')
 def courseteam():
@@ -148,8 +193,6 @@ def register():
         db.session.add_all([new_user])
         db.session.commit()
         # db.session.close()
-
-        flash('registration successful! Please login now:')
         return redirect(url_for('login'))
     
 @app.route('/login', methods = ['GET', 'POST'])
@@ -163,10 +206,6 @@ def login():
             flash('Please check your login details and try again.', 'error')
             return render_template('login.html')
         else:
-            log_details = (
-            username,
-            password
-            )
             session['name'] = user.username
             session.permanent=True
             if (user.user_type == 0 ): 
@@ -186,9 +225,11 @@ def studentgrades():
     username = session['name']
     user = User.query.filter_by(username=username).first()
 
+    if not user.user_type == 0:
+        return render_template('login.html') #temp, add prof grades
+    
     if not user:
-        flash('Please log in to view your grades.', 'error')
-        return redirect(url_for('login'))
+        return render_template('homepage.html')
     
     user_id = user.id
 
@@ -200,15 +241,22 @@ def studentgrades():
     r3 = r2.all()
 
     grades= []
+    labs = []
+    exams = []
 
     for assessment, student_assessment in r3:
         grade_info = {
             'assessment_name': assessment.name,
             'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded'
         }
-        grades.append(grade_info)
+        if "Midterm" in assessment.name or "Final" in assessment.name:
+            exams.append(grade_info)
+        elif "Lab" in assessment.name:
+            labs.append(grade_info)
+        else:
+            grades.append(grade_info)
 
-    return render_template('studentgrades.html', grades=grades)
+    return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams)
 
 # # NOTEE: DELETE EVERYTHING AFTER THIS BEFORE SUBMISSION
 # # Inserting new users into the database

@@ -28,16 +28,41 @@
 
     <main class = "content">
 
-        <p>Please feel free to reach out to us via E-mail or leave anonymus feedback on the following form:</p>
+        <p><b>Please feel free to reach out to us via E-mail or leave anonymus feedback on the following form:</b></p>
 
-        <form>
-            <textarea class="form_elm" type="text" placeholder="Please enter your feedback here"></textarea>
+        <form method="POST">
+            <p>Select Professor:</p>
+            <select name="professor" id="professor">
+                {% for professor in professors %}
+                    <option value="{{ professor.id }}">{{ professor.first_name }} {{ professor.last_name }}</option>
+                {% endfor %}
+            </select>
+
+            <p>What do you like about the instructor’s teaching?</p>
+            <textarea name="instruct_feed" class="instruct_feed" type="text" placeholder="Please enter your feedback here"></textarea>
+
+            <p>What do you recommend the instructor to do to improve their teaching?</p>
+            <textarea name="instruct_tips" class="instruct_tips" type="text" placeholder="Please enter your feedback here"></textarea>
+
+            <p>What do you like about the labs?</p>
+            <textarea name="lab_feed" class="lab_feed" type="text" placeholder="Please enter your feedback here"></textarea>
+
+            <p>What do you recommend the lab instructors to do to improve their lab teaching?</p>
+            <textarea name="lab_tips" class="lab_tips" type="text" placeholder="Please enter your feedback here"></textarea>
 
             <div class="btn-group">
-                <input type="reset" class="btn" value="Submit">
+                <input type="submit" class="btn" value="Submit">
             </div>
 
         </form>
+
+        {% with messages = get_flashed_messages()%}
+            {% if messages%}
+                {% for message in messages%}
+                <h2>{{message}}</h2>
+                {%endfor%}
+                {%endif%}
+                {%endwith%}
 
         <p>
             Contact: <br>

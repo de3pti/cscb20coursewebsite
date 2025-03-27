@@ -74,6 +74,16 @@ body{
     align-items: center;
 }
 
+select{
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
+}
+
+option {
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
+}
+
 .header {
     display: flex;
     flex-direction: row;
@@ -286,7 +296,46 @@ h2 {
 
 
 /*CSS for Anon. Feedback*/
-.form_elm{
+.instruct_feed{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+.instruct_tips{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+.lab_feed{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+.lab_tips{
     font-size: 16px;
     padding: 10px 16px 10px 16px;
     margin: 15px 0 15px 0;
