@@ -73,6 +73,7 @@ class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     instructor_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
     feedback = db.Column(db.String, nullable=False)
+    reviewed = db.Column(db.Integer, nullable=False, default=0)
 
     # Connecting the feedback to an instructor
     instr_to_feedback = relationship("User", back_populates="instr_feedback")
@@ -154,37 +155,32 @@ def updatestudentgrades():
     
 @app.route('/viewanonfeedback', methods=['GET', 'POST'])
 def viewanonfeedback():
-    try:
-        # Handling POST request
-        if request.method == 'POST':
-            print("Received POST request")
-            print("Form Data:", request.form)  # Debugging: print the form data
-            
-            # Process checkboxes and update the 'reviewed' field for each feedback
-            for feedback in Feedback.query.all():
-                checkbox_name = f"reviewed_{feedback.id}"
-                if checkbox_name in request.form:
-                    print("reviewed")
-                    feedback.reviewed = 1  # Mark as reviewed if checked
-                else:
-                    print("not reviewed")
-                    feedback.reviewed = 0  # Mark as not reviewed if unchecked
-            
-            db.session.commit()  # Save changes to the database
-            print("Database updated with reviewed status")
+    # Handling POST request
+    if request.method == 'POST':
+        print("Received POST request")
+        print("Form Data:", request.form)  # Debugging: print the form data
         
-        # Handling GET request (or after POST)
-        feedbacks = Feedback.query.all()
-        print("Query executed successfully")  # Debugging: check if query works
-        for feedback in feedbacks:
-            print(f"Feedback: {feedback.feedback}")
+        # Process checkboxes and update the 'reviewed' field for each feedback
+        for feedback in Feedback.query.all():
+            checkbox_name = f"reviewed_{feedback.id}"
+            if checkbox_name in request.form:
+                print("reviewed")
+                feedback.reviewed = 1  # Mark as reviewed if checked
+            else:
+                print("not reviewed")
+                feedback.reviewed = 0  # Mark as not reviewed if unchecked
         
-        # Always return the template with feedback data
-        return render_template('viewanonfeedback.html', feedbacks=feedbacks)
+        db.session.commit()  # Save changes to the database
+        print("Database updated with reviewed status")
     
-    except Exception as e:
-        print("Error:", e)  # This will print any database errors
-        return "An error occurred", 500  # Return a server error message if exception occurs
+    # Handling GET request (or after POST)
+    feedbacks = Feedback.query.all()
+    print("Query executed successfully")  # Debugging: check if query works
+    for feedback in feedbacks:
+        print(f"Feedback: {feedback.feedback}")
+    
+    # Always return the template with feedback data
+    return render_template('viewanonfeedback.html', feedbacks=feedbacks)
 
 
 # Registration, Login, and Logout
