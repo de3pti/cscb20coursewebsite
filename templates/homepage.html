@@ -13,12 +13,36 @@
         </header>
 
         <main class="content">
-            <button class="homepage_to_register">
+            <p style="text-align: center">
+                Welcome to our website! Please select one of the options below<br>
+            </p><br><br>
+    
+            <div class="image_container">
+                <div class="flip-card">
+                    <img src="{{ url_for('static', filename='Donkey.jpg') }}" alt="Deepti" style="width: 300px; height: auto; ">
+                </div>
+    
+                <div class="flip-card">
+                    <img src="{{ url_for('static', filename='Horse1.jpg') }}" alt="Hanna" style="width: 300px; height: auto; ">
+                </div>
+            </div>
+
+            <div class= "text_container" style="margin: 5px; border: 1px solid ">
+                <button class="homepage_to_register">
+                    <a href="{{ url_for('register') }}">Register </a>
+                </button>
+                <button class="homepage_to_register">
+                    <a href="{{ url_for('login') }}">Login </a>
+                </button>
+    
+            </div>
+    
+            <!-- <button class="homepage_to_register">
                 <a href="{{ url_for('register') }}">Register </a>
             </button>
             <button class="homepage_to_register">
                 <a href="{{ url_for('login') }}">Login </a>
-            </button>
+            </button> -->
         </main>
     
         <footer class="footer">
