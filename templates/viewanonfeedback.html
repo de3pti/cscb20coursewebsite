@@ -28,33 +28,29 @@
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
         </header>
 
-    <main class = "content">
-
-        <p>Please feel free to reach out to us via E-mail or leave anonymus feedback on the following form:</p>
-
-        <form>
-            <textarea class="form_elm" type="text" placeholder="Please enter your feedback here"></textarea>
-
-            <div class="btn-group">
-                <input type="reset" class="btn" value="Submit">
-            </div>
-
-        </form>
-
-        <p>
-            Contact: <br>
-            cs.undergrad@utoronto.ca
-        </p>
-
-    </main>
+        <main class="content">
+            <form method='POST'> <!-- Move the form outside -->
+                <div class="viewanonfeedbackgrid">
+                    <div class="cellheader">Feedback</div>
+                    <div class="cellheader">Reviewed?</div>
         
-    <footer class="footer">
-            <div>
-                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
-            </div>
-            <p>Site design by Deepti, Hanna, Siara</p>
-    </footer>
-
+                    {% for feedback in feedbacks %}
+                    <div class="cell">{{ feedback.feedback }}</div>
+                    <div class="cell">
+                        <input type="checkbox" name="reviewed_{{ feedback.id }}" {% if feedback.reviewed == 1%} checked {% endif %}>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </main>
+        
+        <footer class="footer">
+                <div>
+                    <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+                </div>
+                <p>Site design by Deepti, Hanna, Siara</p>
+        </footer>
 
 </body>
 </html>

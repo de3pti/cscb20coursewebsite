@@ -119,7 +119,7 @@ def courseteam():
     return render_template('courseteam.html')
 
 @app.route('/viewstudentgrades')
-def studentgrades():
+def viewstudentgrades():
     try:
         assignments = (
             db.session.query(AssessmentsStudent, Assessment)
@@ -134,6 +134,58 @@ def studentgrades():
     except Exception as e:
         print("Error:", e)  # This will print any database errors
         return "An error occurred", 500
+    
+@app.route('/updatestudentgrades')
+def updatestudentgrades():
+    try:
+        assignments = (
+            db.session.query(AssessmentsStudent, Assessment)
+            .join(Assessment, AssessmentsStudent.assessment_id == Assessment.id)
+            .all()
+        )
+        #assignments = AssessmentsStudent.query.all()
+        print("Query executed successfully")  # Debugging statement
+        for assignment in assignments:
+            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.student_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
+        return render_template('updatestudentgrades.html', assignments=assignments)
+    except Exception as e:
+        print("Error:", e)  # This will print any database errors
+        return "An error occurred", 500
+    
+@app.route('/viewanonfeedback', methods=['GET', 'POST'])
+def viewanonfeedback():
+    try:
+        # Handling POST request
+        if request.method == 'POST':
+            print("Received POST request")
+            print("Form Data:", request.form)  # Debugging: print the form data
+            
+            # Process checkboxes and update the 'reviewed' field for each feedback
+            for feedback in Feedback.query.all():
+                checkbox_name = f"reviewed_{feedback.id}"
+                if checkbox_name in request.form:
+                    print("reviewed")
+                    feedback.reviewed = 1  # Mark as reviewed if checked
+                else:
+                    print("not reviewed")
+                    feedback.reviewed = 0  # Mark as not reviewed if unchecked
+            
+            db.session.commit()  # Save changes to the database
+            print("Database updated with reviewed status")
+        
+        # Handling GET request (or after POST)
+        feedbacks = Feedback.query.all()
+        print("Query executed successfully")  # Debugging: check if query works
+        for feedback in feedbacks:
+            print(f"Feedback: {feedback.feedback}")
+        
+        # Always return the template with feedback data
+        return render_template('viewanonfeedback.html', feedbacks=feedbacks)
+    
+    except Exception as e:
+        print("Error:", e)  # This will print any database errors
+        return "An error occurred", 500  # Return a server error message if exception occurs
+
 
 # Registration, Login, and Logout
 @app.route('/')
@@ -188,42 +240,6 @@ def login():
 def logout():
     session.pop('name', default = None)
     return redirect(url_for('index'))
-
-# Hannas Section
-@app.route('/studentgrades')
-def student_grades():
-    if 'name' not in session:
-        flash('Please log in to view your grades.', 'error')
-        return redirect(url_for('login'))
-
-    username = session['name']
-    user = User.query.filter_by(username=username).first()
-
-    if user:
-        student_assessments = (db.session.query(AssessmentsStudent, Assessment).join(Assessment, AssessmentsStudent.assessment_id == Assessment.id).filter(AssessmentsStudent.student_id == user.id).all())
-
-        grades = []
-        exam_grades = []
-        lab_grades = []
-
-        for student_assessment, assessment in student_assessments:
-            grade_info = {
-                'assessment_name': assessment.name,
-                'grade': student_assessment.marks
-            }
-
-            if "Lab" in assessment.name:
-                lab_grades.append(grade_info)
-            elif "Midterm" in assessment.name or "Final Exam" in assessment.name:
-                exam_grades.append(grade_info)
-            else:
-                grades.append(grade_info)
-
-        print(f"Grades: {grades}")
-        print(f"Exam Grades: {exam_grades}")
-        print(f"Lab Grades: {lab_grades}")
-
-        return render_template('studentgrades.html', grades=grades, exam_grades=exam_grades, lab_grades=lab_grades)
 
 # # NOTEE: DELETE EVERYTHING AFTER THIS BEFORE SUBMISSION
 # # Inserting new users into the database
