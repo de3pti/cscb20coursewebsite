@@ -82,8 +82,12 @@ class Feedback(db.Model):
 # Create the tables in the database
 # Base.metadata.create_all(engine)
 
-# REndering the pages to make the dropdown work
+# Rendering the pages to make the dropdown work
 @app.route('/')
+def homepage():
+    return render_template('homepage.html')
+
+@app.route('/index')
 def home():
     return render_template('index.html')
 
@@ -147,7 +151,7 @@ def register():
         
         db.session.add_all([new_user])
         db.session.commit()
-        db.session.close()
+        # db.session.close()
 
         flash('registration successful! Please login now:')
         return redirect(url_for('login'))
