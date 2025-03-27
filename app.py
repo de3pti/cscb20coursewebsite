@@ -119,9 +119,9 @@ def anonfeedback():
 def courseteam():
     return render_template('courseteam.html')
 
-@app.route('/studentgrades')
-def studentgrades():
-    return render_template('studentgrades.html')
+# @app.route('/studentgrades')
+# def studentgrades():
+#     return render_template('studentgrades.html')
 
 
 @app.route('/index')
@@ -167,6 +167,7 @@ def login():
             username,
             password
             )
+            session['name'] = user.username
             session.permanent=True
             return redirect(url_for('index'))
     return render_template('login.html')
@@ -179,12 +180,17 @@ def logout():
 
 # Hannas Section
 @app.route('/studentgrades')
-def student_grades():
-    user_id = 1
+def studentgrades():
+    username = session['name']
+    user = User.query.filter_by(username=username).first()
 
-    # if not user_id:
-    #     flash('Please log in to view your grades.', 'error')
-    #     return redirect(url_for('login'))
+    if not user:
+        flash('Please log in to view your grades.', 'error')
+        return redirect(url_for('login'))
+    
+    user_id = user.id
+
+    print(f"User ID: {user_id}")
 
     r1 = (
         db.session.query(Assessment, AssessmentsStudent)
@@ -193,22 +199,20 @@ def student_grades():
     r2 = r1.filter(AssessmentsStudent.student_id == user_id)
     r3 = r2.all()
 
-    grades, exam_grades, lab_grades = [], [], []
+    print(f"Grades Retrieved: {r3}")
 
-    for student_assessment, assessment in r3:
+    grades= []
+
+    for assessment, student_assessment in r3:
         grade_info = {
             'assessment_name': assessment.name,
             'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded'
         }
+        grades.append(grade_info)
 
-        if "Lab" in assessment.name:
-            lab_grades.append(grade_info)
-        elif "Midterm" in assessment.name or "Final" in assessment.name:
-            exam_grades.append(grade_info)
-        else:
-            grades.append(grade_info)
+    print(f"All Grades: {grades}")
 
-    return render_template('studentgrades.html', grades=grades, exam_grades=exam_grades, lab_grades=lab_grades)
+    return render_template('studentgrades.html', grades=grades)
 
 # # NOTEE: DELETE EVERYTHING AFTER THIS BEFORE SUBMISSION
 # # Inserting new users into the database

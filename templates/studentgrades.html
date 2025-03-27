@@ -36,60 +36,18 @@
 
         <div class="tablecontainer">
             <div class="topicsgrid">
-                <div class="cellheader">Assignment</div>
+                <div class="cellheader">Assesment</div>
                 <div class="cellheader">Grade</div>
                 {% if grades %}
                     {% for grade in grades %}
                         <div class="row">
                             <div class="cell">{{ grade.assessment_name }}</div>
-                            <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
+                            <div class="cell">{{ grade.grade }}</div>
                         </div>
                     {% endfor %}
                 {% else %}
                     <div class="row">
-                        <div class="cell" colspan="2">No assignments available.</div>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-
-        <br>
-
-        <div class="tablecontainer">
-            <div class="topicsgrid">
-                <div class="cellheader">Exam</div>
-                <div class="cellheader">Grade</div>
-                {% if exam_grades %}
-                    {% for grade in exam_grades %}
-                        <div class="row">
-                            <div class="cell">{{ grade.assessment_name }}</div>
-                            <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="row">
-                        <div class="cell" colspan="2">No assignments available.</div>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-
-        <br>
-
-        <div class="tablecontainer">
-            <div class="topicsgrid">
-                <div class="cellheader">Lab</div>
-                <div class="cellheader">Grade</div>
-                {% if lab_grades %}
-                    {% for grade in lab_grades %}
-                        <div class="row">
-                            <div class="cell">{{ grade.assessment_name }}</div>
-                            <div class="cell">{{ grade.grade if grade.grade is not none else 'Not Graded' }}</div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="row">
-                        <div class="cell" colspan="2">No assignments available.</div>
+                        <div class="cell" colspan="2">No grades available.</div>
                     </div>
                 {% endif %}
             </div>
