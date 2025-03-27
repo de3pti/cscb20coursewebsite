@@ -12,28 +12,35 @@
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
         </header>
 
-    <main class="content">
-        <div class = "register_form_full">
-            <!-- <p class = "register_text">Sign In</p> -->
-            <div class = "register_row">
-                <form method = "POST">
-                    <div class = "register_form">
-                        <label for = "username">Username : </label>
-                        <input type = "text" name = "username" placeholder="Enter Username" class = "register_form_text" id = "username">
-                    </div> 
-                    <div class = "register_form">
-                        <label for = "password">Password : </label>
-                        <input type = "password" name = "password" placeholder="Enter Password" class = "register_form_text" id = "password">
-                    </div>    
-                    <button type = "submit" class = "register_submit">Login</button>                          
-                </form>
+        <main class="content">
+            <div class = "register_form_full">
+                <div class = "register_row">
+                     <h6>Sign In</h6>
+                    <form method = "POST">                       
+                        <div class = "signin_item">
+                            <label for = "username">Username : </label>
+                            <input type = "text" name = "username" placeholder="Enter Username" 
+                            class = "register_form_text" id = "username" required>
+                        </div>
+                        <div class = "signin_item">
+                            <label for = "email">Email : </label>
+                            <input type = "text" name = "email" 
+                            class = "register_form_text" id = "email" placeholder= "Enter Email" required>
+                        </div>      
+                        <div class = "signin_item">
+                            <label for = "password">Password : </label>
+                            <input type = "password" name = "password" 
+                            class = "register_form_text" id = "password" placeholder= "Enter Password" required>
+                        </div>   
+                        <button type = "submit" class = "signin_submit">Signin</button>                          
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="direct_to_register">
-            <p>Don't have an account? <a href="{{ url_for('register') }}">Register Now</a>.</p>
-        </div>
-    </main>
+            <div class="direct_to_signin">
+                <p>Don't have an account? <a href="{{ url_for('register') }}">Register Now</a>.</p>
+            </div>
     
+        </main>
     <footer class="footer">
             <div>
                 <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>

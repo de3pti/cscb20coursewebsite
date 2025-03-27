@@ -382,38 +382,56 @@ section{
     display: block
 }
 
-/* .register_text{
-    padding: 15px;
+/* Styling the homepage */
+.homepage_to_register{
+    background-color: #C4A645;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin: 5px 0 25px 0;
+    padding: 15px 20px;
+    opacity: 0.9;
+    text-decoration: none;
 
 }
-.register_form_full{
-    padding: 10px;
-    margin: 5px 0 22px 0;
-    display: inline-block;
-    background-color: #88A5A3;
 
-} */
-   
+/* Styling the Login and Registration pages */
+h6{
+    text-align: left;
+    margin: 0 0 10px 0;
+    font-size: 30px;
+
+}
+
 .register_row{
     padding: 15px;
-    margin: 5px 0 22px 0;
+    margin: 5px 0 5px 0;
     display: inline-block;
 } 
  .register_form_text{
     width: 90%;
-    padding: 12px 10px;
-    margin: 6px 0;
+    padding: 14px 11px;
+    margin: 8px 0;
     display: inline-block;
  }
 .direct_to_register{
     padding: 15px;
-    margin: 5px 0 25px 0;
     display: inline-block;
+    text-align: center;
+
 }
-.register_form{
-    padding: 16px;
-    /* opacity: 0.8; */
-    margin: 8px;
+.direct_to_signin{
+    padding: 5px;
+    margin: 0 0 10px 0;
+    text-align: center;
+
+}
+.signin_item{
+    width: 120%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding: 0 5px 10px 0;
 
 }
 .register_submit{
@@ -422,14 +440,20 @@ section{
     cursor: pointer;
     width: 100%;
     margin: 5px 0 25px 0;
-    padding: 16px 20px;
+    padding: 15px 20px;
+    opacity: 0.9;
+}
+.signin_submit{
+    background-color: #C4A645;
+    border: none;
+    cursor: pointer;
+    width: 120%;
+    margin: 5px 0 25px 0;
+    padding: 15px 20px;
     opacity: 0.9;
 }
 .register_submit:hover{
     opacity: 1;
-}
-.register_usertype{
-    
 }
 
 
