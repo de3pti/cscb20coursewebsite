@@ -382,6 +382,57 @@ section{
     display: block
 }
 
+/* .register_text{
+    padding: 15px;
+
+}
+.register_form_full{
+    padding: 10px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    background-color: #88A5A3;
+
+} */
+   
+.register_row{
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+} 
+ .register_form_text{
+    width: 90%;
+    padding: 12px 10px;
+    margin: 6px 0;
+    display: inline-block;
+ }
+.direct_to_register{
+    padding: 15px;
+    margin: 5px 0 25px 0;
+    display: inline-block;
+}
+.register_form{
+    padding: 16px;
+    /* opacity: 0.8; */
+    margin: 8px;
+
+}
+.register_submit{
+    background-color: #C4A645;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin: 5px 0 25px 0;
+    padding: 16px 20px;
+    opacity: 0.9;
+}
+.register_submit:hover{
+    opacity: 1;
+}
+.register_usertype{
+    
+}
+
+
 /*Light and Dark mode*/
 /*Dark mode: ->light mode is the default*/
 @media (prefers-color-scheme: dark) {
@@ -903,4 +954,6 @@ and (max-device-width: 600px) {
     section{
         display: block
     }
+
+
 }
