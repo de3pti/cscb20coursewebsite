@@ -13,16 +13,16 @@ bcrypt=Bcrypt(app)
 app.secret_key = 'super_secret_key'
 
 app.config['SECRET_KEY']='8a0f946f1471e113e528d927220ad977ed8b2cce63303beff10c8cb4a15e1a99'
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///notes.db'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///assignment3.db'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes = 10)
 db = SQLAlchemy(app)
 
 # Creating an engine that will connect to the SQLite database
-engine = db.create_engine('sqlite:///assignment3.db', echo = True)
+#engine = db.create_engine('sqlite:///assignment3.db', echo = True)
 
 # Session setup
-Session = sessionmaker(bind=engine)
-session = Session()
+# Session = sessionmaker(bind=engine)
+# session = Session()
 
 Base = declarative_base()
 
@@ -30,10 +30,12 @@ Base = declarative_base()
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(100), nullable=False)
+    username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     first_name = Column(db.String(100))
+    last_name = Column(db.String(100))
+
     # 0 = student, 1 = instructor
     user_type = Column(db.Integer, nullable=False)
 
@@ -78,10 +80,14 @@ class Feedback(db.Model):
 
 
 # Create the tables in the database
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
 
-# REndering the pages to make the dropdown work
+# Rendering the pages to make the dropdown work
 @app.route('/')
+def homepage():
+    return render_template('homepage.html')
+
+@app.route('/index')
 def home():
     return render_template('index.html')
 
@@ -133,16 +139,19 @@ def register():
     if request.method=='GET':
         return render_template('register.html')
     else:
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
         user_name = request.form['username']
         email = request.form['email']
         password = request.form['password']
         # generating the hashed password
         hashed_password=bcrypt.generate_password_hash(password).decode('utf-8')
         user_type = int(request.form['user_type'])
-        new_user = User(username=user_name, email=email, password=hashed_password, user_type=user_type)
+        new_user = User(first_name=first_name, last_name=last_name, username=user_name, email=email, password=hashed_password, user_type=user_type)
         
-        session.add(new_user)
-        session.commit()
+        db.session.add_all([new_user])
+        db.session.commit()
+        # db.session.close()
 
         flash('registration successful! Please login now:')
         return redirect(url_for('login'))
@@ -226,9 +235,8 @@ def student_grades():
 # session.add(feedback)
 # session.commit()
 
-with app.app_context():
-    db.create_all()
-
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
 
