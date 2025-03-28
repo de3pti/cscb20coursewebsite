@@ -77,6 +77,16 @@ class Feedback(db.Model):
 
     # Connecting the feedback to an instructor
     instr_to_feedback = relationship("User", back_populates="instr_feedback")
+    
+class RemarkRequests(db.Model):
+    __tablename__ = 'remarkrequests'
+    remark_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    assignment_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    student_id = db.Column(db.String, nullable=False)
+    status = db.Column(db.Integer, nullable=False, default=0)
+
+    # Connecting the feedback to an instructor
+    instr_to_feedback = relationship("User", back_populates="instr_feedback")
 
 
 # Create the tables in the database
@@ -182,6 +192,9 @@ def viewanonfeedback():
     # Always return the template with feedback data
     return render_template('viewanonfeedback.html', feedbacks=feedbacks)
 
+@app.route('/viewremarkrequests', methods=['GET', 'POST'])
+def viewremarkrequests():
+    return render_template('viewremarkrequests.html')
 
 # Registration, Login, and Logout
 @app.route('/')
