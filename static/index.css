@@ -74,6 +74,16 @@ body{
     align-items: center;
 }
 
+select{
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
+}
+
+option {
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
+}
+
 .header {
     display: flex;
     flex-direction: row;
@@ -213,13 +223,33 @@ h2 {
     border: 3px solid #4E6979;
 }
 
+.addassessmentgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 15fr;
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 1700px;
+    border: 3px solid #4E6979;
+}
+
 .viewanonfeedbackgrid {
     border-radius: 5px;
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(5, auto);
     background-color: #B9CAC9;
     color: #444;
-    max-width: 800px;
+    max-width: 1200px;
+    border: 3px solid #4E6979;
+}
+
+.viewremarkrequestgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 1200px;
     border: 3px solid #4E6979;
 }
 
@@ -274,6 +304,18 @@ h2 {
     border: solid;
 }
 
+.flash-message {
+    font-weight: 10;
+    background-color: #ccc;
+    padding: 10px;
+    align-self: center;
+    margin: 20px 0;
+    max-width: 700px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
 /*CSS FOR COURSE TEAM*/
 .image_container {
     display: flex;
@@ -307,7 +349,46 @@ h2 {
 
 
 /*CSS for Anon. Feedback*/
-.form_elm{
+.instruct_feed{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+.instruct_tips{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+.lab_feed{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+.lab_tips{
     font-size: 16px;
     padding: 10px 16px 10px 16px;
     margin: 15px 0 15px 0;

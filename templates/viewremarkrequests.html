@@ -45,30 +45,43 @@
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
         </header>
 
-    <main class = "content">
-        <p  style="text-align: center">
-        Feel free to ask questions on Piazza!
-            <a class="link" href="https://piazza.com/class/m5fmz9kzjo83yk" target="_blank" rel="noopener noreferrer">Visit Piazza!</a> 
-        </p>
-        <br>
+        <main class="content">
+            <form method='POST'>
+                <div class="viewremarkrequestgrid">
+                    <div class="cellheader">Remark Requets ID</div>
+                    <div class="cellheader">Student ID</div>
+                    <div class="cellheader">Student Name</div>
+                    <div class="cellheader">Assignment Name</div>
+                    <div class="cellheader">Reason for Request</div>
+                    <div class="cellheader">Current Status</div>
         
-        <div class="iframe_container"> 
-
-            
-            <iframe src="https://piazza.com/class/m5fmz9kzjo83yk">
-                <p>Your browser does not support iframes.</p>
-            </iframe> 
-        </div>
-       
-
-    </main>
-    
-    <footer class="footer">
-            <div>
-                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
-            </div>
-            <p>Site design by Deepti, Hanna, Siara</p>
-    </footer>
+                    {% for request in requests %}
+                    <div class="cell">{{ request.remark_id }}</div>
+                    <div class="cell">{{ request.remark_to_user.user_id }}</div>
+                    <div class="cell">{{ request.remark_to_user.first_name + " " + request.remark_to_user.last_name }}</div>
+                    <div class="cell">{{ request.remark_to_assessment.name }}</div>
+                    <div class="cell">{{ request.remark_reason }}</div>
+                    <div class="cell">
+                        <select style="border-radius: 5px;" name="reviewed_{{ request.remark_id }}">
+                            <option value="0" {% if request.status == 0 %} selected {% endif %}>Pending</option>
+                            <option value="1" {% if request.status == 1 %} selected {% endif %}>Declined</option>
+                            <option value="2" {% if request.status == 2 %} selected {% endif %}>Approved</option>
+                        </select>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="btn-group" style='padding-top: 20px'>
+                    <button class="btn" type="submit">Submit</button>
+                </div>
+            </form>
+        </main>
+        
+        <footer class="footer">
+                <div>
+                    <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+                </div>
+                <p>Site design by Deepti, Hanna, Siara</p>
+        </footer>
 
 </body>
 </html>

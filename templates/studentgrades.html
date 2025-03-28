@@ -45,21 +45,70 @@
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
         </header>
 
-    <main class = "content">
-        <p  style="text-align: center">
-        Feel free to ask questions on Piazza!
-            <a class="link" href="https://piazza.com/class/m5fmz9kzjo83yk" target="_blank" rel="noopener noreferrer">Visit Piazza!</a> 
-        </p>
-        <br>
-        
-        <div class="iframe_container"> 
+    <main class="content">
 
-            
-            <iframe src="https://piazza.com/class/m5fmz9kzjo83yk">
-                <p>Your browser does not support iframes.</p>
-            </iframe> 
+        <h2>Grades</h2>
+
+        <div class="homeblurbs">
+            <p>Here you will find all of your grades for the Assignments, the Midterm, the Labs/Tutorials, and the Final Exam. Please feel free to use the Piazza for feedback on grading and for answers.</p>
         </div>
-       
+
+        <br>
+        <div class="tablecontainer">
+            <div class="topicsgrid">
+                <div class="cellheader">Assignments</div>
+                <div class="cellheader">Grade</div>
+                {% if grades %}
+                    {% for grade in grades %}
+                        <div class="row">
+                            <div class="cell">{{ grade['assessment_name'] }}</div>
+                            <div class="cell">{{ grade['grade'] }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell">No grades available.</div>
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+
+            <div class="topicsgrid">
+                <div class="cellheader">Exams</div>
+                <div class="cellheader">Grade</div>
+                {% if exams %}
+                    {% for exam in exams %}
+                        <div class="row">
+                            <div class="cell">{{ exam['assessment_name'] }}</div>
+                            <div class="cell">{{ exam['grade'] }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell">No grades available.</div>
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+
+            <div class="topicsgrid">
+                <div class="cellheader">Labs</div>
+                <div class="cellheader">Grade</div>
+                {% if labs %}
+                    {% for lab in labs %}
+                        <div class="row">
+                            <div class="cell">{{ lab['assessment_name'] }}</div>
+                            <div class="cell">{{ lab['grade'] }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell">No grades available.</div>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
 
     </main>
     
