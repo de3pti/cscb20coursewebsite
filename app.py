@@ -48,6 +48,7 @@ class Assessment(db.Model):
     __tablename__ = 'assessments'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    type = db.Column(db.String, nullable=False)
     mark = db.Column(db.Integer)
 
     # Connecting assessment with the instructor
@@ -58,14 +59,14 @@ class AssessmentsStudent(db.Model):
     __tablename__ = 'student_assessments'
     student_id = db.Column(db.Integer, ForeignKey('users.id'), primary_key=True)
     assessment_id = db.Column(db.Integer, ForeignKey('assessments.id'), primary_key=True)
+    remark_id = db.Column(db.Integer, ForeignKey('remark_id'), autoincrement=True)
     marks = db.Column(db.Integer, nullable=True)
     # default is NULL, 0 = pending, 1 = approved, 2 = rejected
-    remark_status = db.Column(db.Integer, nullable=True)
-    remark_reason = db.Column(db.String(500), nullable=True)
 
     # Connecting students to their assessments
     student_to_assess = relationship("User", backref="student_assessments")
     assess_to_student = relationship("Assessment", backref="student_assessments")
+    remark_to_student = relationship("Remark", backref="student_assessments")
 
 
 # Table for feedback (anonymous feedback from students to instructors)
@@ -75,9 +76,22 @@ class Feedback(db.Model):
     instructor_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
     feedback_type = db.Column(db.Integer)
     feedback = db.Column(db.String, nullable=False)
+    reviewed = db.Column(db.Integer, nullable=False, default=0)
 
     # Connecting the feedback to an instructor
     instr_to_feedback = relationship("User", back_populates="instr_feedback")
+    
+class RemarkRequests(db.Model):
+    __tablename__ = 'remarkrequests'
+    remark_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    assessment_id = db.Column(db.Integer, ForeignKey('assessment_id'), nullable=False)
+    student_id = db.Column(db.String, ForeignKey('assessment_id'), nullable=False)
+    status = db.Column(db.Integer, nullable=False, default=0)
+    remark_reason = db.Column(db.String(500), nullable=True)
+
+    # Connecting the feedback to an instructor
+    remark_to_user = relationship("User", backref='remarkrequests')
+    remark_to_assessment = relationship("Assessment", backref='remarkrequests')
 
 
 # Create the tables in the database
@@ -118,7 +132,7 @@ def anonfeedback():
     user = User.query.filter_by(username=username).first()
 
     if not user.user_type == 0:
-        return render_template('login.html') #temp, add prof feedback
+        return render_template('viewanonfeedback.html') #temp, add prof feedback
     
     if not user:
         return render_template('homepage.html')
@@ -149,7 +163,6 @@ def anonfeedback():
             if lab_tips:
                 feedback_lab_tips = Feedback(instructor_id=professor_id, feedback_type=3, feedback=lab_tips)
                 db.session.add(feedback_lab_tips)
-                print(feedback_lab_tips)
 
             db.session.commit()
             flash('Your feedback has been submitted successfully!', 'success')
@@ -164,10 +177,72 @@ def anonfeedback():
 def courseteam():
     return render_template('courseteam.html')
 
-# @app.route('/studentgrades')
-# def studentgrades():
-#     return render_template('studentgrades.html')
+@app.route('/viewstudentgrades')
+def viewstudentgrades():
+    try:
+        assignments = (
+            db.session.query(AssessmentsStudent, Assessment)
+            .join(Assessment, AssessmentsStudent.assessment_id == Assessment.id)
+            .all()
+        )
+        #assignments = AssessmentsStudent.query.all()
+        print("Query executed successfully")  # Debugging statement
+        for assignment in assignments:
+            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.student_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
+        return render_template('viewstudentgrades.html', assignments=assignments)
+    except Exception as e:
+        print("Error:", e)  # This will print any database errors
+        return "An error occurred", 500
+    
+@app.route('/updatestudentgrades')
+def updatestudentgrades():
+    try:
+        assignments = (
+            db.session.query(AssessmentsStudent, Assessment)
+            .join(Assessment, AssessmentsStudent.assessment_id == Assessment.id)
+            .all()
+        )
+        #assignments = AssessmentsStudent.query.all()
+        print("Query executed successfully")  # Debugging statement
+        for assignment in assignments:
+            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.student_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
+        return render_template('updatestudentgrades.html', assignments=assignments)
+    except Exception as e:
+        print("Error:", e)  # This will print any database errors
+        return "An error occurred", 500
+    
+@app.route('/viewanonfeedback', methods=['GET', 'POST'])
+def viewanonfeedback():
+    # Handling POST request
+    if request.method == 'POST':
+        print("Received POST request")
+        print("Form Data:", request.form)  # Debugging: print the form data
+        
+        # Process checkboxes and update the 'reviewed' field for each feedback
+        for feedback in Feedback.query.all():
+            checkbox_name = f"reviewed_{feedback.id}"
+            if checkbox_name in request.form:
+                print("reviewed")
+                feedback.reviewed = 1  # Mark as reviewed if checked
+            else:
+                print("not reviewed")
+                feedback.reviewed = 0  # Mark as not reviewed if unchecked
+        
+        db.session.commit()  # Save changes to the database
+        print("Database updated with reviewed status")
+    
+    # Handling GET request (or after POST)
+    feedbacks = Feedback.query.all()
+    print("Query executed successfully")  # Debugging: check if query works
+    for feedback in feedbacks:
+        print(f"Feedback: {feedback.feedback}")
+    
+    # Always return the template with feedback data
+    return render_template('viewanonfeedback.html', feedbacks=feedbacks)
 
+@app.route('/viewremarkrequests', methods=['GET', 'POST'])
+def viewremarkrequests():
+    return render_template('viewremarkrequests.html')
 
 @app.route('/index')
 def index():
@@ -226,7 +301,7 @@ def studentgrades():
     user = User.query.filter_by(username=username).first()
 
     if not user.user_type == 0:
-        return render_template('login.html') #temp, add prof grades
+        return render_template('viewstudentgrades.html') #temp, add prof grades
     
     if not user:
         return render_template('homepage.html')

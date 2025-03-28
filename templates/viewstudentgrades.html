@@ -11,7 +11,7 @@
             <div class="dropdown">
                 <button class="dropbutton">Menu</button>
                 <div class="dropdown-content">
-                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('home') }}">Home</a>
                     <a href="{{ url_for('syllabus') }}">Syllabus</a>
                     <a href="{{ url_for('assignments') }}">Assignments</a>
                     <a href="{{ url_for('lab') }}">Labs</a>
@@ -28,38 +28,45 @@
             </div>
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
         </header>
-        <main class="content">
-            {% with messages = get_flashed_messages()%}
-            {% if messages%}
-                {% for message in messages%}
-                <h2>{{message}}</h2>
-                {%endfor%}
-                {%endif%}
-                {%endwith%}
 
-            <h2>Course Description</h2>
-                <div class="homeblurbs">
-                    <p>A practical introduction to databases and Web app development. Databases: terminology and applications; creating, querying and updating databases; the entity-relationship model for database design. Web documents and applications: static and interactive documents; Web servers and dynamic server-generated content; Web application development and interface with databases.<br><br>
-                    <b>Prerequisite: </b> Some experience with programming in an imperative language such as Python, Java or C.<br>
-                    <b>Exclusion: </b> This course may not be taken after - or concurrently with - any C- or D-level CSC course.<br>
-                    <b>Recommended Preparation: </b> CSCA08 or CSCA20<br>
-                    <b>Breadth Requirement: </b> Quantatative Reasoning<br></p>
+    <main class="content">
+
+        <div class="homeblurbs">
+            <p>Here you will find all of your grades for the Assignments, the Midterm, the Labs/Tutorials, and the Final Exam. Please feel free to use the Piazza for feedback on grading and for answers.</p>
+        </div>
+
+        <h2>Student Marks</h2>
+
+        <div class="tablecontainer">
+            <div class="studentmarks">
+                <div class="cellheader">Student ID</div>
+                <div class="cellheader">Student Name</div>
+                <div class="cellheader">Assignment</div>
+                <div class="cellheader">Grade</div>
+                {% if assignments %}
+            {% for assignment in assignments %}
+                <div class="row">
+                    <div class="cell">{{ assignment.AssessmentsStudent.student_id }}</div>
+                    <div class="cell">{{ assignment.AssessmentsStudent.student_id }}</div>
+                    <div class="cell">{{ assignment.Assessment.name }}</div>
+                    <div class="cell">{{ assignment.AssessmentsStudent.marks if assignment.AssessmentsStudent.marks is not none else 'Not Graded' }}</div>
                 </div>
-            <h2>Instructors</h2>
-            <div class="homeblurbs">
-                <div>Purva Gawde</div>
-                <div>
-                    <b>Email:</b> purva.gawde@utoronto.ca<br>
-                    <b>Office:</b> IA4056<br>
-                    <b>Office Hours:</b> Monday 11:00 to 12:00
+            {% endfor %}
+            {% else %}
+                <div class="row">
+                    <div class="cell" colspan="2">No assessments available.</div>
                 </div>
+            {% endif %}
             </div>
-        </main>
-        <footer class="footer">
+        </div>
+    </main>
+    
+    <footer class="footer">
             <div>
                 <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
             </div>
             <p>Site design by Deepti, Hanna, Siara</p>
-        </footer>
-    </body>
+    </footer>
+
+</body>
 </html>

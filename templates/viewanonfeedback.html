@@ -11,7 +11,7 @@
             <div class="dropdown">
                 <button class="dropbutton">Menu</button>
                 <div class="dropdown-content">
-                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('home') }}">Home</a>
                     <a href="{{ url_for('syllabus') }}">Syllabus</a>
                     <a href="{{ url_for('assignments') }}">Assignments</a>
                     <a href="{{ url_for('lab') }}">Labs</a>
@@ -29,30 +29,29 @@
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
         </header>
 
-    <main class = "content">
-        <p  style="text-align: center">
-        Feel free to ask questions on Piazza!
-            <a class="link" href="https://piazza.com/class/m5fmz9kzjo83yk" target="_blank" rel="noopener noreferrer">Visit Piazza!</a> 
-        </p>
-        <br>
+        <main class="content">
+            <form method='POST'>
+                <div class="viewanonfeedbackgrid">
+                    <div class="cellheader">Feedback</div>
+                    <div class="cellheader">Reviewed?</div>
         
-        <div class="iframe_container"> 
-
-            
-            <iframe src="https://piazza.com/class/m5fmz9kzjo83yk">
-                <p>Your browser does not support iframes.</p>
-            </iframe> 
-        </div>
-       
-
-    </main>
-    
-    <footer class="footer">
-            <div>
-                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
-            </div>
-            <p>Site design by Deepti, Hanna, Siara</p>
-    </footer>
+                    {% for feedback in feedbacks %}
+                    <div class="cell">{{ feedback.feedback }}</div>
+                    <div class="cell">
+                        <input type="checkbox" name="reviewed_{{ feedback.id }}" {% if feedback.reviewed == 1%} checked {% endif %}>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </main>
+        
+        <footer class="footer">
+                <div>
+                    <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+                </div>
+                <p>Site design by Deepti, Hanna, Siara</p>
+        </footer>
 
 </body>
 </html>
