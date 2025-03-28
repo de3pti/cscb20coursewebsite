@@ -253,12 +253,33 @@ def viewanonfeedback():
     
     # Handling GET request (or after POST)
     feedbacks = Feedback.query.all()
-    print("Query executed successfully")  # Debugging: check if query works
+    
+    feedback1= []
+    feedback2 = []
+    feedback3 = []
+    feedback4 = []
     for feedback in feedbacks:
-        print(f"Feedback: {feedback.feedback}")
+        if feedback.feedback_type == 0:
+            print(f"Feedback1: {feedback.feedback}")
+            feedback1.append(feedback)
+        elif feedback.feedback_type == 1:
+            print(f"Feedback2: {feedback.feedback}")
+            feedback2.append(feedback)
+        elif feedback.feedback_type == 2:
+            print(f"Feedback3: {feedback.feedback}")
+            feedback3.append(feedback)
+        else:
+            print(f"Feedback4: {feedback.feedback}")
+            feedback4.append(feedback)
+            
+    print(feedback1)
+    print(feedback2)
+    print(feedback3)
+    print(feedback4)
+    print("Query executed successfully")  # Debugging: check if query works
     
     # Always return the template with feedback data
-    return render_template('viewanonfeedback.html', feedbacks=feedbacks, user=user)
+    return render_template('viewanonfeedback.html', feedbacks=feedbacks, feedback1 = feedback1, feedback2 = feedback2, feedback3=feedback3, feedback4=feedback4, user=user, len = len(feedbacks))
 
 @app.route('/viewremarkrequests', methods=['GET', 'POST'])
 def viewremarkrequests():

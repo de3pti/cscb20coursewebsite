@@ -45,18 +45,26 @@
         <main class="content">
             <form method='POST'>
                 <div class="viewanonfeedbackgrid">
-                    <div class="cellheader">Feedback</div>
+                    <!-- Column Headers (this stays the same) -->
+                    <div class="cellheader">What do you like about the instructor’s teaching?</div>
+                    <div class="cellheader">What do you recommend the instructor to do to improve their teaching?</div>
+                    <div class="cellheader">What do you like about the labs?</div>
+                    <div class="cellheader">What do you recommend the lab instructors to do to improve their lab teaching?</div>
                     <div class="cellheader">Reviewed?</div>
-        
-                    {% for feedback in feedbacks %}
-                    <div class="cell">{{ feedback.feedback }}</div>
-                    <div class="cell">
-                        <input type="checkbox" name="reviewed_{{ feedback.id }}" {% if feedback.reviewed == 1%} checked {% endif %}>
-                    </div>
+            
+                   {% for i in range(feedback1|length) %}
+                        <div class="cell">{{ feedback1[i].feedback }}</div>
+                        <div class="cell">{{ feedback2[i].feedback }}</div>
+                        <div class="cell">{{ feedback3[i].feedback }}</div>
+                        <div class="cell">{{ feedback4[i].feedback }}</div>
+                        <div class="cell">
+                            <input type="checkbox" name="reviewed_{{ feedbacks[i].id }}" {% if feedbacks[i].reviewed == 1 %} checked {% endif %}>
+                        </div>
                     {% endfor %}
+                    
                 </div>
                 <button type="submit">Submit</button>
-            </form>
+            </form>            
         </main>
         
         <footer class="footer">
