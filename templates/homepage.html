@@ -13,28 +13,23 @@
         </header>
 
         <main class="content">
-            <p style="text-align: center">
+            <p style="text-align: center; font-size: 125%; margin: 0 0 0 0">
                 Welcome to our website! Please select one of the options below<br>
             </p><br><br>
     
-            <div class="image_container">
-                <div class="flip-card">
-                    <img src="{{ url_for('static', filename='Donkey.jpg') }}" alt="Deepti" style="width: 300px; height: auto; ">
-                </div>
-    
-                <div class="flip-card">
-                    <img src="{{ url_for('static', filename='Horse1.jpg') }}" alt="Hanna" style="width: 300px; height: auto; ">
+            <div class="image_container" style="padding: 0 0 10px 0">
+                <div class="flip-card" style="height: 110%">
+                    <img src="{{ url_for('static', filename='homepage_horse.jpg') }}" style="width: 300px; height: auto; ">
                 </div>
             </div>
 
-            <div class= "text_container" style="margin: 5px; border: 1px solid ">
+            <div class= "homepage_text_container">
                 <button class="homepage_to_register">
-                    <a href="{{ url_for('register') }}">Register </a>
+                    <a href="{{ url_for('register') }}" class = "homepage_text">Register </a>
                 </button>
                 <button class="homepage_to_register">
-                    <a href="{{ url_for('login') }}">Login </a>
+                    <a href="{{ url_for('login') }}" class = "homepage_text">Login </a>    
                 </button>
-    
             </div>
     
             <!-- <button class="homepage_to_register">
