@@ -59,8 +59,8 @@
                 {% if assignments %}
             {% for assignment in assignments %}
                 <div class="row">
-                    <div class="cell">{{ assignment.AssessmentsStudent.student_id }}</div>
-                    <div class="cell">{{ assignment.AssessmentsStudent.student_id }}</div>
+                    <div class="cell">{{ assignment.AssessmentsStudent.user_id }}</div>
+                    <div class="cell">{{ user.first_name + " " + user.last_name}}</div>
                     <div class="cell">{{ assignment.Assessment.name }}</div>
                     <div class="cell">{{ assignment.AssessmentsStudent.marks if assignment.AssessmentsStudent.marks is not none else 'Not Graded' }}</div>
                 </div>

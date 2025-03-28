@@ -49,15 +49,13 @@ class Assessment(db.Model):
     assessment_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     type = db.Column(db.String, nullable=False)
-    mark = db.Column(db.Integer)
-
     # Connecting assessment with the instructor
     instructor_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
 
 # Table with the students and their corresponding assessments
 class AssessmentsStudent(db.Model):
     __tablename__ = 'student_assessments'
-    student_id = db.Column(db.Integer, ForeignKey('users.user_id'), primary_key=True)
+    user_id = db.Column(db.Integer, ForeignKey('users.user_id'), primary_key=True)
     assessment_id = db.Column(db.Integer, ForeignKey('assessments.assessment_id'), primary_key=True)
     remark_id = db.Column(db.Integer, ForeignKey('remarkrequests.remark_id'))
     marks = db.Column(db.Integer, nullable=True)
@@ -85,7 +83,7 @@ class RemarkRequests(db.Model):
     __tablename__ = 'remarkrequests'
     remark_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     assessment_id = db.Column(db.Integer, ForeignKey('assessments.assessment_id'), nullable=False)
-    student_id = db.Column(db.String, ForeignKey('users.user_id'), nullable=False)
+    user_id = db.Column(db.String, ForeignKey('users.user_id'), nullable=False)
     status = db.Column(db.Integer, nullable=False, default=0)
     remark_reason = db.Column(db.String(500), nullable=True)
 
@@ -206,7 +204,7 @@ def viewstudentgrades():
         #assignments = AssessmentsStudent.query.all()
         print("Query executed successfully")  # Debugging statement
         for assignment in assignments:
-            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.student_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
+            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.user_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
         return render_template('viewstudentgrades.html', assignments=assignments, user=user)
     except Exception as e:
         print("Error:", e)  # This will print any database errors
@@ -225,7 +223,7 @@ def updatestudentgrades():
         #assignments = AssessmentsStudent.query.all()
         print("Query executed successfully")  # Debugging statement
         for assignment in assignments:
-            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.student_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
+            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.user_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
         return render_template('updatestudentgrades.html', assignments=assignments, user=user)
     except Exception as e:
         print("Error:", e)  # This will print any database errors
@@ -342,7 +340,7 @@ def studentgrades():
         db.session.query(Assessment, AssessmentsStudent)
         .join(AssessmentsStudent, Assessment.assessment_id == AssessmentsStudent.assessment_id)
     )
-    r2 = r1.filter(AssessmentsStudent.student_id == user_id)
+    r2 = r1.filter(AssessmentsStudent.user_id == user_id)
     r3 = r2.all()
 
     grades= []
