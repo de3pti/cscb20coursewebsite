@@ -100,31 +100,45 @@ class RemarkRequests(db.Model):
 # Rendering the pages to make the dropdown work
 @app.route('/')
 def homepage():
-    return render_template('homepage.html')
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    return render_template('homepage.html', user=user)
 
 @app.route('/syllabus')
 def syllabus():
-    return render_template('syllabus.html')
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    return render_template('syllabus.html', user=user)
 
 @app.route('/assignments')
 def assignments():
-    return render_template('assignments.html')
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    return render_template('assignments.html',user=user)
 
 @app.route('/lab')
 def lab():
-    return render_template('lab.html')
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    return render_template('lab.html', user=user)
 
 @app.route('/lecturenotes')
 def lecturenotes():
-    return render_template('lecturenotes.html')
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    return render_template('lecturenotes.html', user=user)
 
 @app.route('/piazza')
 def piazza():
-    return render_template('piazza.html')
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    return render_template('piazza.html', user=user)
 
 @app.route('/markus')
 def markus():
-    return redirect("https://markus2.utsc.utoronto.ca/")
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    return redirect("https://markus2.utsc.utoronto.ca/", user=user)
 
 @app.route('/anonfeedback', methods = ['GET', 'POST'])
 def anonfeedback():
@@ -171,14 +185,18 @@ def anonfeedback():
         else: 
             flash('Please select a Professor.', 'warning')
 
-    return render_template('anonfeedback.html', professors=professors)
+    return render_template('anonfeedback.html', professors=professors, user=user)
 
 @app.route('/courseteam')
 def courseteam():
-    return render_template('courseteam.html')
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    return render_template('courseteam.html', user=user)
 
 @app.route('/viewstudentgrades')
 def viewstudentgrades():
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
     try:
         assignments = (
             db.session.query(AssessmentsStudent, Assessment)
@@ -189,13 +207,15 @@ def viewstudentgrades():
         print("Query executed successfully")  # Debugging statement
         for assignment in assignments:
             print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.student_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
-        return render_template('viewstudentgrades.html', assignments=assignments)
+        return render_template('viewstudentgrades.html', assignments=assignments, user=user)
     except Exception as e:
         print("Error:", e)  # This will print any database errors
         return "An error occurred", 500
     
 @app.route('/updatestudentgrades')
 def updatestudentgrades():
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
     try:
         assignments = (
             db.session.query(AssessmentsStudent, Assessment)
@@ -206,13 +226,15 @@ def updatestudentgrades():
         print("Query executed successfully")  # Debugging statement
         for assignment in assignments:
             print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.student_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
-        return render_template('updatestudentgrades.html', assignments=assignments)
+        return render_template('updatestudentgrades.html', assignments=assignments, user=user)
     except Exception as e:
         print("Error:", e)  # This will print any database errors
         return "An error occurred", 500
     
 @app.route('/viewanonfeedback', methods=['GET', 'POST'])
 def viewanonfeedback():
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
     # Handling POST request
     if request.method == 'POST':
         print("Received POST request")
@@ -238,11 +260,13 @@ def viewanonfeedback():
         print(f"Feedback: {feedback.feedback}")
     
     # Always return the template with feedback data
-    return render_template('viewanonfeedback.html', feedbacks=feedbacks)
+    return render_template('viewanonfeedback.html', feedbacks=feedbacks, user=user)
 
 @app.route('/viewremarkrequests', methods=['GET', 'POST'])
 def viewremarkrequests():
-    return render_template('viewremarkrequests.html')
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    return render_template('viewremarkrequests.html', user=user)
 
 @app.route('/index')
 def index():
@@ -337,7 +361,7 @@ def studentgrades():
         else:
             grades.append(grade_info)
 
-    return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams)
+    return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
 
 # # NOTEE: DELETE EVERYTHING AFTER THIS BEFORE SUBMISSION
 # # Inserting new users into the database
