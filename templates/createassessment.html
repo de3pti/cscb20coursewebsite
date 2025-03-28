@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -37,6 +36,9 @@
                     {% if user.user_type == 0 %} 
                         <a href="{{ url_for('studentgrades') }}">Student Grades</a>
                     {% endif %}
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('createassessment') }}">Create Assessment</a>
+                    {% endif %}
                     {% if user.user_type == 1 %} 
                         <a href="{{ url_for('createassessment') }}">Create Assessment</a>
                     {% endif %}
@@ -44,31 +46,62 @@
             </div>
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
         </header>
+        <main class="content">
+            <h2>Add an Assessment</h2>
+            <form method='POST'>
+                <div class="tablecontainer">
+                    <div class="addassessmentgrid">
+                        <div class="cellheader">Field</div>
+                        <div class="cellheader">Input</div>
+                    
+                        <!-- Table Row -->
+                        <div class="row">
+                            <div class="cell">Assessment Name</div>
+                            <div class="cell">
+                                <input type="text" name='assignment_name' style="border-radius: 5px; width: 500px; height: 40px">
+                            </div>
+                        </div>
+                    
+                        <div class="row">
+                            <div class="cell">Assessment Type</div>
+                            <div class="cell">
+                                <input type="text" name='assignment_type' style="border-radius: 5px; width: 500px; height: 40px">
+                            </div>
+                        </div>
 
-    <main class = "content">
-        <p  style="text-align: center">
-        Feel free to ask questions on Piazza!
-            <a class="link" href="https://piazza.com/class/m5fmz9kzjo83yk" target="_blank" rel="noopener noreferrer">Visit Piazza!</a> 
-        </p>
-        <br>
-        
-        <div class="iframe_container"> 
+                        <!-- Table Row -->
+                        <div class="row">
+                            <div class="cell">Assessment Details</div>
+                            <div class="cell">
+                                <input type="text" name='assignment_details' style="border-radius: 5px; width: 500px; height: 300px">
+                            </div>
+                        </div>
 
-            
-            <iframe src="https://piazza.com/class/m5fmz9kzjo83yk">
-                <p>Your browser does not support iframes.</p>
-            </iframe> 
-        </div>
-       
+                        <div class="row">
+                            <div class="cell">Instructor ID</div>
+                            <div class="cell">
+                                <input type="text" name='instructor_id' style="border-radius: 5px; width: 500px; height: 40px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="btn-group" style='padding-top: 20px'>
+                <button class="btn" type="submit">Submit</button>
+            </div>
+            </form>
 
-    </main>
-    
-    <footer class="footer">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <p class="flash-message">{{ messages[-1] }}</p>
+            {% endif %}
+            {% endwith %}
+        </main>
+
+        <footer class="footer">
             <div>
                 <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
             </div>
             <p>Site design by Deepti, Hanna, Siara</p>
-    </footer>
-
-</body>
+        </footer>
+    </body>
 </html>

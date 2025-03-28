@@ -37,6 +37,9 @@
                 {% if user.user_type == 0 %} 
                     <a href="{{ url_for('studentgrades') }}">Student Grades</a>
                 {% endif %}
+                {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('createassessment') }}">Create Assessment</a>
+                    {% endif %}
             </div>
         </div>
         <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>

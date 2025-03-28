@@ -37,6 +37,9 @@
                     {% if user.user_type == 0 %} 
                         <a href="{{ url_for('studentgrades') }}">Student Grades</a>
                     {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('createassessment') }}">Create Assessment</a>
+                    {% endif %}
                 </div>
             </div>
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
@@ -61,12 +64,14 @@
                     </div>
                     {% endfor %}
                 </div>
-                <button type="submit">Submit</button>
+                <div class="btn-group" style='padding-top: 20px'>
+                    <button class="btn" type="submit">Submit</button>
+                </div>
             </form>
 
             {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <h2>{{ messages[-1] }}</h2>  {# Only show the last message #}
+                <p class="flash-message">{{ messages[-1] }}</p>  {# Only show the last message #}
             {% endif %}
             {% endwith %}
 

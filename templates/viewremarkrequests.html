@@ -37,13 +37,16 @@
                     {% if user.user_type == 0 %} 
                         <a href="{{ url_for('studentgrades') }}">Student Grades</a>
                     {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('createassessment') }}">Create Assessment</a>
+                    {% endif %}
                 </div>
             </div>
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
         </header>
 
         <main class="content">
-            <form method='POST'> <!-- Move the form outside -->
+            <form method='POST'>
                 <div class="viewremarkrequestgrid">
                     <div class="cellheader">Remark Requets ID</div>
                     <div class="cellheader">Student ID</div>
@@ -67,7 +70,9 @@
                     </div>
                     {% endfor %}
                 </div>
-                <button type="submit">Submit</button>
+                <div class="btn-group" style='padding-top: 20px'>
+                    <button class="btn" type="submit">Submit</button>
+                </div>
             </form>
         </main>
         

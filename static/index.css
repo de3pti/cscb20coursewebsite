@@ -223,6 +223,16 @@ h2 {
     border: 3px solid #4E6979;
 }
 
+.addassessmentgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 15fr;
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 1700px;
+    border: 3px solid #4E6979;
+}
+
 .viewanonfeedbackgrid {
     border-radius: 5px;
     display: grid;
@@ -292,6 +302,18 @@ h2 {
     background-color: #E2D3A1;
     border-color: #9C8330;
     border: solid;
+}
+
+.flash-message {
+    font-weight: 10;
+    background-color: #ccc;
+    padding: 10px;
+    align-self: center;
+    margin: 20px 0;
+    max-width: 700px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
 }
 
 /*CSS FOR COURSE TEAM*/

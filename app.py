@@ -49,6 +49,7 @@ class Assessment(db.Model):
     assessment_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     type = db.Column(db.String, nullable=False)
+    details = db.Column(db.String)
     # Connecting assessment with the instructor
     instructor_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
 
@@ -261,7 +262,7 @@ def viewanonfeedback():
         
         db.session.commit()  # Save changes to the database
             
-    feedbacks = Feedback.query.all()
+    feedbacks = Feedback.query.filter(Feedback.instructor_id==user.user_id).all()
     
     feedback1= []
     feedback2 = []
@@ -305,6 +306,55 @@ def viewremarkrequests():
     requests = db.session.query(RemarkRequests).join(User, User.user_id == RemarkRequests.user_id).all()
     
     return render_template('viewremarkrequests.html', requests=requests, user=user)
+
+
+@app.route('/createassessment', methods=['GET', 'POST'])
+def createassessment():
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    
+    if request.method == 'POST':
+        assignment_name = request.form.get('assignment_name')
+        assignment_type = request.form.get('assignment_type')
+        assignment_details = request.form.get('assignment_details')
+        instructor_id = request.form.get('instructor_id')
+        
+        if not assignment_name or not instructor_id:
+            flash("Please fill in all required fields.", "error")
+            return redirect(url_for('createassessment'))
+        
+        try:
+            with db.session.no_autoflush:  # ✅ Prevent premature flushing
+                new_assessment = Assessment(
+                    name=assignment_name,
+                    type=assignment_type,
+                    instructor_id=instructor_id,
+                    details=assignment_details
+                )
+                db.session.add(new_assessment)
+                db.session.flush()  # ✅ Get ID before committing
+
+                students = User.query.filter_by(user_type=0).all()
+                for student in students:
+                    student_assignment = AssessmentsStudent(
+                        user_id=student.user_id,
+                        assessment_id=new_assessment.assessment_id,
+                        marks=None
+                    )
+                    db.session.add(student_assignment)
+
+            db.session.commit()  # ✅ Single commit for everything
+            flash("Assessment created successfully!", "success")
+
+        except Exception as e:
+            db.session.rollback()  # Rollback if error occurs
+            flash(f"Error creating assessment: {str(e)}", "error")
+
+
+        flash("Assessment created successfully!", "success")
+        print('flashed')
+    
+    return render_template('createassessment.html', user=user)
 
 @app.route('/index')
 def index():
