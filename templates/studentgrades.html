@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content = "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    
+    <body>
+        <header class="header">
+            <div class="dropdown">
+                <button class="dropbutton">Menu</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('syllabus') }}">Syllabus</a>
+                    <a href="{{ url_for('assignments') }}">Assignments</a>
+                    <a href="{{ url_for('lab') }}">Labs</a>
+                    <a href="{{ url_for('lecturenotes') }}">Lecture Notes</a>
+                    <a href="{{ url_for('piazza') }}">Piazza</a>
+                    <a href="{{ url_for('markus') }}" target="_blank" rel="noopener noreferrer">MarkUs</a>
+                    <a href="{{ url_for('anonfeedback') }}">Anon Feedback</a>
+                    <a href="{{ url_for('courseteam') }}">Course Team</a>
+                    <a href="{{ url_for('studentgrades') }}">Student Grades</a>
+                    <a href="{{ url_for('viewstudentgrades') }}">View Student Grades</a>
+                    <a href="{{ url_for('updatestudentgrades') }}">Update Student Grades</a>
+                    <a href="{{ url_for('viewanonfeedback') }}">View Anonymous Feedback</a>
+                    <a href="{{ url_for('viewremarkrequests') }}">View Remark Requests</a>
+                </div>
+            </div>
+            <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
+        </header>
+
+    <main class="content">
+
+        <h2>Grades</h2>
+
+        <div class="homeblurbs">
+            <p>Here you will find all of your grades for the Assignments, the Midterm, the Labs/Tutorials, and the Final Exam. Please feel free to use the Piazza for feedback on grading and for answers.</p>
+        </div>
+
+        <br>
+        <div class="tablecontainer">
+            <div class="topicsgrid">
+                <div class="cellheader">Assignments</div>
+                <div class="cellheader">Grade</div>
+                {% if grades %}
+                    {% for grade in grades %}
+                        <div class="row">
+                            <div class="cell">{{ grade['assessment_name'] }}</div>
+                            <div class="cell">{{ grade['grade'] }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell">No grades available.</div>
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+
+            <div class="topicsgrid">
+                <div class="cellheader">Exams</div>
+                <div class="cellheader">Grade</div>
+                {% if exams %}
+                    {% for exam in exams %}
+                        <div class="row">
+                            <div class="cell">{{ exam['assessment_name'] }}</div>
+                            <div class="cell">{{ exam['grade'] }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell">No grades available.</div>
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+
+            <div class="topicsgrid">
+                <div class="cellheader">Labs</div>
+                <div class="cellheader">Grade</div>
+                {% if labs %}
+                    {% for lab in labs %}
+                        <div class="row">
+                            <div class="cell">{{ lab['assessment_name'] }}</div>
+                            <div class="cell">{{ lab['grade'] }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell">No grades available.</div>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </main>
+    
+    <footer class="footer">
+            <div>
+                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+            </div>
+            <p>Site design by Deepti, Hanna, Siara</p>
+    </footer>
+
+</body>
+</html>

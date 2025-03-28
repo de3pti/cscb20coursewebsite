@@ -29,7 +29,7 @@ Base = declarative_base()
 # Table for the users
 class User(db.Model):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
@@ -46,34 +46,34 @@ class User(db.Model):
 # Table for different types of assessments
 class Assessment(db.Model):
     __tablename__ = 'assessments'
-    id = db.Column(db.Integer, primary_key=True)
+    assessment_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     type = db.Column(db.String, nullable=False)
     mark = db.Column(db.Integer)
 
     # Connecting assessment with the instructor
-    instructor_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    instructor_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
 
 # Table with the students and their corresponding assessments
 class AssessmentsStudent(db.Model):
     __tablename__ = 'student_assessments'
-    student_id = db.Column(db.Integer, ForeignKey('users.id'), primary_key=True)
-    assessment_id = db.Column(db.Integer, ForeignKey('assessments.id'), primary_key=True)
-    remark_id = db.Column(db.Integer, ForeignKey('remark_id'), autoincrement=True)
+    student_id = db.Column(db.Integer, ForeignKey('users.user_id'), primary_key=True)
+    assessment_id = db.Column(db.Integer, ForeignKey('assessments.assessment_id'), primary_key=True)
+    remark_id = db.Column(db.Integer, ForeignKey('remarkrequests.remark_id'))
     marks = db.Column(db.Integer, nullable=True)
     # default is NULL, 0 = pending, 1 = approved, 2 = rejected
 
     # Connecting students to their assessments
     student_to_assess = relationship("User", backref="student_assessments")
     assess_to_student = relationship("Assessment", backref="student_assessments")
-    remark_to_student = relationship("Remark", backref="student_assessments")
+    remark_to_student = relationship("RemarkRequests", backref="student_assessments")
 
 
 # Table for feedback (anonymous feedback from students to instructors)
 class Feedback(db.Model):
     __tablename__ = 'feedback'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    instructor_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    instructor_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
     feedback_type = db.Column(db.Integer)
     feedback = db.Column(db.String, nullable=False)
     reviewed = db.Column(db.Integer, nullable=False, default=0)
@@ -84,8 +84,8 @@ class Feedback(db.Model):
 class RemarkRequests(db.Model):
     __tablename__ = 'remarkrequests'
     remark_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    assessment_id = db.Column(db.Integer, ForeignKey('assessment_id'), nullable=False)
-    student_id = db.Column(db.String, ForeignKey('assessment_id'), nullable=False)
+    assessment_id = db.Column(db.Integer, ForeignKey('assessments.assessment_id'), nullable=False)
+    student_id = db.Column(db.String, ForeignKey('users.user_id'), nullable=False)
     status = db.Column(db.Integer, nullable=False, default=0)
     remark_reason = db.Column(db.String(500), nullable=True)
 
@@ -182,7 +182,7 @@ def viewstudentgrades():
     try:
         assignments = (
             db.session.query(AssessmentsStudent, Assessment)
-            .join(Assessment, AssessmentsStudent.assessment_id == Assessment.id)
+            .join(Assessment, AssessmentsStudent.assessment_id == Assessment.assessment_id)
             .all()
         )
         #assignments = AssessmentsStudent.query.all()
@@ -247,7 +247,13 @@ def viewremarkrequests():
 @app.route('/index')
 def index():
     pagename='index'
-    return render_template('index.html')
+    username = session.get('name')
+    user = User.query.filter_by(username=username).first()
+    print(username)
+    print(user.user_id)
+    print(user.user_type)
+    print(user)
+    return render_template('index.html', user=user)
 
 # Registration, Login, and Logout
 @app.route('/register', methods = ['GET', 'POST'])
@@ -306,11 +312,11 @@ def studentgrades():
     if not user:
         return render_template('homepage.html')
     
-    user_id = user.id
+    user_id = user.user_id
 
     r1 = (
         db.session.query(Assessment, AssessmentsStudent)
-        .join(AssessmentsStudent, Assessment.id == AssessmentsStudent.assessment_id)
+        .join(AssessmentsStudent, Assessment.assessment_id == AssessmentsStudent.assessment_id)
     )
     r2 = r1.filter(AssessmentsStudent.student_id == user_id)
     r3 = r2.all()

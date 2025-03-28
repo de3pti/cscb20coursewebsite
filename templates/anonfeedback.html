@@ -17,13 +17,26 @@
                     <a href="{{ url_for('lab') }}">Labs</a>
                     <a href="{{ url_for('lecturenotes') }}">Lecture Notes</a>
                     <a href="{{ url_for('piazza') }}">Piazza</a>
-                    <a href="{{ url_for('markus') }}" target="_blank" rel="noopener noreferrer">MarkUs</a>
-                    <a href="{{ url_for('anonfeedback') }}">Anon Feedback</a>
+                    <a href="{{ url_for('markus') }}" target="_blank" rel="noopener noreferrer">MarkUs</a> 
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('anonfeedback') }}">Anon Feedback</a>
+                    {% endif %}
                     <a href="{{ url_for('courseteam') }}">Course Team</a>
-                    <a href="{{ url_for('viewstudentgrades') }}">View Student Grades</a>
-                    <a href="{{ url_for('updatestudentgrades') }}">Update Student Grades</a>
-                    <a href="{{ url_for('viewanonfeedback') }}">View Anonymous Feedback</a>
-                    <a href="{{ url_for('viewremarkrequests') }}">View Remark Requests</a>
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewstudentgrades') }}">View Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('updatestudentgrades') }}">Update Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewanonfeedback') }}">View Anonymous Feedback</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewremarkrequests') }}">View Remark Requests</a>
+                    {% endif %}
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('studentgrades') }}">Student Grades</a>
+                    {% endif %}
                 </div>
             </div>
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
@@ -37,7 +50,7 @@
             <p>Select Professor:</p>
             <select name="professor" id="professor">
                 {% for professor in professors %}
-                    <option value="{{ professor.id }}">{{ professor.first_name }} {{ professor.last_name }}</option>
+                    <option value="{{ professor.user_id }}">{{ professor.first_name }} {{ professor.last_name }}</option>
                 {% endfor %}
             </select>
 
