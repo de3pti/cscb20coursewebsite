@@ -210,48 +210,57 @@ def viewstudentgrades():
         print("Error:", e)  # This will print any database errors
         return "An error occurred", 500
     
-@app.route('/updatestudentgrades')
+@app.route('/updatestudentgrades', methods=['GET', 'POST'])
 def updatestudentgrades():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
-    try:
-        assignments = (
-            db.session.query(AssessmentsStudent, Assessment)
-            .join(Assessment, AssessmentsStudent.assessment_id == Assessment.id)
-            .all()
-        )
-        #assignments = AssessmentsStudent.query.all()
-        print("Query executed successfully")  # Debugging statement
-        for assignment in assignments:
-            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.user_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
-        return render_template('updatestudentgrades.html', assignments=assignments, user=user)
-    except Exception as e:
-        print("Error:", e)  # This will print any database errors
-        return "An error occurred", 500
+    
+    if request.method == 'POST':
+        print(request.form)
+        for assignment in AssessmentsStudent.query.all():
+            input_name = f"reviewed_{assignment.assessment_id}"  # Generate input name based on assignment ID
+            new_mark = request.form.get(input_name)  # Get the value from the form
+            
+            if new_mark is not None:
+                try:
+                    new_mark = int(new_mark)  # Convert the value to an integer first
+                    if 0 <= new_mark <= 100:  # Check if within valid range
+                        assignment.marks = new_mark  # Update the marks field
+                    else:
+                        flash("Marks must be between 0 and 100.", "error")
+                        return redirect(url_for('updatestudentgrades'))
+                except ValueError:
+                    flash("Invalid mark entered. Please enter a valid number.", "error")
+                    return redirect(url_for('updatestudentgrades'))  # Redirect if there's an error
+            else:
+                flash("Invalid mark entered. Please enter a valid number.", "error")
+
+        db.session.commit()  # Save all changes
+        flash("Marks updated successfully!", "success")
+        return redirect(url_for('updatestudentgrades'))
+    
+    assignments = AssessmentsStudent.query.all()
+    assignments = db.session.query(AssessmentsStudent).join(User, User.user_id == AssessmentsStudent.user_id).join(Assessment, Assessment.assessment_id == AssessmentsStudent.assessment_id).all()
+
+    
+    return render_template('updatestudentgrades.html', user=user, assignments=assignments)
     
 @app.route('/viewanonfeedback', methods=['GET', 'POST'])
 def viewanonfeedback():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
-    # Handling POST request
     if request.method == 'POST':
-        print("Received POST request")
-        print("Form Data:", request.form)  # Debugging: print the form data
         
         # Process checkboxes and update the 'reviewed' field for each feedback
         for feedback in Feedback.query.all():
             checkbox_name = f"reviewed_{feedback.id}"
             if checkbox_name in request.form:
-                print("reviewed")
                 feedback.reviewed = 1  # Mark as reviewed if checked
             else:
-                print("not reviewed")
                 feedback.reviewed = 0  # Mark as not reviewed if unchecked
         
         db.session.commit()  # Save changes to the database
-        print("Database updated with reviewed status")
-    
-    # Handling GET request (or after POST)
+            
     feedbacks = Feedback.query.all()
     
     feedback1= []
@@ -260,32 +269,42 @@ def viewanonfeedback():
     feedback4 = []
     for feedback in feedbacks:
         if feedback.feedback_type == 0:
-            print(f"Feedback1: {feedback.feedback}")
             feedback1.append(feedback)
         elif feedback.feedback_type == 1:
-            print(f"Feedback2: {feedback.feedback}")
             feedback2.append(feedback)
         elif feedback.feedback_type == 2:
-            print(f"Feedback3: {feedback.feedback}")
             feedback3.append(feedback)
         else:
-            print(f"Feedback4: {feedback.feedback}")
             feedback4.append(feedback)
-            
-    print(feedback1)
-    print(feedback2)
-    print(feedback3)
-    print(feedback4)
-    print("Query executed successfully")  # Debugging: check if query works
     
-    # Always return the template with feedback data
     return render_template('viewanonfeedback.html', feedbacks=feedbacks, feedback1 = feedback1, feedback2 = feedback2, feedback3=feedback3, feedback4=feedback4, user=user, len = len(feedbacks))
 
 @app.route('/viewremarkrequests', methods=['GET', 'POST'])
 def viewremarkrequests():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
-    return render_template('viewremarkrequests.html', user=user)
+    
+    if request.method == 'POST':
+        # Loop over each remark request in the form
+        for remark in RemarkRequests.query.all():
+            # Get the status of this particular remark from the form
+            remark_status = request.form.get(f'reviewed_{remark.remark_id}')  # Assuming you use reviewed_{remark.remark_id} for each form element
+
+            if remark_status == '1':
+                remark.status = 1 
+            elif remark_status == '2':
+                remark.status = 2
+            else:
+                remark.status = 0
+
+        # Commit the changes to the database
+        db.session.commit()
+            
+    feedbacks = Feedback.query.all()
+    
+    requests = db.session.query(RemarkRequests).join(User, User.user_id == RemarkRequests.user_id).all()
+    
+    return render_template('viewremarkrequests.html', requests=requests, user=user)
 
 @app.route('/index')
 def index():

@@ -44,31 +44,32 @@
 
         <main class="content">
             <form method='POST'> <!-- Move the form outside -->
-                <div class="viewremarkrequestgrid">
-                    <div class="cellheader">Remark Requets ID</div>
+                <div class="viewanonfeedbackgrid">
                     <div class="cellheader">Student ID</div>
                     <div class="cellheader">Student Name</div>
                     <div class="cellheader">Assignment Name</div>
-                    <div class="cellheader">Reason for Request</div>
-                    <div class="cellheader">Current Status</div>
+                    <div class="cellheader">Current Mark</div>
+                    <div class="cellheader">Update</div>
         
-                    {% for request in requests %}
-                    <div class="cell">{{ request.remark_id }}</div>
-                    <div class="cell">{{ request.remark_to_user.user_id }}</div>
-                    <div class="cell">{{ request.remark_to_user.first_name + " " + request.remark_to_user.last_name }}</div>
-                    <div class="cell">{{ request.remark_to_assessment.name }}</div>
-                    <div class="cell">{{ request.remark_reason }}</div>
+                    {% for assignment in assignments %}
+                    <div class="cell">{{ assignment.user_id }}</div>
+                    <div class="cell">{{ assignment.student_to_assess.first_name + " " +  assignment.student_to_assess.last_name}}</div>
+                    <div class="cell">{{ assignment.assess_to_student.name }}</div>
+                    <div class="cell">{{ assignment.marks }}</div>
                     <div class="cell">
-                        <select style="border-radius: 5px;" name="reviewed_{{ request.remark_id }}">
-                            <option value="0" {% if request.status == 0 %} selected {% endif %}>Pending</option>
-                            <option value="1" {% if request.status == 1 %} selected {% endif %}>Declined</option>
-                            <option value="2" {% if request.status == 2 %} selected {% endif %}>Approved</option>
-                        </select>
+                        <input type="number" name="reviewed_{{ assignment.assessment_id }}" value="{{ assignment.marks }}" style="border-radius: 5px; width: 80px;">
                     </div>
                     {% endfor %}
                 </div>
                 <button type="submit">Submit</button>
             </form>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <h2>{{ messages[-1] }}</h2>  {# Only show the last message #}
+            {% endif %}
+            {% endwith %}
+
         </main>
         
         <footer class="footer">
