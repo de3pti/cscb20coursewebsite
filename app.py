@@ -363,25 +363,7 @@ def studentgrades():
 
     return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
 
-# # NOTEE: DELETE EVERYTHING AFTER THIS BEFORE SUBMISSION
-# # Inserting new users into the database
-# instructor = User(username='jane_doe', email='jane@example.com', password='securepassword', user_type=1)  # INSTRUCTOR = 1
-# student = User(username='john_doe', email='john@example.com', password='securepassword', user_type=0)  # STUDENT = 0
-# session.add_all([instructor, student])
-# session.commit()
-
-# # Example: Add a new assessment
-# assessment = Assessment(name="Math Exam", mark=100, instructor_id=instructor.id)
-# session.add(assessment)
-# session.commit()
-
-# # Example: Add feedback from a student about the instructor
-# feedback = Feedback(instructor_id=instructor.id, feedback="Great teacher, very clear explanations!")
-# session.add(feedback)
-# session.commit()
-
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
-
