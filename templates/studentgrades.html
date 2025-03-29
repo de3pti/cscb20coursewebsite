@@ -55,14 +55,34 @@
 
         <br>
         <div class="tablecontainer">
-            <div class="topicsgrid">
+            <div class="gradesgrid">
                 <div class="cellheader">Assignments</div>
                 <div class="cellheader">Grade</div>
+                <div class="cellheader">Requst Regrade</div>
+                <div class="cellheader">Regrade Status</div>
                 {% if grades %}
                     {% for grade in grades %}
                         <div class="row">
                             <div class="cell">{{ grade['assessment_name'] }}</div>
                             <div class="cell">{{ grade['grade'] }}</div>
+                            <div class="cell">
+                                {% if regrade_statuses[grade['assessment_name']] == "No Request" %}
+                                    <button type="button" onclick="ButtontoTextBox({{ grade['assessment_name'] | tojson }})">
+                                        Request Regrade: {{ grade['assessment_name'] }}
+                                    </button>
+                                    
+                                {% else %}
+                                    <span>{{ regrade_statuses[grade['assessment_name']] }}</span>
+                                {% endif %}
+                                <div id="regradeFormContainer-{{ grade['assessment_name'] }}" class="hide">
+                                    <form action="{{ url_for('studentgrades') }}" method="POST">
+                                        <input type="hidden" name="assessment_id" value="{{ grade['assessment_name'] }}">
+                                        <textarea name="reason" placeholder="Enter reason..." required></textarea>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="cell">{{ regrade_statuses[grade['assessment_name']] }}</div>
                         </div>
                     {% endfor %}
                 {% else %}

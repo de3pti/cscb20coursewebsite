@@ -14,6 +14,14 @@
     src: url(Mont-HeavyDEMO.ttf);
 }
 
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
 /*CSS FOR CARD ANIMATION ON COURSE TEAM*/
 .flip-card {
     background-color: #B9CAC9;
@@ -217,6 +225,16 @@ h2 {
     border-radius: 5px;
     display: grid;
     grid-template-columns: repeat(2, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width:  800px;
+    border: 3px solid #4E6979;
+}
+
+.gradesgrid{
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
     background-color: #B9CAC9;
     color: #444;
     max-width:  800px;
@@ -754,6 +772,17 @@ h6{
         border: 3px solid #B9B979;
     }
 
+    .gradesgrid{
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 800px;
+        border: 3px solid #B9B979;
+    }
+    
+
     .calendargrid {
         border-radius: 5px;
         display: grid;
@@ -967,6 +996,14 @@ h6{
 
     .btn-group {
         text-align: center;
+    }
+
+    .hide {
+        display: none;
+    }
+    
+    .show {
+        display: block;
     }
 
     /* CSS for Dropdown menue */
