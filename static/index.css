@@ -696,6 +696,46 @@ section{
         border: 3px solid #B9B979;
     }
 
+    .addassessmentgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: 1fr 15fr;
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 1700px;
+        border: 3px solid #B9B979;
+    }
+    
+    .viewanonfeedbackgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 1200px;
+        border: 3px solid #B9B979;
+    }
+    
+    .viewremarkrequestgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(6, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 1200px;
+        border: 3px solid #B9B979;
+    }
+
+    .studentmarks {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    background-color: #78783F;
+    color: #E1D9CC;
+    max-width:  800px;
+    border: 3px solid #B9B979;
+}
+
     .row {
         display: contents;
         width: 100%;
