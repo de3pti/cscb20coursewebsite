@@ -460,6 +460,9 @@ def studentgrades():
 
     return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
 
+# close session at the end
+#db.session.close()
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
