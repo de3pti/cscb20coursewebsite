@@ -11,13 +11,33 @@
         <header class="header">
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
         </header>
+
         <main class="content">
-            <div class="homepage_to_register">
+            <p style="text-align: center; font-size: 125%; margin: 0 0 0 0">
+                Welcome to our website! Please select one of the options below<br>
+            </p><br><br>
+    
+            <div class="image_container" style="padding: 0 0 10px 0">
+                <div class="flip-card" style="height: 110%">
+                    <img src="{{ url_for('static', filename='homepage_horse.jpg') }}" style="width: 300px; height: auto; ">
+                </div>
+            </div>
+
+            <div class= "homepage_text_container">
+                <button class="homepage_to_register">
+                    <a href="{{ url_for('register') }}" class = "homepage_text">Register </a>
+                </button>
+                <button class="homepage_to_register">
+                    <a href="{{ url_for('login') }}" class = "homepage_text">Login </a>    
+                </button>
+            </div>
+    
+            <!-- <button class="homepage_to_register">
                 <a href="{{ url_for('register') }}">Register </a>
-            </div>
-            <div class="homepage_to_register">
+            </button>
+            <button class="homepage_to_register">
                 <a href="{{ url_for('login') }}">Login </a>
-            </div>
+            </button> -->
         </main>
     
         <footer class="footer">

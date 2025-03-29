@@ -489,6 +489,109 @@ section{
     display: block
 }
 
+/* Styling the homepage */
+.homepage_to_register{
+    background-color: #C4A645;
+    cursor: pointer;
+    width: 100%;
+    margin: 5px 0 25px 0;
+    padding: 15px 10px;
+    text-decoration: none;
+    display: incline-block;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.homepage_to_register:hover{
+    opacity: 1;
+
+}
+.homepage_text{
+    color: black;
+    text-decoration: none;
+
+}
+.homepage_text_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+/* Styling the Login and Registration pages */
+h6{
+    text-align: left;
+    margin: 0 0 10px 0;
+    font-size: 30px;
+
+}
+.register_form_full{
+    align-self: left;
+    margin: 0 48px 0 0;
+}
+.register_row{
+    padding: 15px;
+    margin: 10px 0 5px 0;
+    display: inline-block;
+} 
+ .register_form_text{
+    width: 90%;
+    padding: 14px 11px;
+    margin: 8px 0;
+    display: inline-block;
+ }
+.direct_to_register{
+    padding: 15px;
+    display: inline-block;
+    text-align: center;
+
+}
+.direct_to_signin{
+    padding: 5px;
+    margin: 0 0 10px 0;
+    text-align: center;
+
+}
+.signin_row{
+    padding: 15px;
+    margin: 10px 0 5px 0;
+    display: inline-block;
+} 
+.signin_item{
+    width: 120%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding: 0 5px 10px 0;
+
+}
+.register_submit{
+    background-color: #C4A645;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin: 5px 0 25px 0;
+    padding: 15px 20px;
+    opacity: 0.9;
+}
+.signin_submit{
+    background-color: #C4A645;
+    border: none;
+    cursor: pointer;
+    width: 120%;
+    margin: 5px 0 25px 0;
+    padding: 15px 20px;
+    opacity: 0.9;
+}
+.register_submit:hover{
+    opacity: 1;
+}
+
+.signin_submit:hover{
+    opacity: 1;
+}
+
+
 /*Light and Dark mode*/
 /*Dark mode: ->light mode is the default*/
 @media (prefers-color-scheme: dark) {
@@ -1057,4 +1160,6 @@ and (max-device-width: 600px) {
     section{
         display: block
     }
+
+
 }
