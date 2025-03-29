@@ -71,10 +71,12 @@ class AssessmentsStudent(db.Model):
 # Table for feedback (anonymous feedback from students to instructors)
 class Feedback(db.Model):
     __tablename__ = 'feedback'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    feedback_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     instructor_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
-    feedback_type = db.Column(db.Integer)
-    feedback = db.Column(db.String, nullable=False)
+    feedback_inst_1 = db.Column(db.String, nullable=False)
+    feedback_inst_2 = db.Column(db.String, nullable=False)
+    feedback_lab_1 = db.Column(db.String, nullable=False)
+    feedback_lab_2 = db.Column(db.String, nullable=False)
     reviewed = db.Column(db.Integer, nullable=False, default=0)
 
     # Connecting the feedback to an instructor
@@ -144,10 +146,10 @@ def anonfeedback():
 
     if not user.user_type == 0:
         return render_template('viewanonfeedback.html') #temp, add prof feedback
-    
+
     if not user:
         return render_template('homepage.html')
-    
+
     professors = User.query.filter_by(user_type=1).all()
     if request.method == "POST":
         professor_id = request.form.get('professor')
@@ -159,26 +161,19 @@ def anonfeedback():
             lab_feed = request.form.get('lab_feed')
             lab_tips = request.form.get('lab_tips')
 
-            if instruct_feed:
-                feedback_instructor = Feedback(instructor_id=professor_id, feedback_type=0, feedback=instruct_feed)
-                db.session.add(feedback_instructor)
-                
-            if instruct_tips:
-                feedback_tips = Feedback(instructor_id=professor_id, feedback_type=1, feedback=instruct_tips)
-                db.session.add(feedback_tips)
-                
-            if lab_feed:
-                feedback_lab = Feedback(instructor_id=professor_id, feedback_type=2, feedback=lab_feed)
-                db.session.add(feedback_lab)
-                
-            if lab_tips:
-                feedback_lab_tips = Feedback(instructor_id=professor_id, feedback_type=3, feedback=lab_tips)
-                db.session.add(feedback_lab_tips)
+            new_feedback = Feedback(
+                instructor_id = professor_id,
+                feedback_inst_1 = instruct_feed,
+                feedback_inst_2 = instruct_tips,
+                feedback_lab_1 = lab_feed,
+                feedback_lab_2 = lab_tips
+                )
 
+            db.session.add(new_feedback)
             db.session.commit()
             flash('Your feedback has been submitted successfully!', 'success')
 
-            return render_template('anonfeedback.html', success=True, professors=professors)
+            return render_template('anonfeedback.html', success=True, professors=professors, user=user)
         else: 
             flash('Please select a Professor.', 'warning')
 
@@ -194,6 +189,27 @@ def courseteam():
 def viewstudentgrades():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
+    assessments = Assessment.query.all()
+    students = User.query.filter_by(user_type=0).all()
+    
+    for assessment in assessments:
+        for student in students:
+            # Check if the student is already assigned this assessment
+            existing_assignment = AssessmentsStudent.query.filter_by(
+                user_id=student.user_id,
+                assessment_id=assessment.assessment_id
+            ).first()  # Check if the student is assigned to this assessment
+            
+            if not existing_assignment:
+                # If not, assign them the assessment
+                new_assignment = AssessmentsStudent(
+                    user_id=student.user_id,
+                    assessment_id=assessment.assessment_id,
+                    marks=None
+                )
+                db.session.add(new_assignment)
+                db.session.commit()  # Commit after assigning students to assessments
+                
     try:
         assignments = (
             db.session.query(AssessmentsStudent, Assessment)
@@ -218,6 +234,27 @@ def viewstudentgrades():
 def updatestudentgrades():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
+    
+    assessments = Assessment.query.all()
+    students = User.query.filter_by(user_type=0).all()
+    
+    for assessment in assessments:
+        for student in students:
+            # Check if the student is already assigned this assessment
+            existing_assignment = AssessmentsStudent.query.filter_by(
+                user_id=student.user_id,
+                assessment_id=assessment.assessment_id
+            ).first()  # Check if the student is assigned to this assessment
+            
+            if not existing_assignment:
+                # If not, assign them the assessment
+                new_assignment = AssessmentsStudent(
+                    user_id=student.user_id,
+                    assessment_id=assessment.assessment_id,
+                    marks=None
+                )
+                db.session.add(new_assignment)
+                db.session.commit()  # Commit after assigning students to assessments
     
     if request.method == 'POST':
         print(request.form)  # Debugging print statement
@@ -261,34 +298,21 @@ def viewanonfeedback():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
     if request.method == 'POST':
+        print(request.form)
         
-        # Process checkboxes and update the 'reviewed' field for each feedback
         for feedback in Feedback.query.all():
-            checkbox_name = f"reviewed_{feedback.id}"
+            checkbox_name = f"reviewed_{feedback.feedback_id}"
+
             if checkbox_name in request.form:
-                feedback.reviewed = 1  # Mark as reviewed if checked
+                feedback.reviewed = 1
             else:
-                feedback.reviewed = 0  # Mark as not reviewed if unchecked
+                feedback.reviewed = 0
         
-        db.session.commit()  # Save changes to the database
+        db.session.commit() 
             
     feedbacks = Feedback.query.filter(Feedback.instructor_id==user.user_id).all()
     
-    feedback1= []
-    feedback2 = []
-    feedback3 = []
-    feedback4 = []
-    for feedback in feedbacks:
-        if feedback.feedback_type == 0:
-            feedback1.append(feedback)
-        elif feedback.feedback_type == 1:
-            feedback2.append(feedback)
-        elif feedback.feedback_type == 2:
-            feedback3.append(feedback)
-        else:
-            feedback4.append(feedback)
-    
-    return render_template('viewanonfeedback.html', feedbacks=feedbacks, feedback1 = feedback1, feedback2 = feedback2, feedback3=feedback3, feedback4=feedback4, user=user, len = len(feedbacks))
+    return render_template('viewanonfeedback.html', feedbacks=feedbacks, user=user)
 
 @app.route('/viewremarkrequests', methods=['GET', 'POST'])
 def viewremarkrequests():
@@ -426,7 +450,7 @@ def logout():
     session.pop('name', default = None)
     return redirect(url_for('index'))
 
-# Hannas Section
+
 @app.route('/studentgrades', methods=['GET', 'POST'])
 def studentgrades():
     username = session['name']
@@ -444,49 +468,56 @@ def studentgrades():
         db.session.query(Assessment, AssessmentsStudent)
         .join(AssessmentsStudent, Assessment.assessment_id == AssessmentsStudent.assessment_id)
     )
-    r2 = r1.filter(AssessmentsStudent.user_id == user_id)
-    r3 = r2.all()
+    r2 = r1.outerjoin(RemarkRequests, AssessmentsStudent.remark_id == RemarkRequests.remark_id)
+    r3 = r2.filter(AssessmentsStudent.user_id == user_id)
+    r4 = r3.add_columns(RemarkRequests) 
+    r5 = r4.all()
 
     grades= []
     labs = []
     exams = []
-    regrade_statuses = {}
 
-    for assessment, student_assessment in r3:
+    for assessment, student_assessment, remark_request in r5:
         grade_info = {
             'assessment_name': assessment.name,
             'assessment_id': assessment.assessment_id,
-            'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded'
+            'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded',
+            'remark_status': remark_request.status if remark_request else "No Remark Requested"
         }
-        if assessment.type == "Midterm" or assessment.type == "Final":
+        if assessment.type == "Test":
             exams.append(grade_info)
         elif assessment.type == "Lab":
             labs.append(grade_info)
         else:
             grades.append(grade_info)
 
-        request_status = RemarkRequests.query.filter_by(user_id=user_id, assessment_id=assessment.assessment_id).first()
-        status = {0: "Pending", 1:"Approved", 2: "Rejected"}
-        regrade_statuses[assessment.name] = status.get(request_status.status) if request_status else "No Request"
+    if request.method == 'POST':
 
-        if request.method == 'POST':
-            assessment_id = request.form.get('assessment_id')  
-            reason = request.form.get('reason')
+        assessment_id = request.form.get('assessment_id')
+        remark_reason = request.form.get('remark_reason')
 
-            if assessment_id and reason:
-                request_status = RemarkRequests.query.filter_by(user_id=(user_id), assessment_id=assessment_id).first()
 
-                if not request_status:
-                    new_request = RemarkRequests(
-                        user_id=user_id, 
-                        assessment_id=assessment_id,
-                        remark_reason=reason,
-                        status=0 )
-                db.session.add(new_request)
-                db.session.commit()
-                regrade_statuses[assessment_id] = "Pending"
+        if assessment_id and remark_reason:
+            new_remark_request = RemarkRequests(
+                assessment_id=assessment_id,
+                user_id=user_id,
+                status=0,
+                remark_reason=remark_reason
+            )
+            db.session.add(new_remark_request)
+            db.session.commit()
 
-    return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, regrade_statuses=regrade_statuses, user=user)
+
+            new_remark_request_id = new_remark_request.remark_id
+
+            student_assessment = AssessmentsStudent.query.filter_by(user_id=user_id, assessment_id=assessment_id).first()
+
+            student_assessment.remark_id = new_remark_request_id
+            db.session.commit()
+
+            flash('Regrade request submitted successfully!', 'success')
+
+    return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
 
 # close session at the end
 #db.session.close()

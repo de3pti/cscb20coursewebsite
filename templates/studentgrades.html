@@ -53,36 +53,41 @@
             <p>Here you will find all of your grades for the Assignments, the Midterm, the Labs/Tutorials, and the Final Exam. Please feel free to use the Piazza for feedback on grading and for answers.</p>
         </div>
 
+        {% with messages = get_flashed_messages()%}
+            {% if messages%}
+                {% for message in messages%}
+                <h2>{{message}}</h2>
+                {%endfor%}
+                {%endif%}
+                {%endwith%}
+
         <br>
         <div class="tablecontainer">
-            <div class="gradesgrid">
+            <div class="studentgradegrid">
                 <div class="cellheader">Assignments</div>
                 <div class="cellheader">Grade</div>
-                <div class="cellheader">Requst Regrade</div>
+                <div class="cellheader">Request Regrade</div>
                 <div class="cellheader">Regrade Status</div>
                 {% if grades %}
                     {% for grade in grades %}
                         <div class="row">
                             <div class="cell">{{ grade['assessment_name'] }}</div>
-                            <div class="cell">{{ grade['grade'] }}</div>
+                            <div class="cell">{{ grade['marks'] }}</div>
+
                             <div class="cell">
-                                {% if regrade_statuses[grade['assessment_name']] == "No Request" %}
-                                    <button type="button" onclick="ButtontoTextBox({{ grade['assessment_name'] | tojson }})">
-                                        Request Regrade: {{ grade['assessment_name'] }}
-                                    </button>
-                                    
-                                {% else %}
-                                    <span>{{ regrade_statuses[grade['assessment_name']] }}</span>
-                                {% endif %}
-                                <div id="regradeFormContainer-{{ grade['assessment_name'] }}" class="hide">
+                                {% if grade['remark_status'] == "No Remark Requested" %}
+
                                     <form action="{{ url_for('studentgrades') }}" method="POST">
-                                        <input type="hidden" name="assessment_id" value="{{ grade['assessment_name'] }}">
-                                        <textarea name="reason" placeholder="Enter reason..." required></textarea>
-                                        <button type="submit">Submit</button>
+                                        <input type="hidden" name="assessment_id" value="{{ grade['assessment_id'] }}">
+                                        <label for="remark_reason">Reason for Regrade:</label>
+                                        <input type="text" name="remark_reason" placeholder="Please enter your reason here:" required>
+                                        <button type="submit" class="button">Submit</button>
                                     </form>
-                                </div>
+                                {% else %}
+                                    <p>Regrade request already submitted</p>
+                                {% endif %}
                             </div>
-                            <div class="cell">{{ regrade_statuses[grade['assessment_name']] }}</div>
+                            <div class="cell">{{ grade['remark_status'] }}</div>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -93,14 +98,31 @@
             </div>
             <br>
 
-            <div class="topicsgrid">
+            <div class="studentgradegrid">
                 <div class="cellheader">Exams</div>
                 <div class="cellheader">Grade</div>
+                <div class="cellheader">Request Regrade</div>
+                <div class="cellheader">Regrade Status</div>
                 {% if exams %}
                     {% for exam in exams %}
                         <div class="row">
                             <div class="cell">{{ exam['assessment_name'] }}</div>
-                            <div class="cell">{{ exam['grade'] }}</div>
+                            <div class="cell">{{ exam['marks'] }}</div>
+                            <div class="cell">
+                                {% if exam['remark_status'] == "No Remark Requested" %}
+
+                                    <form action="{{ url_for('studentgrades') }}" method="POST">
+                                        <input type="hidden" name="assessment_id" value="{{ exam['assessment_id'] }}">
+                                        <label for="remark_reason">Reason for Regrade:</label>
+                                        <input type="text" name="remark_reason" placeholder="Please enter your reason here:" required>
+                                        <button type="submit" class="button">Submit</button>
+                                    </form>
+                                {% else %}
+                                    <p>Regrade request already submitted</p>
+                                {% endif %}
+                            </div>
+                            <div class="cell">{{ exam['remark_status'] }}</div>
+                        
                         </div>
                     {% endfor %}
                 {% else %}
@@ -111,14 +133,31 @@
             </div>
             <br>
 
-            <div class="topicsgrid">
+            <div class="studentgradegrid">
                 <div class="cellheader">Labs</div>
                 <div class="cellheader">Grade</div>
+                <div class="cellheader">Request Regrade</div>
+                <div class="cellheader">Regrade Status</div>
                 {% if labs %}
                     {% for lab in labs %}
                         <div class="row">
                             <div class="cell">{{ lab['assessment_name'] }}</div>
-                            <div class="cell">{{ lab['grade'] }}</div>
+                            <div class="cell">{{ lab['marks'] }}</div>
+                            <div class="cell">
+                                {% if lab['remark_status'] == "No Remark Requested" %}
+
+                                    <form action="{{ url_for('studentgrades') }}" method="POST">
+                                        <input type="hidden" name="assessment_id" value="{{ lab['assessment_id'] }}">
+                                        <label for="remark_reason">Reason for Regrade:</label>
+                                        <input type="text" name="remark_reason" placeholder="Please enter your reason here:" required>
+                                        <button type="submit" class="button">Submit</button>
+                                    </form>
+                                {% else %}
+                                    <p>Regrade request already submitted</p>
+                                {% endif %}
+                            </div>
+                            <div class="cell">{{ lab['remark_status'] }}</div>
+                        
                         </div>
                     {% endfor %}
                 {% else %}
@@ -129,6 +168,8 @@
             </div>
 
         </div>
+
+    
 
     </main>
     
