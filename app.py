@@ -84,7 +84,7 @@ class RemarkRequests(db.Model):
     __tablename__ = 'remarkrequests'
     remark_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     assessment_id = db.Column(db.Integer, ForeignKey('assessments.assessment_id'), nullable=False)
-    user_id = db.Column(db.String, ForeignKey('users.user_id'), nullable=False)
+    user_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
     status = db.Column(db.Integer, nullable=False, default=0)
     remark_reason = db.Column(db.String(500), nullable=True)
 
@@ -413,7 +413,7 @@ def logout():
     return redirect(url_for('index'))
 
 # Hannas Section
-@app.route('/studentgrades')
+@app.route('/studentgrades', methods=['GET', 'POST'])
 def studentgrades():
     username = session['name']
     user = User.query.filter_by(username=username).first()
@@ -436,20 +436,43 @@ def studentgrades():
     grades= []
     labs = []
     exams = []
+    regrade_statuses = {}
 
     for assessment, student_assessment in r3:
         grade_info = {
             'assessment_name': assessment.name,
+            'assessment_id': assessment.assessment_id,
             'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded'
         }
-        if "Midterm" in assessment.name or "Final" in assessment.name:
+        if assessment.type == "Midterm" or assessment.type == "Final":
             exams.append(grade_info)
-        elif "Lab" in assessment.name:
+        elif assessment.type == "Lab":
             labs.append(grade_info)
         else:
             grades.append(grade_info)
 
-    return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
+        request_status = RemarkRequests.query.filter_by(user_id=user_id, assessment_id=assessment.assessment_id).first()
+        status = {0: "Pending", 1:"Approved", 2: "Rejected"}
+        regrade_statuses[assessment.name] = status.get(request_status.status) if request_status else "No Request"
+
+        if request.method == 'POST':
+            assessment_id = request.form.get('assessment_id')  
+            reason = request.form.get('reason')
+
+            if assessment_id and reason:
+                request_status = RemarkRequests.query.filter_by(user_id=(user_id), assessment_id=assessment_id).first()
+
+                if not request_status:
+                    new_request = RemarkRequests(
+                        user_id=user_id, 
+                        assessment_id=assessment_id,
+                        remark_reason=reason,
+                        status=0 )
+                db.session.add(new_request)
+                db.session.commit()
+                regrade_statuses[assessment_id] = "Pending"
+
+    return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, regrade_statuses=regrade_statuses, user=user)
 
 if __name__ == "__main__":
     with app.app_context():
