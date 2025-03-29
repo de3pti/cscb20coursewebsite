@@ -14,6 +14,54 @@
     src: url(Mont-HeavyDEMO.ttf);
 }
 
+/* CSS for form in student grades */
+.popup-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #A9B9DB;
+    padding: 15px;
+    border-radius: 8px;
+    border: 3px solid #4E6979;
+    font-family: Mont;
+}
+
+.popup-form-content {
+    display: none; 
+}
+
+#toggleForm:checked ~ #regradeForm {
+    display: block; 
+}
+
+#toggleForm:checked ~ #regradeForm .popup-form-content {
+    display: block; /* Show content when checkbox is checked */
+}
+
+.button {
+    color: #253C33;
+    background-color:#C4A645;
+    font-family: Mont;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+label.button {
+    color: #253C33;
+    background-color:#C4A645;
+    font-family: Mont;
+    border-radius: 8px;
+}
+
+
+.disabled {
+    background: #ddd;
+    cursor: not-allowed;
+}
+
 /*CSS FOR CARD ANIMATION ON COURSE TEAM*/
 .flip-card {
     background-color: #B9CAC9;
@@ -200,6 +248,16 @@ h2 {
     background-color: #B9CAC9;
     color: #444;
     max-width:  800px;
+    border: 3px solid #4E6979;
+}
+
+.studentgradegrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 800px;
     border: 3px solid #4E6979;
 }
 
@@ -504,6 +562,20 @@ section{
         color: #E1D8CC;
     }
 
+    .popup-form {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 15px;
+        border-radius: 8px;
+        font-family: Mont;
+        background-color: #78783F;
+        color: #E1D9CC;
+        border: 3px solid #B9B979;
+    }
+
     .flip-card-inner {
         position: relative;
         width: 100%;
@@ -634,7 +706,15 @@ section{
         margin-right: 25%;
     }
 
-
+    .studentgradegrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 800px;
+        border: 3px solid #B9B979;
+    }
 
     .gradinggrid {
         border-radius: 5px;

@@ -84,7 +84,7 @@ class RemarkRequests(db.Model):
     __tablename__ = 'remarkrequests'
     remark_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     assessment_id = db.Column(db.Integer, ForeignKey('assessments.assessment_id'), nullable=False)
-    user_id = db.Column(db.String, ForeignKey('users.user_id'), nullable=False)
+    user_id = db.Column(db.Integer, ForeignKey('users.user_id'), nullable=False)
     status = db.Column(db.Integer, nullable=False, default=0)
     remark_reason = db.Column(db.String(500), nullable=True)
 
@@ -396,7 +396,6 @@ def login():
         user = User.query.filter_by(username = username).first()
 
         if not user or not bcrypt.check_password_hash(user.password, password):
-            flash('Please check your login details and try again.', 'error')
             return render_template('login.html')
         else:
             session['name'] = user.username
@@ -413,7 +412,7 @@ def logout():
     return redirect(url_for('index'))
 
 # Hannas Section
-@app.route('/studentgrades')
+@app.route('/studentgrades', methods=['GET', 'POST'])
 def studentgrades():
     username = session['name']
     user = User.query.filter_by(username=username).first()
@@ -430,17 +429,21 @@ def studentgrades():
         db.session.query(Assessment, AssessmentsStudent)
         .join(AssessmentsStudent, Assessment.assessment_id == AssessmentsStudent.assessment_id)
     )
-    r2 = r1.filter(AssessmentsStudent.user_id == user_id)
-    r3 = r2.all()
+    r2 = r1.outerjoin(RemarkRequests, AssessmentsStudent.remark_id == RemarkRequests.remark_id)
+    r3 = r2.filter(AssessmentsStudent.user_id == user_id)
+    r4 = r3.add_columns(RemarkRequests) 
+    r5 = r4.all()
 
     grades= []
     labs = []
     exams = []
 
-    for assessment, student_assessment in r3:
+    for assessment, student_assessment, remark_request in r5:
         grade_info = {
             'assessment_name': assessment.name,
-            'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded'
+            'assessment_id': assessment.assessment_id,
+            'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded',
+            'remark_status': remark_request.status if remark_request else "No Remark Requested"
         }
         if "Midterm" in assessment.name or "Final" in assessment.name:
             exams.append(grade_info)
@@ -449,7 +452,35 @@ def studentgrades():
         else:
             grades.append(grade_info)
 
+    if request.method == 'POST':
+
+        assessment_id = request.form.get('assessment_id')
+        remark_reason = request.form.get('remark_reason')
+
+
+        if assessment_id and remark_reason:
+            new_remark_request = RemarkRequests(
+                assessment_id=assessment_id,
+                user_id=user_id,
+                status=0,
+                remark_reason=remark_reason
+            )
+            db.session.add(new_remark_request)
+            db.session.commit()
+
+
+            new_remark_request_id = new_remark_request.remark_id
+
+            student_assessment = AssessmentsStudent.query.filter_by(user_id=user_id, assessment_id=assessment_id).first()
+
+            student_assessment.remark_id = new_remark_request_id
+            db.session.commit()
+
+            flash('Regrade request submitted successfully!', 'success')
+
     return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
+
+
 
 if __name__ == "__main__":
     with app.app_context():
