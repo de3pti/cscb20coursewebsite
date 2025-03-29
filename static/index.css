@@ -1,0 +1,1165 @@
+/* Font Adjustments*/
+*{
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
+}
+
+@font-face {
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
+}
+
+@font-face {
+    font-family: MontBold;
+    src: url(Mont-HeavyDEMO.ttf);
+}
+
+/*CSS FOR CARD ANIMATION ON COURSE TEAM*/
+.flip-card {
+    background-color: #B9CAC9;
+    width: 300px;
+    height: 400px;
+    border-radius: 5px;
+    border: 10px solid #B9CAC9;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+  
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    z-index: -1;
+}
+  
+.flip-card-front {
+    background-color: #bbb;
+    color: black;
+    border-radius: 5px;
+}
+  
+.flip-card-back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #DCDCBC;
+    color: black;
+    border-radius: 5px;
+    transform: rotateY(180deg);
+}
+
+/* CSS FOR ELEMENTS THAT ARE COMMON TO EVERY PAGE*/
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: #F1F1E4;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+select{
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
+}
+
+option {
+    font-family: Mont;
+    src: url(Louis\ George\ Cafe.ttf);
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    background-color: #A9B9DB;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    flex-grow: 1;
+    z-index: 100;
+    padding: 30px;
+    text-align: center;
+}
+
+.headertext{
+    font-family: MontBold;
+    flex-grow: 1;
+    text-align: right;
+    padding-right: 15%;
+    align-items: center;
+    justify-content: center;
+    color: #4E6979;
+}
+
+.content {
+    flex-grow: 1;
+    padding-top: 190px;
+}
+
+.contentteam {
+    flex-grow: 1;
+    padding-top: 190px;
+    width: 100%;
+
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    background-color: #677449;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    padding: 10px;
+    gap: 10px;
+    margin-top: 20px;
+    color:#B5C09B;
+}
+
+h2 {
+    padding-left: 40px;
+}
+
+/*CSS FOR HOVERING LINKS*/
+
+.link {
+    color: #253C33;
+}
+
+.link:hover {
+    color: #B5C09B;
+}
+
+/* CSS for Home */
+.homeblurbs {
+    background-color: #DCDCBC;
+    padding: 15px;
+    border-radius: 10px;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+/* CSS FOR ALL TABLES*/
+.tablecontainer {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+
+
+.gradinggrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 800px;
+    border: 3px solid #4E6979;
+}
+
+.calendargrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    /*max-width: 800px;*/
+    border: 3px solid #4E6979;
+}
+
+.tutorialgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 800px;
+    border: 3px solid #4E6979;
+}
+
+.assignmentgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width:  800px;
+    border: 3px solid #4E6979;
+}
+
+.lecturegrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width:  800px;
+    border: 3px solid #4E6979;
+}
+
+.topicsgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width:  800px;
+    border: 3px solid #4E6979;
+}
+
+.addassessmentgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 15fr;
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 1700px;
+    border: 3px solid #4E6979;
+}
+
+.viewanonfeedbackgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 1200px;
+    border: 3px solid #4E6979;
+}
+
+.viewremarkrequestgrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 1200px;
+    border: 3px solid #4E6979;
+}
+
+.studentmarks {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width:  800px;
+    border: 3px solid #4E6979;
+}
+
+.row {
+    display: contents;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.cellheader {
+    flex: 1;
+    background-color: #A9B9DB;
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid black;
+}
+
+.calendarcellheader {
+    background-color: #C4A645;
+    padding: 10px;
+    text-align: center;
+    border-color: #9C8330;
+    border: solid;
+    width: 132px;
+}
+
+.cell {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    max-width: 600px;
+    border-right: 1px solid black;
+}
+
+.calendarcell{
+    height: 100px;
+    width: auto;
+    text-align: center;
+    padding-top: 10px;
+    background-color: #E2D3A1;
+    border-color: #9C8330;
+    border: solid;
+}
+
+.flash-message {
+    width: 50%;
+    color: #253C33;
+    text-align: center;
+    padding: 1%;
+    border-radius: 5px;
+    background-color: #ccc;
+    margin: auto;
+    margin-top: 10px;
+}
+
+/*CSS FOR COURSE TEAM*/
+.image_container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    /*flex-flow: column wrap;*/
+    justify-content: space-evenly;
+    order: 3;
+}
+
+.text_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/*CSS FOR PIAZZA*/
+.iframe_container {
+    width: 100vw; 
+    max-width: 100%; 
+    display: flex;
+    justify-content: center; 
+}
+
+.iframe_container iframe {
+    width: 90%;
+    height: 75vh; 
+    display: block; 
+}
+
+
+/*CSS for Anon. Feedback*/
+.instruct_feed{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+.instruct_tips{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+.lab_feed{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+.lab_tips{
+    font-size: 16px;
+    padding: 10px 16px 10px 16px;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    height: 100px;
+    resize: both;
+    text-align: left;
+    text-align: top;
+}
+
+textarea{
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+form {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+}
+
+.btn {
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #253C33;
+    border: none;
+    cursor: pointer;
+    background-color: #C4A645;
+    padding: 10px 16px;
+}
+.btn:hover {
+    background-color: #748DC5;
+    }
+
+.btn-group {
+    text-align: center;
+}
+
+/* CSS for Dropdown menue */
+.dropbutton{
+    background-color:#C4A645;
+    color: #253C33;
+    margin: 0.25rem;
+    padding: 10px;
+    font-size: 15px; 
+    border-radius: 15px;
+    /*border: 1px solid rgba(255, 255, 255, 0.18);*/
+    height: auto;
+    top: 50%;
+    width: 100%; 
+    text-align: center;
+}
+
+.dropdown{
+    /*position: relative;*/
+    display: inline-block;
+    padding-left: 5%;
+    margin-right: 5%;
+    align-self: center;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #88A5A3;
+    min-width: 165px;
+    /*box-shadow: 0px 8px 16px 0px rgba(250, 51, 180, 0.2);*/
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: #253C33;
+    padding: 12px 16px;
+    /* text-decoration: none; */
+    display: block;
+    text-align:center;
+  }
+
+  .createassignmentform {
+    border-radius: 5px; 
+    width: 500px; 
+    height: 40px;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #748DC5;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+section{
+    display: block
+}
+
+/* Styling the homepage */
+.homepage_to_register{
+    background-color: #C4A645;
+    cursor: pointer;
+    width: 100%;
+    margin: 5px 0 25px 0;
+    padding: 15px 10px;
+    text-decoration: none;
+    display: incline-block;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.homepage_to_register:hover{
+    opacity: 1;
+
+}
+.homepage_text{
+    color: black;
+    text-decoration: none;
+
+}
+.homepage_text_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+/* Styling the Login and Registration pages */
+h6{
+    text-align: left;
+    margin: 0 0 10px 0;
+    font-size: 30px;
+
+}
+.register_form_full{
+    align-self: left;
+    margin: 0 48px 0 0;
+}
+.register_row{
+    padding: 15px;
+    margin: 10px 0 5px 0;
+    display: inline-block;
+} 
+ .register_form_text{
+    width: 90%;
+    padding: 14px 11px;
+    margin: 8px 0;
+    display: inline-block;
+ }
+.direct_to_register{
+    padding: 15px;
+    display: inline-block;
+    text-align: center;
+
+}
+.direct_to_signin{
+    padding: 5px;
+    margin: 0 0 10px 0;
+    text-align: center;
+
+}
+.signin_row{
+    padding: 15px;
+    margin: 10px 0 5px 0;
+    display: inline-block;
+} 
+.signin_item{
+    width: 120%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding: 0 5px 10px 0;
+
+}
+.register_submit{
+    background-color: #C4A645;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin: 5px 0 25px 0;
+    padding: 15px 20px;
+    opacity: 0.9;
+}
+.signin_submit{
+    background-color: #C4A645;
+    border: none;
+    cursor: pointer;
+    width: 120%;
+    margin: 5px 0 25px 0;
+    padding: 15px 20px;
+    opacity: 0.9;
+}
+.register_submit:hover{
+    opacity: 1;
+}
+
+.signin_submit:hover{
+    opacity: 1;
+}
+
+
+/*Light and Dark mode*/
+/*Dark mode: ->light mode is the default*/
+@media (prefers-color-scheme: dark) {
+    /*CSS FOR CARD ANIMATION ON COURSE TEAM*/
+    .flip-card {
+        background-color: #B9CAC9;
+        width: 300px;
+        height: 400px;
+        border-radius: 5px;
+        border: 10px solid #B9CAC9;
+    }
+
+    p {
+        color: #E1D8CC;
+    }
+
+    li {
+        color: #E1D8CC;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+    
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        z-index: -1;
+    }
+    
+    .flip-card-front {
+        background-color: #bbb;
+        color: #E1D9CC;
+        border-radius: 5px;
+    }
+    
+    .flip-card-back {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #C87456;
+        color: #E1D8CC;
+        border-radius: 5px;
+        transform: rotateY(180deg);
+    }
+
+    /* CSS FOR ELEMENTS THAT ARE COMMON TO EVERY PAGE*/
+    body{
+        display: flex;
+        flex-direction: column;
+        background-color: #202E32;
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        background-color: #4E6979;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        flex-grow: 1;
+        z-index: 100;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .headertext{
+        font-family: MontBold;
+        flex-grow: 1;
+        text-align: right;
+        padding-right: 15%;
+        align-items: center;
+        justify-content: center;
+        color: #CCC8D0;
+    }
+
+    .content {
+        flex-grow: 1;
+        padding-top: 190px;
+    }
+
+    .contentteam {
+        flex-grow: 1;
+        padding-top: 190px;
+        width: 100%;
+
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        background-color: #4E6979;
+        width: 100%;
+        bottom: 0;
+        text-align: center;
+        padding: 10px;
+        gap: 10px;
+        margin-top: 20px;
+        color:#B5C09B;
+    }
+
+    h2 {
+        padding-left: 40px;
+        color: #E1D9CC;
+    }
+
+    /*CSS FOR HOVERING LINKS*/
+
+    .link {
+        color: #E1D9CC;
+    }
+
+    .link:hover {
+        color: #C3B298;
+    }
+
+    /* CSS for Home */
+    .homeblurbs {
+        background-color: #C87456;
+        padding: 15px;
+        border-radius: 10px;
+        margin-right: 40px;
+        margin-left: 40px;
+        color: #E1D9CC;
+    }
+
+    /* CSS FOR ALL TABLES*/
+    .tablecontainer {
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+
+
+
+    .gradinggrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 800px;
+        border: 3px solid #B9B979;
+    }
+
+    .calendargrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(7, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        /*max-width: 800px;*/
+        border: 3px solid #B9B979;
+    }
+
+    .tutorialgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 800px;
+        border: 3px solid #B9B979;
+    }
+
+    .assignmentgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width:  800px;
+        border: 3px solid #B9B979;
+    }
+
+    .lecturegrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width:  800px;
+        border: 3px solid #B9B979;
+    }
+
+    .topicsgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width:  800px;
+        border: 3px solid #B9B979;
+    }
+
+    .addassessmentgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: 1fr 15fr;
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 1700px;
+        border: 3px solid #B9B979;
+    }
+    
+    .viewanonfeedbackgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 1200px;
+        border: 3px solid #B9B979;
+    }
+    
+    .viewremarkrequestgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(6, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 1200px;
+        border: 3px solid #B9B979;
+    }
+
+    .studentmarks {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    background-color: #78783F;
+    color: #E1D9CC;
+    max-width:  800px;
+    border: 3px solid #B9B979;
+}
+
+    .row {
+        display: contents;
+        width: 100%;
+        border-bottom: 1px solid #B9B979;
+    }
+
+    .cellheader {
+        flex: 1;
+        background-color: #50502A;
+        padding: 10px;
+        text-align: center;
+        border-right: 1px solid #B9B979;
+    }
+
+    .calendarcellheader {
+        background-color: #50502A;
+        padding: 10px;
+        text-align: center;
+        border-color: #B9B979;
+        border: solid;
+        width: 132px;
+    }
+
+    .cell {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        border-right: 1px solid #B9B979;
+    }
+
+    .calendarcell{
+        height: 100px;
+        width: auto;
+        text-align: center;
+        padding-top: 10px;
+        border-color: #B9B979;
+        border: solid;
+    }
+
+    .createassignmentform {
+        background: #EFE7DA; 
+        border-radius: 5px; 
+        width: 500px; 
+        height: 40px;
+    }
+
+    /*CSS FOR COURSE TEAM*/
+    .image_container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: wrap;
+        /*flex-flow: column wrap;*/
+        justify-content: space-evenly;
+        order: 3;
+    }
+
+    img {
+        filter: invert(1);
+    }
+
+    .text_container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    /*CSS FOR PIAZZA*/
+    .iframe_container {
+        width: 100vw; 
+        max-width: 100%; 
+        display: flex;
+        justify-content: center; 
+    }
+
+    .iframe_container iframe {
+        width: 90%;
+        height: 75vh; 
+        display: block; 
+    }
+
+
+    /*CSS for Anon. Feedback*/
+    .form_elm{
+        font-size: 16px;
+        padding: 10px 16px 10px 16px;
+        margin: 15px 0 15px 0;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: whitesmoke;
+        height: 100px;
+        resize: both;
+        text-align: left;
+        text-align: top;
+    }
+
+    textarea{
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    form {
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+    }
+
+    .btn {
+        text-align: center;
+        font-size: 14px;
+        border-radius: 5px;
+        color: #253C33;
+        border: none;
+        cursor: pointer;
+        background-color: #C4A645;
+        padding: 10px 16px;
+    }
+    .btn:hover {
+        background-color: #748DC5;
+        }
+
+    .btn-group {
+        text-align: center;
+    }
+
+    /* CSS for Dropdown menue */
+    .dropbutton{
+        background-color:#C4A645;
+        color: #253C33;
+        margin: 0.25rem;
+        padding: 10px;
+        font-size: 15px; 
+        border-radius: 15px;
+        /*border: 1px solid rgba(255, 255, 255, 0.18);*/
+        height: auto;
+        top: 50%;
+        width: 100%; 
+        text-align: center;
+    }
+
+    .dropdown{
+        /*position: relative;*/
+        display: inline-block;
+        padding-left: 5%;
+        margin-right: 5%;
+        align-self: center;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #88A5A3;
+        min-width: 165px;
+        /*box-shadow: 0px 8px 16px 0px rgba(250, 51, 180, 0.2);*/
+        z-index: 1;
+    }
+    
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: #253C33;
+        padding: 12px 16px;
+        /* text-decoration: none; */
+        display: block;
+        text-align:center;
+    }
+    
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {background-color: #748DC5;}
+    
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {display: block;}
+    
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+    section{
+        display: block
+    }
+
+}
+
+@media only screen 
+and (max-device-width: 600px) {
+    .header {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        position: fixed;
+        font-size: 10px;
+        top: 0;
+        flex-grow: 1;
+        padding: 10px;
+        text-align: right;
+    }
+
+    .tablecontainer {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .gradinggrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        max-width: 800px;
+    }
+
+    .calendargrid {
+        display: none;
+    }
+
+    .tutorialgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        max-width: 800px;
+        text-size-adjust: 70%;
+    }
+
+    .assignmentgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        max-width:  800px;
+        text-size-adjust: 70%;
+    }
+
+    .lecturegrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        max-width:  800px;
+        text-size-adjust: 45%;
+    }
+
+    p {
+        padding-left: 10px;
+    }
+
+
+    .topicsgrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        max-width:  800px;
+    }
+
+    .row {
+        display: contents;
+        width: 100%;
+    }
+
+    .cellheader {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .cell {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .dropbutton{
+        background-color:#C4A645;
+        color: #253C33;
+        margin: 0.25rem;
+        padding: 10px;
+        font-size: 15px; 
+        border-radius: 15px;
+        /*border: 1px solid rgba(255, 255, 255, 0.18);*/
+        height: auto;
+        top: 50%;
+        width: 100%; 
+        text-align: center;
+    }
+    
+    .dropdown{
+        position: relative;
+        display: inline-block;
+        padding-right: 5%;
+        align-self: center;
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #88A5A3;
+        padding-right: 10px;
+        min-width: 50px;
+        /*box-shadow: 0px 8px 16px 0px rgba(250, 51, 180, 0.2);*/
+        z-index: 1;
+      }
+      
+      /* Links inside the dropdown */
+      .dropdown-content a {
+        color: #253C33;
+        padding: 5px;
+        text-align: left;
+        /* text-decoration: none; */
+        display: block;
+      }
+      
+      /* Change color of dropdown links on hover */
+      .dropdown-content a:hover {background-color: #748DC5;}
+      
+      /* Show the dropdown menu on hover */
+      .dropdown:hover .dropdown-content {display: block;}
+      
+      /* Change the background color of the dropdown button when the dropdown content is shown */
+      .dropdown:hover .dropbtn {background-color: #3e8e41;}
+    
+    section{
+        display: block
+    }
+
+
+}

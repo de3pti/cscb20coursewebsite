@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content = "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    
+    <body>
+        <header class="header">
+            <div class="dropdown">
+                <button class="dropbutton">Menu</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('syllabus') }}">Syllabus</a>
+                    <a href="{{ url_for('assignments') }}">Assignments</a>
+                    <a href="{{ url_for('lab') }}">Labs</a>
+                    <a href="{{ url_for('lecturenotes') }}">Lecture Notes</a>
+                    <a href="{{ url_for('piazza') }}">Piazza</a>
+                    <a href="{{ url_for('markus') }}" target="_blank" rel="noopener noreferrer">MarkUs</a> 
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('anonfeedback') }}">Anon Feedback</a>
+                    {% endif %}
+                    <a href="{{ url_for('courseteam') }}">Course Team</a>
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewstudentgrades') }}">View Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('updatestudentgrades') }}">Update Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewanonfeedback') }}">View Anonymous Feedback</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewremarkrequests') }}">View Remark Requests</a>
+                    {% endif %}
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('studentgrades') }}">Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('createassessment') }}">Create Assessment</a>
+                    {% endif %}
+                </div>
+            </div>
+            <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
+        </header>
+        <main class="content">
+            <div class="homeblurbs">
+                <p>Welcome to the course syllabus! This page contains key information from the syllabus. However, you can find the full document if you click the link below!</p>
+                <a class="link" href="/Users/deepti/Downloads/CSCB20 Winter 2025 Syllabus-1.pdf">Click Here!!</a>
+            </div>
+            <h2>Course Description</h2>
+            <div class="homeblurbs">
+                <p> The purpose of this course is to give students a practical introduction to databases and Web app development. Topics we will study in this course include: </p>
+                <ul class="normallist">
+                    <li>Databases:</li>
+                    <ul>
+                        <li>Key terminology and real-world applications</li>
+                        <li>Creating, querying, and updating databases</li>
+                        <li>Designing databases using the entity-relationship model</li>
+                    </ul>
+                    <li>Web documents and applications:</li>
+                    <ul>
+                        <li>Developing static and interactive web documents</li>
+                        <li>Setting up web servers and generating dynamic server-side content</li>
+                        <li>Integrating web applications with databases for seamless functionality</li>
+                    </ul>
+                </ul> 
+            </div> 
+            <h2>Course Schedule</h2>
+            <div class="tablecontainer">
+                <div class="topicsgrid">
+                    <div class="cellheader">Week</div>
+                    <div class="cellheader">Topic</div>
+                
+                    <!-- Table Row -->
+                    <div class="row">
+                    <div class="cell">Week 1</div>
+                    <div class="cell">Introduction – Databases, Relational Model</div>
+                    </div>
+                
+                    <!-- Table Row -->
+                    <div class="row">
+                    <div class="cell">Week 2</div>
+                    <div class="cell">Relational Model, Relational Algebra</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 3</div>
+                        <div class="cell">Relational Algebra Queries and SQL Query Language</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 4</div>
+                        <div class="cell">SQL Query Language</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 5</div>
+                        <div class="cell">SQL and Introduction to web development</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 6</div>
+                        <div class="cell">Introduction to HTML and CSS</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 7</div>
+                        <div class="cell"><b>Midterm Exam</b></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 8</div>
+                        <div class="cell">HTML, CSS, Box Model</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 9</div>
+                        <div class="cell">Introduction to Flask, Flexbox and Media Queries</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 10</div>
+                        <div class="cell">Flask and Introduction to JavaScript</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 11</div>
+                        <div class="cell">Integrating Flask and SQL</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cell">Week 12</div>
+                        <div class="cell">Flask and SQL, examples</div>
+                    </div>
+                </div>
+            </div>
+            <h2>Course Work and Grading</h2>
+            <div class="tablecontainer">
+                <div class="gradinggrid">
+                    <div class="cellheader">Assesment</div>
+                    <div class="cellheader">Weight</div>
+                    <div class="cellheader">Notes</div>
+
+                    <div class="row">
+                        <div class="cell">Assignment 1</div>
+                        <div class="cell">8%</div>
+                        <div class="cell"></div>
+                    </div>
+                    <div class="row">
+                        <div class="cell">Assignment 2</div>
+                        <div class="cell">10%</div>
+                        <div class="cell">Assignments will be submitted using MarkUs</div>
+                    </div>
+                    <div class="row">
+                        <div class="cell">Assignment 3</div>
+                        <div class="cell">15%</div>
+                        <div class="cell"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="cell">Term Test</div>
+                        <div class="cell">25%</div>
+                        <div class="cell">Will be held in-person during Lecture time.<br>Tentatively: February 24th</div>
+                    </div>
+                    <div class="row">
+                        <div class="cell">Tutorial Attendance</div>
+                        <div class="cell">2%</div>
+                        <div class="cell">Tutorials will not be submitted or marked.<br>Attend at least 7 tutorials.</div>
+                    </div>
+                    <div class="row">
+                        <div class="cell">Final</div>
+                        <div class="cell">40%</div>
+                        <div class="cell">Need to score at least 35% to pass</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div>
+                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+            </div>
+            <p>Site design by Deepti, Hanna, Siara</p>
+        </footer>
+    </body>
+</html>
