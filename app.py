@@ -135,9 +135,7 @@ def piazza():
 
 @app.route('/markus')
 def markus():
-    username = session.get('name')
-    user = User.query.filter_by(username=username).first()
-    return redirect("https://markus2.utsc.utoronto.ca/", user=user)
+    return redirect("https://markus2.utsc.utoronto.ca/")
 
 @app.route('/anonfeedback', methods = ['GET', 'POST'])
 def anonfeedback():
@@ -217,33 +215,40 @@ def updatestudentgrades():
     user = User.query.filter_by(username=username).first()
     
     if request.method == 'POST':
-        print(request.form)
+        print(request.form)  # Debugging print statement
+        
         for assignment in AssessmentsStudent.query.all():
             input_name = f"reviewed_{assignment.assessment_id}"  # Generate input name based on assignment ID
             new_mark = request.form.get(input_name)  # Get the value from the form
-            
-            if new_mark is not None:
+
+            # Check if the new_mark is empty
+            if new_mark == '':
+                assignment.marks = None  # Set to None if field is empty
+
+            else:
                 try:
-                    new_mark = int(new_mark)  # Convert the value to an integer first
-                    if 0 <= new_mark <= 100:  # Check if within valid range
+                    # Convert the mark to integer if not empty
+                    new_mark = int(new_mark)
+
+                    # Check if the mark is within the valid range
+                    if 0 <= new_mark <= 100:
                         assignment.marks = new_mark  # Update the marks field
                     else:
                         flash("Marks must be between 0 and 100.", "error")
                         return redirect(url_for('updatestudentgrades'))
+
                 except ValueError:
                     flash("Invalid mark entered. Please enter a valid number.", "error")
                     return redirect(url_for('updatestudentgrades'))  # Redirect if there's an error
-            else:
-                flash("Invalid mark entered. Please enter a valid number.", "error")
-
+        
         db.session.commit()  # Save all changes
         flash("Marks updated successfully!", "success")
         return redirect(url_for('updatestudentgrades'))
-    
+
+    # Fetch assignments to display on the page
     assignments = AssessmentsStudent.query.all()
     assignments = db.session.query(AssessmentsStudent).join(User, User.user_id == AssessmentsStudent.user_id).join(Assessment, Assessment.assessment_id == AssessmentsStudent.assessment_id).all()
 
-    
     return render_template('updatestudentgrades.html', user=user, assignments=assignments)
     
 @app.route('/viewanonfeedback', methods=['GET', 'POST'])
@@ -317,14 +322,22 @@ def createassessment():
         assignment_name = request.form.get('assignment_name')
         assignment_type = request.form.get('assignment_type')
         assignment_details = request.form.get('assignment_details')
-        instructor_id = request.form.get('instructor_id')
+        instructor_id = user.user_id
+        existing_assignment = Assessment.query.filter_by(name=assignment_name).first()
         
         if not assignment_name or not instructor_id:
             flash("Please fill in all required fields.", "error")
             return redirect(url_for('createassessment'))
-        
+        elif existing_assignment:
+            flash("This assignment name already exists.", "error")
+            return redirect(url_for('createassessment'))
+        elif assignment_type not in ["Assignment", "Test", "Lab"]:
+            flash("The Assignment Type must be either 'Assignment', 'Test', or 'Lab'", "error")
+            return redirect(url_for('createassessment'))
+
         try:
-            with db.session.no_autoflush:  # ✅ Prevent premature flushing
+            with db.session.no_autoflush:
+                    
                 new_assessment = Assessment(
                     name=assignment_name,
                     type=assignment_type,
@@ -332,7 +345,7 @@ def createassessment():
                     details=assignment_details
                 )
                 db.session.add(new_assessment)
-                db.session.flush()  # ✅ Get ID before committing
+                db.session.flush()
 
                 students = User.query.filter_by(user_type=0).all()
                 for student in students:
@@ -343,16 +356,12 @@ def createassessment():
                     )
                     db.session.add(student_assignment)
 
-            db.session.commit()  # ✅ Single commit for everything
+            db.session.commit()
             flash("Assessment created successfully!", "success")
 
         except Exception as e:
             db.session.rollback()  # Rollback if error occurs
             flash(f"Error creating assessment: {str(e)}", "error")
-
-
-        flash("Assessment created successfully!", "success")
-        print('flashed')
     
     return render_template('createassessment.html', user=user)
 

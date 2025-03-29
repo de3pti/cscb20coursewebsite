@@ -50,7 +50,7 @@
             <div style:"padding: 5px;", class="homeblurbs">
                 <p>Here you can adjust student grades!</p>
             </div> <br>
-            <form stylemethod='POST'> <!-- Move the form outside -->
+            <form method='POST'> <!-- Move the form outside -->
                 <div class="viewanonfeedbackgrid">
                     <div class="cellheader">Student ID</div>
                     <div class="cellheader">Student Name</div>
@@ -75,7 +75,7 @@
 
             {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <p class="flash-message">{{ messages[-1] }}</p>  {# Only show the last message #}
+                <p class="flash-message">{{ messages[-1] }}</p>
             {% endif %}
             {% endwith %}
 
