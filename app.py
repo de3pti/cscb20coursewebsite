@@ -198,8 +198,13 @@ def viewstudentgrades():
         assignments = (
             db.session.query(AssessmentsStudent, Assessment)
             .join(Assessment, AssessmentsStudent.assessment_id == Assessment.assessment_id)
+            .join(User, AssessmentsStudent.user_id == User.user_id)
+            .add_entity(User)
             .all()
         )
+        
+        print(assignments)
+        
         #assignments = AssessmentsStudent.query.all()
         print("Query executed successfully")  # Debugging statement
         for assignment in assignments:
