@@ -470,6 +470,12 @@ form {
     display: block;
     text-align:center;
   }
+
+  .createassignmentform {
+    border-radius: 5px; 
+    width: 500px; 
+    height: 40px;
+  }
   
   /* Change color of dropdown links on hover */
   .dropdown-content a:hover {background-color: #748DC5;}
@@ -773,6 +779,13 @@ section{
         padding-top: 10px;
         border-color: #B9B979;
         border: solid;
+    }
+
+    .createassignmentform {
+        background: #EFE7DA; 
+        border-radius: 5px; 
+        width: 500px; 
+        height: 40px;
     }
 
     /*CSS FOR COURSE TEAM*/
