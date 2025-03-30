@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content = "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    
+    <body>
+        <header class="header">
+            <div class="dropdown">
+                <button class="dropbutton">Menu</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('syllabus') }}">Syllabus</a>
+                    <a href="{{ url_for('assignments') }}">Assignments</a>
+                    <a href="{{ url_for('lab') }}">Labs</a>
+                    <a href="{{ url_for('lecturenotes') }}">Lecture Notes</a>
+                    <a href="{{ url_for('piazza') }}">Piazza</a>
+                    <a href="{{ url_for('markus') }}" target="_blank" rel="noopener noreferrer">MarkUs</a> 
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('anonfeedback') }}">Anon Feedback</a>
+                    {% endif %}
+                    <a href="{{ url_for('courseteam') }}">Course Team</a>
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewstudentgrades') }}">View Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('updatestudentgrades') }}">Update Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewanonfeedback') }}">View Anonymous Feedback</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewremarkrequests') }}">View Remark Requests</a>
+                    {% endif %}
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('studentgrades') }}">Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('createassessment') }}">Create Assessment</a>
+                    {% endif %}
+                </div>
+            </div>
+            <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
+            <form method="POST" action="{{ url_for('assignments') }}">
+                <div class="logout">
+                    <button type="submit" class = "dropbutton" name="logout"
+                    style=" align-self:center; float:left;">Logout</button>
+                </div>
+            </form>
+        </header>
+
+    <main class="content">
+        <h2>Student Marks</h2>
+
+        <div class="homeblurbs">
+            <p>Here you will find all of your grades for the Assignments, the Midterm, the Labs/Tutorials, and the Final Exam. In order to change marks please navigate to the Update Student Grades page.</p>
+        </div> <br>
+
+        
+
+        <div class="tablecontainer">
+            <div class="studentmarks">
+                <div class="cellheader">Student ID</div>
+                <div class="cellheader">Student Name</div>
+                <div class="cellheader">Assignment</div>
+                <div class="cellheader">Grade</div>
+                {% if assignments %}
+            {% for assignment in assignments %}
+                <div class="row">
+                    <div class="cell">{{ assignment.AssessmentsStudent.user_id }}</div>
+                    <div class="cell">{{ assignment.User.first_name + " " + assignment.User.last_name}}</div>
+                    <div class="cell">{{ assignment.Assessment.name }}</div>
+                    <div class="cell">{{ assignment.AssessmentsStudent.marks if assignment.AssessmentsStudent.marks is not none else 'Not Graded' }}</div>
+                </div>
+            {% endfor %}
+            {% else %}
+                <div class="row">
+                    <div class="cell" colspan="2">No assessments available.</div>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+            <div>
+                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+            </div>
+            <p>Site design by Deepti, Hanna, Siara</p>
+    </footer>
+
+</body>
+</html>

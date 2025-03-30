@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content = "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    
+    <body>
+        <header class="header">
+            <div class="dropdown">
+                <button class="dropbutton">Menu</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('syllabus') }}">Syllabus</a>
+                    <a href="{{ url_for('assignments') }}">Assignments</a>
+                    <a href="{{ url_for('lab') }}">Labs</a>
+                    <a href="{{ url_for('lecturenotes') }}">Lecture Notes</a>
+                    <a href="{{ url_for('piazza') }}">Piazza</a>
+                    <a href="{{ url_for('markus') }}" target="_blank" rel="noopener noreferrer">MarkUs</a> 
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('anonfeedback') }}">Anon Feedback</a>
+                    {% endif %}
+                    <a href="{{ url_for('courseteam') }}">Course Team</a>
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewstudentgrades') }}">View Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('updatestudentgrades') }}">Update Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewanonfeedback') }}">View Anonymous Feedback</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewremarkrequests') }}">View Remark Requests</a>
+                    {% endif %}
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('studentgrades') }}">Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('createassessment') }}">Create Assessment</a>
+                    {% endif %}
+                </div>
+            </div>
+            <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
+            <form method="POST" action="{{ url_for('logout') }}">
+                <div class="logout">
+                    <button type="submit" class = "dropbutton" name="logout"
+                    style=" align-self:center; float:left;">Logout</button>
+                </div>
+        </header>
+    <main class="content">
+        <p>Lecture Notes:</p><br>
+            <div class="lecturegrid">
+                <div class="row">
+                    <div class="cellheader">Week</div>
+                    <div class="cellheader">Topic</div>
+                    <div class="cellheader">Reading</div>
+                    <div class="cellheader">Lecture Material</div>
+                    <div class="cellheader">In Class</div>
+                </div>
+                <div class="row">
+                    <div class="cell">0</div>
+                    <div class="cell">Introduction</div>
+                    <div class="cell"></div>
+                    <div class="cell"><a class="link" href="#">Lecture Notes</a></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell">1</div>
+                    <div class="cell">Relational Algebra</div>
+                    <div class="cell"></div>
+                    <div class="cell"><a class="link" href="#">Lecture Notes 1</a></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell">2</div>
+                    <div class="cell">Wrapping up Relational Algebra & starting SQL</div>
+                    <div class="cell"><a class="link" href="#">Reading and Resources for Week 2 </a></div>
+                    <div class="cell"><a class="link" href="#">Lecture Notes 2</a></div>
+                    <div class="cell"><a class="link" href="#">ReLax Examples</a></div>
+                </div>
+                <div class="row">
+                    <div class="cell">3</div>
+                    <div class="cell">SQL Queries</div>
+                    <div class="cell"><a class="link" href="#">Reading and Resources for Week 3</a></div>
+                    <div class="cell"><a class="link" href="#">Lecture Notes 3</a></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell">4</div>
+                    <div class="cell">SQL Subqueries and Introduction to Web Development</div>
+                    <div class="cell"><a class="link" href="#">Reading and Resources for Week 4</a></div>
+                    <div class="cell"><a class="link" href="#">Lecture Notes 4</a></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell">5</div>
+                    <div class="cell">Introduction to Flask, Introduction to HTML and CSS</div>
+                    <div class="cell"><a class="link" href="#">Reading and Resources for Week 5</a></div>
+                    <div class="cell"><a class="link" href="#">Lecture Notes 5</a></div>
+                    <div class="cell"><a class="link" href="#">Code Handouts</a></div>
+                </div>
+                <div class="row">
+                    <div class="cell">6</div>
+                    <div class="cell">Mid Term Exam</div>
+                    <div class="cell"><a class="link" href="#">Notes to read before next week's lecture</a></div>
+                    <div class="cell"><a class="link" href="#">Recorded Lecture - HTML and CSS</a></div>
+                    <div class="cell"><a class="link" href="#">Code Handouts</a></div>
+                </div>
+                <div class="row">
+                    <div class="cell">7</div>
+                    <div class="cell">Media Queries, Introduction to JavaScript</div>
+                    <div class="cell"><a class="link" href="#">Reading and Resources for Week 7</a></div>
+                    <div class="cell"><a class="link" href="#">Lecture Notes 7</a></div>
+                    <div class="cell"><a class="link" href="#">Code Handouts</a></div>
+                </div>
+                <div class="row">
+                    <div class="cell">8</div>
+                    <div class="cell">Flask and SQL</div>
+                    <div class="cell"><a class="link" href="#">Reading and Resources for Week 8</a></div>
+                    <div class="cell"><a class="link" href="#">Lecture Notes 8</a></div>
+                    <div class="cell"><a class="link" href="#">Code Handouts</a></div>
+                </div>
+            </div>
+        
+    </main>
+
+    <footer class="footer">
+        <div>
+            <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+        </div>
+        <p>Site design by Deepti, Hanna, Siara</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content = "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    
+    <body>
+        <header class="header">
+            <div class="dropdown">
+                <button class="dropbutton">Menu</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('syllabus') }}">Syllabus</a>
+                    <a href="{{ url_for('assignments') }}">Assignments</a>
+                    <a href="{{ url_for('lab') }}">Labs</a>
+                    <a href="{{ url_for('lecturenotes') }}">Lecture Notes</a>
+                    <a href="{{ url_for('piazza') }}">Piazza</a>
+                    <a href="{{ url_for('markus') }}" target="_blank" rel="noopener noreferrer">MarkUs</a> 
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('anonfeedback') }}">Anon Feedback</a>
+                    {% endif %}
+                    <a href="{{ url_for('courseteam') }}">Course Team</a>
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewstudentgrades') }}">View Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('updatestudentgrades') }}">Update Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewanonfeedback') }}">View Anonymous Feedback</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('viewremarkrequests') }}">View Remark Requests</a>
+                    {% endif %}
+                    {% if user.user_type == 0 %} 
+                        <a href="{{ url_for('studentgrades') }}">Student Grades</a>
+                    {% endif %}
+                    {% if user.user_type == 1 %} 
+                        <a href="{{ url_for('createassessment') }}">Create Assessment</a>
+                    {% endif %}
+                </div>
+            </div>
+            <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
+            <form method="POST" action="{{ url_for('logout') }}">
+                <div class="logout">
+                    <button type="submit" class = "dropbutton" name="logout"
+                    style=" align-self:center; float:left;">Logout</button>
+                </div>
+        </header>
+        <main class="content">
+            {% with messages = get_flashed_messages()%}
+                {% if messages%}
+                    {% for message in messages%}
+                        <p style="width=100%" class="flash-message">{{message}}</p>
+                    {%endfor%}
+                {%endif%}
+            {%endwith%}
+            <h2>Course Description</h2>
+                <div class="homeblurbs">
+                    <p>A practical introduction to databases and Web app development. Databases: terminology and applications; creating, querying and updating databases; the entity-relationship model for database design. Web documents and applications: static and interactive documents; Web servers and dynamic server-generated content; Web application development and interface with databases.<br><br>
+                    <b>Prerequisite: </b> Some experience with programming in an imperative language such as Python, Java or C.<br>
+                    <b>Exclusion: </b> This course may not be taken after - or concurrently with - any C- or D-level CSC course.<br>
+                    <b>Recommended Preparation: </b> CSCA08 or CSCA20<br>
+                    <b>Breadth Requirement: </b> Quantatative Reasoning<br></p>
+                </div>
+            <h2>Instructors</h2>
+            <div class="homeblurbs">
+                <div>Purva Gawde</div>
+                <div>
+                    <b>Email:</b> purva.gawde@utoronto.ca<br>
+                    <b>Office:</b> IA4056<br>
+                    <b>Office Hours:</b> Monday 11:00 to 12:00
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <div>
+                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+            </div>
+            <p>Site design by Deepti, Hanna, Siara</p>
+        </footer>
+    </body>
+</html>

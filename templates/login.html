@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content = "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    
+    <body>
+        <header class="header">
+            <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
+        </header>
+
+        <main class="content">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <p class="flash-message" style="width:95%; padding:10px; height:100%">{{ messages[-1] }}</p>
+            {% endif %}
+            {% endwith %}
+            <div class = "register_form_full">
+                <div class = "signin_row">
+                     <h6>Sign In</h6>
+                    <form method = "POST">                       
+                        <div class = "signin_item">
+                            <label for = "username">Username : </label>
+                            <input type = "text" name = "username" placeholder="Enter Username" 
+                            class = "register_form_text" id = "username" required>
+                        </div>
+                        <div class = "signin_item">
+                            <label for = "email">Email : </label>
+                            <input type = "text" name = "email" 
+                            class = "register_form_text" id = "email" placeholder= "Enter Email" required>
+                        </div>      
+                        <div class = "signin_item">
+                            <label for = "password">Password : </label>
+                            <input type = "password" name = "password" 
+                            class = "register_form_text" id = "password" placeholder= "Enter Password" required>
+                        </div>   
+                        <button type = "submit" class = "signin_submit">Signin</button>                     
+                    </form>
+                </div>
+            </div>
+            <div class="direct_to_signin">
+                <p>Don't have an account? <a href="{{ url_for('register') }}" class="link">Register Now</a>.</p>
+            </div>
+            {% with messages = get_flashed_messages()%}
+                {% if messages%}
+                    {% for message in messages%}
+                        <p class="flash-message">{{message}}</p>
+                    {%endfor%}
+                {%endif%}
+            {%endwith%}
+        </main>
+    <footer class="footer">
+            <div>
+                <a class="link" href="https://www.utsc.utoronto.ca/cms/computer-science" target="_blank" rel="noopener noreferrer">Faculty of Computer Science at UofT</a>
+            </div>
+            <p>Site design by Deepti, Hanna, Siara</p>
+    </footer>
+
+</body>
+</html>
