@@ -553,7 +553,6 @@ section{
     justify-content: space-around;
 }
 
-
 /* Styling the Login and Registration pages */
 h6{
     text-align: left;
@@ -627,6 +626,12 @@ h6{
     opacity: 1;
 }
 
+.logout{
+    margin-right:75px;
+    margin-top: 32px;
+    /* padding:100px; */
+    float:left;
+}
 
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
