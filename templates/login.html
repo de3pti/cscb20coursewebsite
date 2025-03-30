@@ -44,13 +44,6 @@
             <div class="direct_to_signin">
                 <p>Don't have an account? <a href="{{ url_for('register') }}" class="link">Register Now</a>.</p>
             </div>
-            {% with messages = get_flashed_messages()%}
-                {% if messages%}
-                    {% for message in messages%}
-                        <p class="flash-message">{{message}}</p>
-                    {%endfor%}
-                {%endif%}
-            {%endwith%}
         </main>
     <footer class="footer">
             <div>

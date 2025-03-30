@@ -50,6 +50,7 @@
                     <button type="submit" class = "dropbutton" name="logout"
                     style=" align-self:center; float:left;">Logout</button>
                 </div>
+            </form>
         </header>
         <main class="content">
             <h2>Add an Assessment</h2>
@@ -83,9 +84,9 @@
                         </div>
                     </div>
                 </div>
-            <div class="btn-group" style='padding-top: 20px'>
-                <button class="btn" type="submit">Submit</button>
-            </div>
+                <div class="btn-group" style='padding-top: 20px'>
+                    <input type="submit" class="button" value="Submit">
+                </div>
             </form>
 
             {% with messages = get_flashed_messages() %}

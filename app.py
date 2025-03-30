@@ -347,6 +347,8 @@ def viewremarkrequests():
 def createassessment():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
+    if not username:
+        return redirect(url_for('index'))
     
     if request.method == 'POST':
         assignment_name = request.form.get('assignment_name')
