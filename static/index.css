@@ -14,6 +14,14 @@
     src: url(Mont-HeavyDEMO.ttf);
 }
 
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
 /*CSS FOR CARD ANIMATION ON COURSE TEAM*/
 .flip-card {
     background-color: #B9CAC9;
@@ -223,6 +231,16 @@ h2 {
     border: 3px solid #4E6979;
 }
 
+.gradesgrid{
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width:  800px;
+    border: 3px solid #4E6979;
+}
+
 .addassessmentgrid {
     border-radius: 5px;
     display: grid;
@@ -304,6 +322,14 @@ h2 {
     border: solid;
 }
 
+.button {
+    color: #253C33;
+    background-color:#C4A645;
+    font-family: Mont;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 .flash-message {
     width: 50%;
     color: #253C33;
@@ -313,6 +339,16 @@ h2 {
     background-color: #ccc;
     margin: auto;
     margin-top: 10px;
+}
+
+.studentgradegrid {
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    background-color: #B9CAC9;
+    color: #444;
+    max-width: 800px;
+    border: 3px solid #4E6979;
 }
 
 /*CSS FOR COURSE TEAM*/
@@ -597,6 +633,71 @@ h6{
     float:left;
 }
 
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the popup */
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 600px;
+  padding: 10px;
+  background-color: #B9CAC9;
+  border-radius: 10px;
+  border: 3px solid #4E6979;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 80%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border-radius: 5px;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+
 /*Light and Dark mode*/
 /*Dark mode: ->light mode is the default*/
 @media (prefers-color-scheme: dark) {
@@ -624,6 +725,16 @@ h6{
         text-align: center;
         transition: transform 0.8s;
         transform-style: preserve-3d;
+    }
+
+    .studentgradegrid {
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 800px;
+        border: 3px solid #B9B979;
     }
 
     .flip-card:hover .flip-card-inner {
@@ -758,6 +869,17 @@ h6{
         max-width: 800px;
         border: 3px solid #B9B979;
     }
+
+    .gradesgrid{
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        background-color: #78783F;
+        color: #E1D9CC;
+        max-width: 800px;
+        border: 3px solid #B9B979;
+    }
+    
 
     .calendargrid {
         border-radius: 5px;
@@ -974,6 +1096,13 @@ h6{
         text-align: center;
     }
 
+    .hide {
+        display: none;
+    }
+    
+    .show {
+        display: block;
+    }
 
     /* CSS for Dropdown menue */
     .dropbutton{

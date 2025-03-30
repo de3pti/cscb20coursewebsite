@@ -65,13 +65,13 @@
                     <div class="cellheader">What do you recommend the lab instructors to do to improve their lab teaching?</div>
                     <div class="cellheader">Reviewed?</div>
             
-                   {% for i in range(feedback1|length) %}
-                        <div class="cell">{{ feedback1[i].feedback }}</div>
-                        <div class="cell">{{ feedback2[i].feedback }}</div>
-                        <div class="cell">{{ feedback3[i].feedback }}</div>
-                        <div class="cell">{{ feedback4[i].feedback }}</div>
+                   {% for feedback in feedbacks %}
+                        <div class="cell">{{ feedback.feedback_inst_1 }}</div>
+                        <div class="cell">{{ feedback.feedback_inst_2 }}</div>
+                        <div class="cell">{{ feedback.feedback_lab_1 }}</div>
+                        <div class="cell">{{ feedback.feedback_lab_2 }}</div>
                         <div class="cell">
-                            <input type="checkbox" name="reviewed_{{ feedbacks[i].id }}" {% if feedbacks[i].reviewed == 1 %} checked {% endif %}>
+                            <input type="checkbox" name="reviewed_{{ feedback.feedback_id }}" {% if feedback.reviewed == 1 %} checked {% endif %}>
                         </div>
                     {% endfor %}
                     

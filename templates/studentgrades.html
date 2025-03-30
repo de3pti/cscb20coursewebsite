@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content = "width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </head>
     
     <body>
@@ -60,14 +61,49 @@
 
         <br>
         <div class="tablecontainer">
-            <div class="topicsgrid">
+            <div class="studentgradegrid">
                 <div class="cellheader">Assignments</div>
                 <div class="cellheader">Grade</div>
+                <div class="cellheader">Request Regrade</div>
+                <div class="cellheader">Regrade Status</div>
                 {% if grades %}
                     {% for grade in grades %}
                         <div class="row">
                             <div class="cell">{{ grade['assessment_name'] }}</div>
-                            <div class="cell">{{ grade['grade'] }}</div>
+                            {% if grade['marks']%}
+                                <div class="cell">{{ grade['marks'] }}</div>
+                            {% else %}
+                                <div class="cell">Not Graded</div>
+                            {% endif%}
+
+                            <div class="cell">
+                                {% if grade['remark_status'] == "No Remark Requested" %}
+                                    <button class="button" onclick="openForm()">Open Form</button>
+                                    <div class="form-popup" id="myForm">
+
+                                        <form class="form-container" action="{{ url_for('studentgrades') }}" method="POST">
+                                            <input type="hidden" name="assessment_id" value="{{ grade['assessment_id'] }}">
+                                            <label for="remark_reason">Reason for Regrade:</label>
+                                            <input type="text" name="remark_reason" placeholder="Please enter your reason here:" required>
+                                            <button type="submit" class="button">Submit</button>
+                                            <button type="button" class="button" onclick="closeForm()">Close</button>
+                                        </form>
+                                    </div>
+                                {% else %}
+                                        <p>Regrade request already submitted</p>
+                                {% endif %}
+                            </div>
+                            <div class="cell">
+                                {% if grade['remark_status'] == 0 %}
+                                    Pending
+                                {% elif grade['remark_status'] == 1 %}
+                                    Approved
+                                {% elif grade['remark_status'] == 2 %}
+                                    Declined
+                                {% else %}
+                                    Unknown Status
+                                {% endif %}
+                            </div>                            
                         </div>
                     {% endfor %}
                 {% else %}
@@ -78,14 +114,47 @@
             </div>
             <br>
 
-            <div class="topicsgrid">
+            <div class="studentgradegrid">
                 <div class="cellheader">Exams</div>
                 <div class="cellheader">Grade</div>
+                <div class="cellheader">Request Regrade</div>
+                <div class="cellheader">Regrade Status</div>
                 {% if exams %}
                     {% for exam in exams %}
                         <div class="row">
                             <div class="cell">{{ exam['assessment_name'] }}</div>
-                            <div class="cell">{{ exam['grade'] }}</div>
+                            {% if exam['marks']%}
+                                <div class="cell">{{ exam['marks'] }}</div>
+                            {% else %}
+                                <div class="cell">Not Graded</div>
+                            {% endif%}
+                            <div class="cell">
+                                {% if exam['remark_status'] == "No Remark Requested" %}
+                                    <button class="button" onclick="openForm()">Open Form</button>
+                                    <div class="form-popup" id="myForm">
+                                        <form class="form-container" action="{{ url_for('studentgrades') }}" method="POST">
+                                            <input type="hidden" name="assessment_id" value="{{ exam['assessment_id'] }}">
+                                            <label for="remark_reason">Reason for Regrade:</label>
+                                            <input type="text" name="remark_reason" placeholder="Please enter your reason here:" required>
+                                            <button type="submit" class="button">Submit</button>
+                                            <button type="button" class="button" onclick="closeForm()">Close</button>
+                                        </form>
+                                    </div>
+                                {% else %}
+                                    <p>Regrade request already submitted</p>
+                                {% endif %}  
+                            </div>
+                            <div class="cell">
+                                {% if exam['remark_status'] == 0 %}
+                                    Pending
+                                {% elif exam['remark_status'] == 1 %}
+                                    Approved
+                                {% elif exam['remark_status'] == 2 %}
+                                    Declined
+                                {% else %}
+                                    No Remark Request
+                                {% endif %}
+                            </div>              
                         </div>
                     {% endfor %}
                 {% else %}
@@ -96,14 +165,48 @@
             </div>
             <br>
 
-            <div class="topicsgrid">
+            <div class="studentgradegrid">
                 <div class="cellheader">Labs</div>
                 <div class="cellheader">Grade</div>
+                <div class="cellheader">Request Regrade</div>
+                <div class="cellheader">Regrade Status</div>
                 {% if labs %}
                     {% for lab in labs %}
                         <div class="row">
                             <div class="cell">{{ lab['assessment_name'] }}</div>
-                            <div class="cell">{{ lab['grade'] }}</div>
+                            {% if lab['marks']%}
+                                <div class="cell">{{ lab['marks'] }}</div>
+                            {% else %}
+                                <div class="cell">Not Graded</div>
+                            {% endif%}
+                            <div class="cell">
+                                {% if lab['remark_status'] == "No Remark Requested" %}
+                                    <button class="button" onclick="openForm()">Open Form</button>
+                                    <div class="form-popup" id="myForm">
+                                            <form class="form-container" action="{{ url_for('studentgrades') }}" method="POST">
+                                                <input type="hidden" name="assessment_id" value="{{ lab['assessment_id'] }}">
+                                                <label for="remark_reason">Reason for Regrade:</label>
+                                                <input type="text" name="remark_reason" placeholder="Please enter your reason here:" required>
+                                                <button type="submit" class="button">Submit</button>
+                                                <button type="button" class="button" onclick="closeForm()">Close</button>
+                                            </form>                                
+                                    </div>
+                                {% else %}
+                                    <p>Regrade request already submitted</p>
+                                {% endif %}
+                            </div>
+                            <div class="cell">
+                                {% if lab['remark_status'] == 0 %}
+                                    Pending
+                                {% elif lab['remark_status'] == 1 %}
+                                    Approved
+                                {% elif lab['remark_status'] == 2 %}
+                                    Declined
+                                {% else %}
+                                    No Remark Request
+                                {% endif %}
+                            </div>
+                        
                         </div>
                     {% endfor %}
                 {% else %}
@@ -112,8 +215,16 @@
                     </div>
                 {% endif %}
             </div>
-
+            {% with messages = get_flashed_messages()%}
+                {% if messages%}
+                    {% for message in messages%}
+                        <p style="width=100%" class="flash-message">{{message}}</p>
+                    {%endfor%}
+                {%endif%}
+            {%endwith%}
         </div>
+
+    
 
     </main>
     
