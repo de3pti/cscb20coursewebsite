@@ -13,7 +13,12 @@
         </header>
 
         <main class="content">
-            <p style="text-align: center; font-size: 125%; margin: 0 0 0 0">
+            <p style="text-align: center; font-size: 110%; margin: 0 0 0 0">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <p class="flash-message" style="width:95%; padding:10px; height:100%; margin-bottom: 15px;">{{ messages[-1] }}</p>
+                {% endif %}
+                {% endwith %}
                 Welcome to our website! Please select one of the options below<br>
             </p><br><br>
     

@@ -43,11 +43,16 @@
                 </div>
             </div>
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
+            <form method="POST" action="{{ url_for('logout') }}">
+                <div class="logout">
+                    <button type="submit" class = "dropbutton" name="logout"
+                    style=" align-self:center; float:left;">Logout</button>
+                </div>
         </header>
 
         <main class="content">
             <h2>Update Student Grades</h2>
-            <div style:"padding: 5px;", class="homeblurbs">
+            <div style:"padding: 5px" class="homeblurbs">
                 <p>Here you can adjust student grades!</p>
             </div> <br>
             <form method='POST'> <!-- Move the form outside -->

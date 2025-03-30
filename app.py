@@ -108,12 +108,13 @@ def syllabus():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
     return render_template('syllabus.html', user=user)
-
+    
 @app.route('/assignments')
 def assignments():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
-    return render_template('assignments.html',user=user)
+    return render_template('assignments.html', user=user)
+
 
 @app.route('/lab')
 def lab():
@@ -390,6 +391,24 @@ def register():
         # generating the hashed password
         hashed_password=bcrypt.generate_password_hash(password).decode('utf-8')
         user_type = int(request.form['user_type'])
+
+        # Checking if the username has already been used
+        existing_user = User.query.filter_by(username=user_name).first()
+
+        # Display an error if the username is taken
+        if existing_user:
+            flash('This username is already taken.', 'error')
+            return redirect(url_for('register'))
+
+        # Checking if the email has already been used
+        existing_email = User.query.filter_by(email=email).first()
+
+        # Display an error if the email is taken
+        if existing_email:
+            flash('This email is already being used.', 'error')
+            return redirect(url_for('register'))
+
+
         new_user = User(first_name=first_name, last_name=last_name, username=user_name, email=email, password=hashed_password, user_type=user_type)
         
         db.session.add_all([new_user])
@@ -401,10 +420,12 @@ def register():
 def login():
     if request.method == "POST":
         username = request.form["username"]
+        email  = request.form["email"]
         password = request.form["password"]
         user = User.query.filter_by(username = username).first()
+        email = User.query.filter_by(email = email).first()
 
-        if not user or not bcrypt.check_password_hash(user.password, password):
+        if not user or not email or not bcrypt.check_password_hash(user.password, password):
             flash('Please check your login details and try again.', 'error')
             return render_template('login.html')
         else:
@@ -415,11 +436,13 @@ def login():
             return redirect(url_for('index'))
     return render_template('login.html')
 
-
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    session.pop('name', default = None)
-    return redirect(url_for('index'))
+    if request.method == 'POST':
+        session.clear()  
+        flash('You have been logged out.', 'success')
+        return redirect(url_for('homepage')) 
+
 
 # Hannas Section
 @app.route('/studentgrades')

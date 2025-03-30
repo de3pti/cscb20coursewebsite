@@ -15,6 +15,11 @@
     <main class="content">
         <div >
             <div class = "register_row">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <p class="flash-message" style="width:95%; padding:10px; height:100%">{{ messages[-1] }}</p>
+                {% endif %}
+                {% endwith %}
                  <h6>Register</h6>
                 <form method = "POST">
                     <div class = "register_item">

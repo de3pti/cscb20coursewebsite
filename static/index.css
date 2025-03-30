@@ -517,7 +517,6 @@ section{
     justify-content: space-around;
 }
 
-
 /* Styling the Login and Registration pages */
 h6{
     text-align: left;
@@ -591,6 +590,12 @@ h6{
     opacity: 1;
 }
 
+.logout{
+    margin-right:75px;
+    margin-top: 32px;
+    /* padding:100px; */
+    float:left;
+}
 
 /*Light and Dark mode*/
 /*Dark mode: ->light mode is the default*/
@@ -968,6 +973,7 @@ h6{
     .btn-group {
         text-align: center;
     }
+
 
     /* CSS for Dropdown menue */
     .dropbutton{
