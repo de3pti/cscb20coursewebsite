@@ -516,6 +516,7 @@ def studentgrades():
             db.session.commit()
 
             flash('Regrade request submitted successfully!', 'success')
+            return redirect(url_for('studentgrades'))
 
     return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
 

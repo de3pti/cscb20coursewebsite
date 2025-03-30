@@ -46,13 +46,12 @@
         </header>
         <main class="content">
             {% with messages = get_flashed_messages()%}
-            {% if messages%}
-                {% for message in messages%}
-                <h2>{{message}}</h2>
-                {%endfor%}
+                {% if messages%}
+                    {% for message in messages%}
+                        <p style="width=100%" class="flash-message">{{message}}</p>
+                    {%endfor%}
                 {%endif%}
-                {%endwith%}
-
+            {%endwith%}
             <h2>Course Description</h2>
                 <div class="homeblurbs">
                     <p>A practical introduction to databases and Web app development. Databases: terminology and applications; creating, querying and updating databases; the entity-relationship model for database design. Web documents and applications: static and interactive documents; Web servers and dynamic server-generated content; Web application development and interface with databases.<br><br>
