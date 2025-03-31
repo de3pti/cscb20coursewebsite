@@ -70,7 +70,7 @@
                     <div class="cell">{{ assignment.assess_to_student.name }}</div>
                     <div class="cell">{{ assignment.marks }}</div>
                     <div class="cell">
-                        <input type="number" name="reviewed_{{ assignment.assessment_id }}" value="{{ assignment.marks }}" style="border-radius: 5px; width: 80px; color: #202E32;">
+                        <input type="number" name="reviewed_(assignment.user_id)_{assignment.assessment_id}" value="{{ assignment.marks }}" style="border-radius: 5px; width: 80px; color: #202E32;">
                     </div>
                     {% endfor %}
                 </div>

@@ -265,7 +265,7 @@ def updatestudentgrades():
         print(request.form)  # Debugging print statement
         
         for assignment in AssessmentsStudent.query.all():
-            input_name = f"reviewed_{assignment.assessment_id}"  # Generate input name based on assignment ID
+            input_name = "reviewed_(assignment.user_id)_{assignment.assessment_id}"
             new_mark = request.form.get(input_name)  # Get the value from the form
 
             # Check if the new_mark is empty
@@ -280,6 +280,7 @@ def updatestudentgrades():
                     # Check if the mark is within the valid range
                     if 0 <= new_mark <= 100:
                         assignment.marks = new_mark  # Update the marks field
+                        print(assignment.user_id, assignment.marks)
                     else:
                         flash("Marks must be between 0 and 100.", "error")
                         return redirect(url_for('updatestudentgrades'))
@@ -574,7 +575,6 @@ def studentgrades():
 
 # close session at the end
 #db.session.close()
-
 
 
 if __name__ == "__main__":
