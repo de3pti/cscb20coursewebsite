@@ -163,7 +163,7 @@ def anonfeedback():
         if not professor_id:
             flash('Please select a Professor.', 'warning')
 
-        elif not instruct_feed or instruct_tips or lab_feed or lab_tips:
+        elif not instruct_feed or not instruct_tips or not lab_feed or not lab_tips:
             flash('Please provide at least one piece of feedback per section.', 'warning')
 
         else:   
