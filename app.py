@@ -487,6 +487,24 @@ def logout():
 def studentgrades():
     username = session['name']
     user = User.query.filter_by(username=username).first()
+    
+    assessments = Assessment.query.all()
+    
+    for assessment in assessments:
+        existing_assignment = AssessmentsStudent.query.filter_by(
+                user_id=user.user_id,
+                assessment_id=assessment.assessment_id
+            ).first() 
+        
+        if not existing_assignment:
+                # If not, assign them the assessment
+                new_assignment = AssessmentsStudent(
+                    user_id=user.user_id,
+                    assessment_id=assessment.assessment_id,
+                    marks=None
+                )
+                db.session.add(new_assignment)
+                db.session.commit()
 
     if not user.user_type == 0:
         return render_template('viewstudentgrades.html') #temp, add prof grades
