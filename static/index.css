@@ -331,7 +331,7 @@ h2 {
 }
 
 .flash-message {
-    width: auto;
+    max-width: 80%; 
     color: #253C33;
     text-align: center;
     padding: 1%;
@@ -713,13 +713,13 @@ h6{
     }
 
     .flash-message {
-        width: auto;
-        /* max-width: 60%; */
-        color: #E1D8CC;
+        
+        max-width: 85%; 
+        background-color: #78783F;
+        color: #E1D9CC;
         text-align: center;
         padding: 1%;
         border-radius: 5px;
-        background-color: #C87456;
         margin: auto;
         margin-top: 10px;
         white-space: nowrap;
@@ -729,6 +729,12 @@ h6{
         color: #202E32;
         font-family: Mont;
     }
+
+    .createassignmentform{
+        color: #202E32;
+        font-family: Mont;
+    }
+
     .instruct_feed{
         color: #202E32;
         font-family: Mont;

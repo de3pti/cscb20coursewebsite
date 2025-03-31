@@ -48,6 +48,7 @@
                     <button type="submit" class = "dropbutton" name="logout"
                     style=" align-self:center; float:left;">Logout</button>
                 </div>
+            </form>
         </header>
 
         <main class="content">
@@ -69,7 +70,7 @@
                     <div class="cell">{{ assignment.assess_to_student.name }}</div>
                     <div class="cell">{{ assignment.marks }}</div>
                     <div class="cell">
-                        <input type="number" name="reviewed_{{ assignment.assessment_id }}" value="{{ assignment.marks }}" style="border-radius: 5px; width: 80px;">
+                        <input type="number" name="reviewed_{{ assignment.assessment_id }}" value="{{ assignment.marks }}" style="border-radius: 5px; width: 80px; color: #202E32;">
                     </div>
                     {% endfor %}
                 </div>

@@ -54,6 +54,14 @@
         </header>
         <main class="content">
             <h2>Add an Assessment</h2>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <p class="flash-message" style="width: 48%;">{{ messages[-1] }}</p>
+            {% endif %}
+            {% endwith %}
+            <br>
+
             <form method='POST'>
                 <div class="tablecontainer">
                     <div class="addassessmentgrid">
@@ -90,11 +98,7 @@
                 
             </form>
 
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <p class="flash-message">{{ messages[-1] }}</p>
-            {% endif %}
-            {% endwith %}
+            
         </main>
 
         <footer class="footer">

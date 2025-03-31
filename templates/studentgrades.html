@@ -49,6 +49,7 @@
                     <button type="submit" class = "dropbutton" name="logout"
                     style=" align-self:center; float:left;">Logout</button>
                 </div>
+            </form>
         </header>
 
     <main class="content">
@@ -218,7 +219,7 @@
             {% with messages = get_flashed_messages()%}
                 {% if messages%}
                     {% for message in messages%}
-                        <p style="width=100%" class="flash-message">{{message}}</p>
+                        <p style="width:100%;" class="flash-message">{{message}}</p>
                     {%endfor%}
                 {%endif%}
             {%endwith%}
