@@ -71,8 +71,9 @@
                     {% for grade in grades %}
                         <div class="row">
                             <div class="cell">{{ grade['assessment_name'] }}</div>
-                            {% if grade['grade']%}
-                                <div class="cell">{{ grade['grade'] }}</div>
+                            {% if grade.marks%}
+                                <!-- <p></p> -->
+                                <div class="cell">{{ grade.marks }}</div>
                             {% else %}
                                 <div class="cell">Not Graded</div>
                             {% endif%}
@@ -98,9 +99,9 @@
                                 {% if grade['remark_status'] == 0 %}
                                     Pending
                                 {% elif grade['remark_status'] == 1 %}
-                                    Approved
-                                {% elif grade['remark_status'] == 2 %}
                                     Declined
+                                {% elif grade['remark_status'] == 2 %}
+                                    Approved
                                 {% else %}
                                     Unknown Status
                                 {% endif %}

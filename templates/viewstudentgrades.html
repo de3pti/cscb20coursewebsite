@@ -43,7 +43,7 @@
                 </div>
             </div>
             <h1 class="headertext">CSCB20: Introduction to Databases and Web Applications</h1>
-            <form method="POST" action="{{ url_for('assignments') }}">
+            <form method="POST" action="{{ url_for('logout') }}">
                 <div class="logout">
                     <button type="submit" class = "dropbutton" name="logout"
                     style=" align-self:center; float:left;">Logout</button>
@@ -67,19 +67,19 @@
                 <div class="cellheader">Assignment</div>
                 <div class="cellheader">Grade</div>
                 {% if assignments %}
-            {% for assignment in assignments %}
-                <div class="row">
-                    <div class="cell">{{ assignment.AssessmentsStudent.user_id }}</div>
-                    <div class="cell">{{ assignment.User.first_name + " " + assignment.User.last_name}}</div>
-                    <div class="cell">{{ assignment.Assessment.name }}</div>
-                    <div class="cell">{{ assignment.AssessmentsStudent.marks if assignment.AssessmentsStudent.marks is not none else 'Not Graded' }}</div>
-                </div>
-            {% endfor %}
-            {% else %}
-                <div class="row">
-                    <div class="cell" colspan="2">No assessments available.</div>
-                </div>
-            {% endif %}
+                    {% for assignment in assignments %}
+                        <div class="row">
+                            <div class="cell">{{ assignment.AssessmentsStudent.user_id }}</div>
+                            <div class="cell">{{ assignment.User.first_name + " " + assignment.User.last_name}}</div>
+                            <div class="cell">{{ assignment.Assessment.name }}</div>
+                            <div class="cell">{{ assignment.AssessmentsStudent.marks if assignment.AssessmentsStudent.marks is not none else 'Not Graded' }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <div class="cell" colspan="2">No assessments available.</div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </main>
