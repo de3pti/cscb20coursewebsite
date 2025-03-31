@@ -524,7 +524,8 @@ def studentgrades():
             'assessment_name': assessment.name,
             'assessment_id': assessment.assessment_id,
             'marks': student_assessment.marks if student_assessment.marks is not None else 'Not Graded',
-            'remark_status': remark_request.status if remark_request else "No Remark Requested"
+            'remark_status': remark_request.status if remark_request else "No Remark Requested",
+            'user_id': user_id
         }
         if assessment.type == "Test":
             exams.append(grade_info)
@@ -536,32 +537,39 @@ def studentgrades():
             grades.append(grade_info)
 
     if request.method == 'POST':
+        # Get the unique assessment_id from each form submission
+        for assessment in assessments:
+            # The name of the input field in the form is the assessment_id
+            assessment_id = str(assessment.assessment_id)  # Ensure this is a string to match the form name
+            remark_reason = request.form.get(assessment_id)  # Get the remark reason from the form submission
 
-        assessment_id = request.form.get('assessment_id')
-        remark_reason = request.form.get('remark_reason')
+            if remark_reason:  # If the remark reason is submitted for this assessment
+                # Create a new remark request for this assessment
+                new_remark_request = RemarkRequests(
+                    assessment_id=assessment.assessment_id,
+                    user_id=user.user_id,
+                    status=0,  # New request, status is 0
+                    remark_reason=remark_reason
+                )
+                db.session.add(new_remark_request)
+                db.session.commit()
+
+                new_remark_request_id = new_remark_request.remark_id  # Get the ID of the new remark request
+
+                # Assign the remark_id to the AssessmentsStudent record
+                existing_assignment = AssessmentsStudent.query.filter_by(
+                    user_id=user.user_id,
+                    assessment_id=assessment.assessment_id
+                ).first()
+
+                if existing_assignment:
+                    existing_assignment.remark_id = new_remark_request_id
+                    db.session.commit()
+
+                flash('Regrade request submitted successfully!', 'success')
+                return redirect(url_for('studentgrades'))
 
 
-        if assessment_id and remark_reason:
-            new_remark_request = RemarkRequests(
-                assessment_id=assessment_id,
-                user_id=user_id,
-                status=0,
-                remark_reason=remark_reason
-            )
-            db.session.add(new_remark_request)
-            db.session.commit()
-
-
-            new_remark_request_id = new_remark_request.remark_id
-
-            student_assessment = AssessmentsStudent.query.filter_by(user_id=user_id, assessment_id=assessment_id).first()
-
-            student_assessment.remark_id = new_remark_request_id
-            db.session.commit()
-
-            flash('Regrade request submitted successfully!', 'success')
-            return redirect(url_for('studentgrades'))
-    print(grades)
 
     return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
 
