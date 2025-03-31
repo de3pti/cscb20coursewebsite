@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content = "width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
     </head>
     
     <body>
@@ -71,8 +71,8 @@
                     {% for grade in grades %}
                         <div class="row">
                             <div class="cell">{{ grade['assessment_name'] }}</div>
-                            {% if grade['marks']%}
-                                <div class="cell">{{ grade['marks'] }}</div>
+                            {% if grade['grade']%}
+                                <div class="cell">{{ grade['grade'] }}</div>
                             {% else %}
                                 <div class="cell">Not Graded</div>
                             {% endif%}
