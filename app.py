@@ -155,13 +155,18 @@ def anonfeedback():
     if request.method == "POST":
         professor_id = request.form.get('professor')
 
-        if professor_id:
+        instruct_feed = request.form.get('instruct_feed')
+        instruct_tips = request.form.get('instruct_tips')
+        lab_feed = request.form.get('lab_feed')
+        lab_tips = request.form.get('lab_tips')
 
-            instruct_feed = request.form.get('instruct_feed')
-            instruct_tips = request.form.get('instruct_tips')
-            lab_feed = request.form.get('lab_feed')
-            lab_tips = request.form.get('lab_tips')
+        if not professor_id:
+            flash('Please select a Professor.', 'warning')
 
+        elif not instruct_feed or instruct_tips or lab_feed or lab_tips:
+            flash('Please provide at least one piece of feedback per section.', 'warning')
+
+        else:   
             new_feedback = Feedback(
                 instructor_id = professor_id,
                 feedback_inst_1 = instruct_feed,
@@ -175,8 +180,7 @@ def anonfeedback():
             flash('Your feedback has been submitted successfully!', 'success')
 
             return render_template('anonfeedback.html', success=True, professors=professors, user=user)
-        else: 
-            flash('Please select a Professor.', 'warning')
+            
 
     return render_template('anonfeedback.html', professors=professors, user=user)
 
@@ -464,6 +468,9 @@ def login():
             session.permanent=True
             if (user.user_type == 0 ): 
                 flash(f"Welcome {user.first_name}! Click the Menu button to navigate to your grades.", 'succes')
+            elif (user.user_type == 1 ):
+                flash(f"Welcome instructor {user.first_name}! Click the Menu button to see all the grades of your class.", 'succes')
+            
             return redirect(url_for('index'))
     return render_template('login.html')
 

@@ -331,7 +331,7 @@ h2 {
 }
 
 .flash-message {
-    width: 50%;
+    width: auto;
     color: #253C33;
     text-align: center;
     padding: 1%;
@@ -598,25 +598,30 @@ h6{
     margin-right: auto;
     display: block;
     padding: 0 5px 10px 0;
+    border-radius: 5px;
 
 }
 .register_submit{
     background-color: #C4A645;
+    color: #253C33;
     border: none;
     cursor: pointer;
     width: 100%;
     margin: 5px 0 25px 0;
     padding: 15px 20px;
     opacity: 0.9;
+    border-radius: 5px;
 }
 .signin_submit{
     background-color: #C4A645;
+    color: #253C33;
     border: none;
     cursor: pointer;
-    width: 120%;
+    width: 116%;
     margin: 5px 0 25px 0;
     padding: 15px 20px;
     opacity: 0.9;
+    border-radius: 5px;
 }
 .register_submit:hover{
     opacity: 1;
@@ -701,6 +706,55 @@ h6{
 /*Light and Dark mode*/
 /*Dark mode: ->light mode is the default*/
 @media (prefers-color-scheme: dark) {
+    *{
+        font-family: Mont;
+        src: url(Louis\ George\ Cafe.ttf);
+        color: #E1D8CC;
+    }
+
+    .flash-message {
+        width: auto;
+        /* max-width: 60%; */
+        color: #E1D8CC;
+        text-align: center;
+        padding: 1%;
+        border-radius: 5px;
+        background-color: #C87456;
+        margin: auto;
+        margin-top: 10px;
+        white-space: nowrap;
+    }
+
+    .user_type{
+        color: #202E32;
+        font-family: Mont;
+    }
+    .instruct_feed{
+        color: #202E32;
+        font-family: Mont;
+    }
+    .instruct_tips{
+        color: #202E32;
+        font-family: Mont;
+    }
+    .lab_feed{
+        color: #202E32;
+        font-family: Mont;
+    }
+    .lab_tips{
+        color: #202E32;
+        font-family: Mont;
+    }
+
+
+    .register_form_text{
+        width: 90%;
+        padding: 14px 11px;
+        margin: 8px 0;
+        display: inline-block;
+        color: #202E32;
+     }
+
     /*CSS FOR CARD ANIMATION ON COURSE TEAM*/
     .flip-card {
         background-color: #B9CAC9;

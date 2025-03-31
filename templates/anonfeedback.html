@@ -55,11 +55,19 @@
 
         <p><b>Please feel free to reach out to us via E-mail or leave anonymus feedback on the following form:</b></p>
 
+        {% with messages = get_flashed_messages()%}
+            {% if messages%}
+                {% for message in messages%}
+                    <p class="flash-message">{{ messages[-1] }}</p>
+                {%endfor%}
+            {%endif%}
+        {%endwith%}
+
         <form method="POST">
             <p>Select Professor:</p>
-            <select name="professor" id="professor">
+            <select name="professor" id="professor" class="user_type">
                 {% for professor in professors %}
-                    <option value="{{ professor.user_id }}">{{ professor.first_name }} {{ professor.last_name }}</option>
+                    <option value="{{ professor.user_id }}" class="user_type">{{ professor.first_name }} {{ professor.last_name }}</option>
                 {% endfor %}
             </select>
 
@@ -80,14 +88,6 @@
             </div>
 
         </form>
-
-        {% with messages = get_flashed_messages()%}
-            {% if messages%}
-                {% for message in messages%}
-                    <p class="flash-message">{{ messages[-1] }}</p>
-                {%endfor%}
-            {%endif%}
-        {%endwith%}
 
         <p>
             Contact: <br>
