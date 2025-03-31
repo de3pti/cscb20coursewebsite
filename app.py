@@ -570,6 +570,7 @@ def studentgrades():
 
             flash('Regrade request submitted successfully!', 'success')
             return redirect(url_for('studentgrades'))
+    print(grades)
 
     return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
 
