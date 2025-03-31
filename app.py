@@ -242,6 +242,7 @@ def updatestudentgrades():
     
     assessments = Assessment.query.all()
     students = User.query.filter_by(user_type=0).all()
+    assignments = db.session.query(AssessmentsStudent).join(User, User.user_id == AssessmentsStudent.user_id).join(Assessment, Assessment.assessment_id == AssessmentsStudent.assessment_id).all()
     
     for assessment in assessments:
         for student in students:
@@ -262,25 +263,19 @@ def updatestudentgrades():
                 db.session.commit()  # Commit after assigning students to assessments
     
     if request.method == 'POST':
-        print(request.form)  # Debugging print statement
-        
-        for assignment in AssessmentsStudent.query.all():
-            input_name = "reviewed_(assignment.user_id)_{assignment.assessment_id}"
+        for assignment in assignments:
+            input_name = f"reviewed_{assignment.user_id}_{assignment.assessment_id}"  # Generate input name based on user_id and assessment_id
             new_mark = request.form.get(input_name)  # Get the value from the form
-
-            # Check if the new_mark is empty
-            if new_mark == '':
-                assignment.marks = None  # Set to None if field is empty
-
+            
+            if new_mark is None or new_mark.strip() == '':  # Check if the mark is empty or None
+                assignment.marks = None  # Set to None if the field is empty or doesn't exist
             else:
                 try:
-                    # Convert the mark to integer if not empty
-                    new_mark = int(new_mark)
+                    new_mark = int(new_mark)  # Attempt to convert to an integer
 
                     # Check if the mark is within the valid range
                     if 0 <= new_mark <= 100:
                         assignment.marks = new_mark  # Update the marks field
-                        print(assignment.user_id, assignment.marks)
                     else:
                         flash("Marks must be between 0 and 100.", "error")
                         return redirect(url_for('updatestudentgrades'))
@@ -292,10 +287,6 @@ def updatestudentgrades():
         db.session.commit()  # Save all changes
         flash("Marks updated successfully!", "success")
         return redirect(url_for('updatestudentgrades'))
-
-    # Fetch assignments to display on the page
-    assignments = AssessmentsStudent.query.all()
-    assignments = db.session.query(AssessmentsStudent).join(User, User.user_id == AssessmentsStudent.user_id).join(Assessment, Assessment.assessment_id == AssessmentsStudent.assessment_id).all()
 
     return render_template('updatestudentgrades.html', user=user, assignments=assignments)
     
