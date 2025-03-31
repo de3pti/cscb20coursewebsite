@@ -531,13 +531,15 @@ def studentgrades():
         grade_info = {
             'assessment_name': assessment.name,
             'assessment_id': assessment.assessment_id,
-            'grade': student_assessment.marks if student_assessment.marks is not None else 'Not Graded',
+            'marks': student_assessment.marks if student_assessment.marks is not None else 'Not Graded',
             'remark_status': remark_request.status if remark_request else "No Remark Requested"
         }
         if assessment.type == "Test":
             exams.append(grade_info)
+
         elif assessment.type == "Lab":
             labs.append(grade_info)
+
         else:
             grades.append(grade_info)
 
