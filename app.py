@@ -435,9 +435,9 @@ def login():
             session['name'] = user.username
             session.permanent=True
             if (user.user_type == 0 ): 
-                flash("Welcome {user.first_name}! Click the Menu button to navigate to your grades.", 'succes')
+                flash(f"Welcome {user.first_name}! Click the Menu button to navigate to your grades.", 'success')
             elif (user.user_type == 1 ):
-                flash("Welcome instructor {user.first_name}! Click the Menu button to see all the grades of your class.", 'succes')
+                flash(f"Welcome instructor {user.first_name}! Click the Menu button to see all the grades of your class.", 'succes')
             
             return redirect(url_for('index'))
     return render_template('login.html')
