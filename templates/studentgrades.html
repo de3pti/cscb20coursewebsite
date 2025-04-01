@@ -80,20 +80,18 @@
 
                             <div class="cell">
                                 {% if grade['remark_status'] == "No Remark Requested" %}
-                                    <button class="button" onclick="openForm()">Open Form</button>
-                                    <div class="form-popup" id="myForm">
-
+                                    <button class="button" onclick="openForm({{ grade['assessment_id'] }})">Open Form</button>
+                                    <div class="form-popup" id="myForm{{ grade['assessment_id'] }}">
                                         <form class="form-container" action="{{ url_for('studentgrades') }}" method="POST">
-                                            <input type="hidden" name="assessment_id" value="{{ grade['assessment_id'] }}">
                                             <label for="remark_reason">Reason for Regrade:</label>
-                                            <input type="text" name="remark_reason" placeholder="Please enter your reason here:" required>
+                                            <input type="text" name="{{ grade['assessment_id'] }}" placeholder="Please enter your reason here:" required>
                                             <button type="submit" class="button">Submit</button>
-                                            <button type="button" class="button" onclick="closeForm()">Close</button>
+                                            <button type="button" class="button" onclick="closeForm({{ grade['assessment_id'] }})">Close</button>
                                         </form>
                                     </div>
                                 {% else %}
-                                        <p>Regrade request already submitted</p>
-                                {% endif %}
+                                    <p>Regrade request already submitted</p>
+                                {% endif %}  
                             </div>
                             <div class="cell">
                                 {% if grade['remark_status'] == 0 %}
@@ -123,8 +121,9 @@
                 <div class="cellheader">Regrade Status</div>
                 {% if exams %}
                     {% for exam in exams %}
+
                         <div class="row">
-                            <div class="cell">{{ exam['assessment_name'] }}</div>
+                            <div class="cell"><p>{{ exam['assessment_name'] }}</p></div>
                             {% if exam['marks']%}
                                 <div class="cell">{{ exam['marks'] }}</div>
                             {% else %}
@@ -132,14 +131,13 @@
                             {% endif%}
                             <div class="cell">
                                 {% if exam['remark_status'] == "No Remark Requested" %}
-                                    <button class="button" onclick="openForm()">Open Form</button>
-                                    <div class="form-popup" id="myForm">
+                                    <button class="button" onclick="openForm({{ exam['assessment_id'] }})">Open Form</button>
+                                    <div class="form-popup" id="myForm{{ exam['assessment_id'] }}">
                                         <form class="form-container" action="{{ url_for('studentgrades') }}" method="POST">
-                                            <input type="hidden" name="assessment_id" value="{{ exam['assessment_id'] }}">
                                             <label for="remark_reason">Reason for Regrade:</label>
-                                            <input type="text" name="remark_reason" placeholder="Please enter your reason here:" required>
+                                            <input type="text" name="{{ exam['assessment_id'] }}" placeholder="Please enter your reason here:" required>
                                             <button type="submit" class="button">Submit</button>
-                                            <button type="button" class="button" onclick="closeForm()">Close</button>
+                                            <button type="button" class="button" onclick="closeForm({{ exam['assessment_id'] }})">Close</button>
                                         </form>
                                     </div>
                                 {% else %}
@@ -183,19 +181,18 @@
                             {% endif%}
                             <div class="cell">
                                 {% if lab['remark_status'] == "No Remark Requested" %}
-                                    <button class="button" onclick="openForm()">Open Form</button>
-                                    <div class="form-popup" id="myForm">
-                                            <form class="form-container" action="{{ url_for('studentgrades') }}" method="POST">
-                                                <input type="hidden" name="assessment_id" value="{{ lab['assessment_id'] }}">
-                                                <label for="remark_reason">Reason for Regrade:</label>
-                                                <input type="text" name="remark_reason" placeholder="Please enter your reason here:" required>
-                                                <button type="submit" class="button">Submit</button>
-                                                <button type="button" class="button" onclick="closeForm()">Close</button>
-                                            </form>                                
+                                    <button class="button" onclick="openForm({{ lab['assessment_id'] }})">Open Form</button>
+                                    <div class="form-popup" id="myForm{{ lab['assessment_id'] }}">
+                                        <form class="form-container" action="{{ url_for('studentgrades') }}" method="POST">
+                                            <label for="remark_reason">Reason for Regrade:</label>
+                                            <input type="text" name="{{ lab['assessment_id'] }}" placeholder="Please enter your reason here:" required>
+                                            <button type="submit" class="button">Submit</button>
+                                            <button type="button" class="button" onclick="closeForm({{ lab['assessment_id'] }})">Close</button>
+                                        </form>
                                     </div>
                                 {% else %}
                                     <p>Regrade request already submitted</p>
-                                {% endif %}
+                                {% endif %}  
                             </div>
                             <div class="cell">
                                 {% if lab['remark_status'] == 0 %}

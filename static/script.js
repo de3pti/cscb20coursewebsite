@@ -1,7 +1,9 @@
-function openForm() {
-    document.getElementById("myForm").style.display = "block";
+function openForm(assessmentId) {
+    var form = document.getElementById("myForm" + assessmentId);
+    form.style.display = "block"; 
 }
-  
-function closeForm() {
-document.getElementById("myForm").style.display = "none";
+
+function closeForm(assessmentId) {
+    var form = document.getElementById("myForm" + assessmentId);
+    form.style.display = "none";  
 }
