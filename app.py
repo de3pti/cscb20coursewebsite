@@ -398,10 +398,6 @@ def index():
     pagename='index'
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
-    print(username)
-    print(user.user_id)
-    print(user.user_type)
-    print(user)
     return render_template('index.html', user=user)
 
 # Registration, Login, and Logout
