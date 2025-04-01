@@ -123,7 +123,7 @@
                     {% for exam in exams %}
 
                         <div class="row">
-                            <div class="cell"><p>{{ exam['assessment_id'] }}</p></div>
+                            <div class="cell"><p>{{ exam['assessment_name'] }}</p></div>
                             {% if exam['marks']%}
                                 <div class="cell">{{ exam['marks'] }}</div>
                             {% else %}

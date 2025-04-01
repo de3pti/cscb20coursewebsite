@@ -1,9 +1,9 @@
 function openForm(assessmentId) {
     var form = document.getElementById("myForm" + assessmentId);
-    form.style.display = "block";  // Open the form
+    form.style.display = "block"; 
 }
 
 function closeForm(assessmentId) {
     var form = document.getElementById("myForm" + assessmentId);
-    form.style.display = "none";  // Close the form
+    form.style.display = "none";  
 }
