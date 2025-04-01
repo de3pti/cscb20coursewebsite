@@ -1,1 +1,0 @@
-1. As a student, I should be able to easily see the assessments that will be given in this course, their weights and important notes about each on the Syllabus page. 

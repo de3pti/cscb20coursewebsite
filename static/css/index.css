@@ -1,17 +1,17 @@
 /* Font Adjustments*/
 *{
     font-family: Mont;
-    src: url(Louis\ George\ Cafe.ttf);
+    src: url('fonts/Louis George Cafe.ttf');
 }
 
 @font-face {
     font-family: Mont;
-    src: url(Louis\ George\ Cafe.ttf);
+    src: url('fonts/Louis George Cafe.ttf');
 }
 
 @font-face {
     font-family: MontBold;
-    src: url(Mont-HeavyDEMO.ttf);
+    src: url('fonts/Mont-HeavyDEMO.ttf');
 }
 
 .hide {

@@ -1,0 +1,10 @@
+we are using the following packages:
+    import sqlalchemy as db
+    from sqlalchemy import Column, ForeignKey, create_engine
+    from datetime import timedelta
+    from sqlalchemy.dialects.sqlite import *
+    from sqlalchemy.orm import relationship, declarative_base
+    from flask import Flask, render_template, request, flash, redirect, url_for, session
+    from sqlalchemy.ext.declarative import declarative_base
+    from flask_sqlalchemy import SQLAlchemy
+    from flask_bcrypt import Bcrypt

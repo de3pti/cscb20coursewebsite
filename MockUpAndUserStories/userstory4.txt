@@ -1,1 +1,0 @@
-1. As a student, I should be able to access lecture information such as the topics, links to readings and PDFS of the lecture notes plus the in class worksheets on the Lecture Notes page. 

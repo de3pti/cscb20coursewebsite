@@ -1,3 +1,0 @@
-1. As a student, I should be able to easily see the names of the developers on the Course Team page.
-
-2. As a student, I should be able to hover over the images of the developers to reveal the assignment distribution. 

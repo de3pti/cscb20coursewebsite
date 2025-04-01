@@ -1,1 +1,0 @@
-1. As a student, I should be able to easily click distinct links that will open to the corresponding assignment PDF on the Assignments page. 

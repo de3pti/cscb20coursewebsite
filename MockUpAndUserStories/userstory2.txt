@@ -1,3 +1,0 @@
-1. As a student, I should be able to access the Piazza page by clicking 'Piazza' on the dropdown menu.
-
-2. As a student, I should be able to interact with Piazza with the embedded URL on the Piazza page. 

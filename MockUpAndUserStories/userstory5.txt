@@ -1,3 +1,0 @@
-1. As a student, I should be able to type feedback and text on the Anonymous Feedback page.
-
-2. As a student, I should be able to click the 'Submit' button to then clear the text that was written on the Anonymous Feedback page. 

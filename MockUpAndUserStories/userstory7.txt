@@ -1,1 +1,0 @@
-1. As a student, I should be able to use the calendar to easily see which days of the week have a tutorial as well as the corresponding tutorial numbers on the Labs page. 

@@ -1,8 +1,8 @@
 import sqlalchemy as db
-from sqlalchemy import Column, String, Integer, ForeignKey, create_engine
-from datetime import datetime, timedelta
+from sqlalchemy import Column, ForeignKey, create_engine
+from datetime import timedelta
 from sqlalchemy.dialects.sqlite import *
-from sqlalchemy.orm import sessionmaker, relationship, declarative_base
+from sqlalchemy.orm import relationship, declarative_base
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from sqlalchemy.ext.declarative import declarative_base
 from flask_sqlalchemy import SQLAlchemy
