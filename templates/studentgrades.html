@@ -101,7 +101,7 @@
                                 {% elif grade['remark_status'] == 2 %}
                                     Approved
                                 {% else %}
-                                    Unknown Status
+                                    No Remark Request
                                 {% endif %}
                             </div>                            
                         </div>
@@ -147,9 +147,9 @@
                             <div class="cell">
                                 {% if exam['remark_status'] == 0 %}
                                     Pending
-                                {% elif exam['remark_status'] == 1 %}
-                                    Approved
                                 {% elif exam['remark_status'] == 2 %}
+                                    Approved
+                                {% elif exam['remark_status'] == 1 %}
                                     Declined
                                 {% else %}
                                     No Remark Request
@@ -197,9 +197,9 @@
                             <div class="cell">
                                 {% if lab['remark_status'] == 0 %}
                                     Pending
-                                {% elif lab['remark_status'] == 1 %}
-                                    Approved
                                 {% elif lab['remark_status'] == 2 %}
+                                    Approved
+                                {% elif lab['remark_status'] == 1 %}
                                     Declined
                                 {% else %}
                                     No Remark Request
