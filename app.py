@@ -17,13 +17,6 @@ app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///assignment3.db'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes = 10)
 db = SQLAlchemy(app)
 
-# Creating an engine that will connect to the SQLite database
-#engine = db.create_engine('sqlite:///assignment3.db', echo = True)
-
-# Session setup
-# Session = sessionmaker(bind=engine)
-# session = Session()
-
 Base = declarative_base()
 
 # Table for the users
@@ -95,9 +88,6 @@ class RemarkRequests(db.Model):
     remark_to_assessment = relationship("Assessment", backref='remarkrequests')
 
 
-# Create the tables in the database
-# Base.metadata.create_all(engine)
-
 # Rendering the pages to make the dropdown work
 @app.route('/')
 def homepage():
@@ -146,7 +136,7 @@ def anonfeedback():
     user = User.query.filter_by(username=username).first()
 
     if not user.user_type == 0:
-        return render_template('viewanonfeedback.html') #temp, add prof feedback
+        return render_template('viewanonfeedback.html') 
 
     if not user:
         return render_template('homepage.html')
@@ -199,21 +189,21 @@ def viewstudentgrades():
     
     for assessment in assessments:
         for student in students:
-            # Check if the student is already assigned this assessment
+            # Determine if student already assigned to an assessment
             existing_assignment = AssessmentsStudent.query.filter_by(
                 user_id=student.user_id,
                 assessment_id=assessment.assessment_id
-            ).first()  # Check if the student is assigned to this assessment
+            ).first()
             
             if not existing_assignment:
-                # If not, assign them the assessment
+                # assign assessment to student if not already
                 new_assignment = AssessmentsStudent(
                     user_id=student.user_id,
                     assessment_id=assessment.assessment_id,
                     marks=None
                 )
                 db.session.add(new_assignment)
-                db.session.commit()  # Commit after assigning students to assessments
+                db.session.commit() 
                 
     try:
         assignments = (
@@ -224,15 +214,8 @@ def viewstudentgrades():
             .all()
         )
         
-        print(assignments)
-        
-        #assignments = AssessmentsStudent.query.all()
-        print("Query executed successfully")  # Debugging statement
-        for assignment in assignments:
-            print(f"Assessment ID: {assignment.AssessmentsStudent.assessment_id}, Student ID: {assignment.AssessmentsStudent.user_id}, Mark: {assignment.AssessmentsStudent.marks} Type: {assignment.Assessment.type}")
         return render_template('viewstudentgrades.html', assignments=assignments, user=user)
     except Exception as e:
-        print("Error:", e)  # This will print any database errors
         return "An error occurred", 500
     
 @app.route('/updatestudentgrades', methods=['GET', 'POST'])
@@ -246,45 +229,45 @@ def updatestudentgrades():
     
     for assessment in assessments:
         for student in students:
-            # Check if the student is already assigned this assessment
+            # Determine if student is assigned this assessment
             existing_assignment = AssessmentsStudent.query.filter_by(
                 user_id=student.user_id,
                 assessment_id=assessment.assessment_id
-            ).first()  # Check if the student is assigned to this assessment
+            ).first()
             
             if not existing_assignment:
-                # If not, assign them the assessment
+                # assign them the assessment, if not already
                 new_assignment = AssessmentsStudent(
                     user_id=student.user_id,
                     assessment_id=assessment.assessment_id,
                     marks=None
                 )
                 db.session.add(new_assignment)
-                db.session.commit()  # Commit after assigning students to assessments
+                db.session.commit() 
     
     if request.method == 'POST':
         for assignment in assignments:
-            input_name = f"reviewed_{assignment.user_id}_{assignment.assessment_id}"  # Generate input name based on user_id and assessment_id
-            new_mark = request.form.get(input_name)  # Get the value from the form
+            input_name = f"reviewed_{assignment.user_id}_{assignment.assessment_id}"  
+            new_mark = request.form.get(input_name)  
             
-            if new_mark is None or new_mark.strip() == '':  # Check if the mark is empty or None
-                assignment.marks = None  # Set to None if the field is empty or doesn't exist
+            if new_mark is None or new_mark.strip() == '':  
+                assignment.marks = None 
             else:
                 try:
-                    new_mark = int(new_mark)  # Attempt to convert to an integer
+                    new_mark = int(new_mark)  
 
                     # Check if the mark is within the valid range
                     if 0 <= new_mark <= 100:
-                        assignment.marks = new_mark  # Update the marks field
+                        assignment.marks = new_mark
                     else:
                         flash("Marks must be between 0 and 100.", "error")
                         return redirect(url_for('updatestudentgrades'))
 
                 except ValueError:
                     flash("Invalid mark entered. Please enter a valid number.", "error")
-                    return redirect(url_for('updatestudentgrades'))  # Redirect if there's an error
+                    return redirect(url_for('updatestudentgrades')) 
         
-        db.session.commit()  # Save all changes
+        db.session.commit() 
         flash("Marks updated successfully!", "success")
         return redirect(url_for('updatestudentgrades'))
 
@@ -295,7 +278,6 @@ def viewanonfeedback():
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
     if request.method == 'POST':
-        print(request.form)
         
         for feedback in Feedback.query.all():
             checkbox_name = f"reviewed_{feedback.feedback_id}"
@@ -319,8 +301,7 @@ def viewremarkrequests():
     if request.method == 'POST':
         # Loop over each remark request in the form
         for remark in RemarkRequests.query.all():
-            # Get the status of this particular remark from the form
-            remark_status = request.form.get(f'reviewed_{remark.remark_id}')  # Assuming you use reviewed_{remark.remark_id} for each form element
+            remark_status = request.form.get(f'reviewed_{remark.remark_id}') 
 
             if remark_status == '1':
                 remark.status = 1 
@@ -329,7 +310,6 @@ def viewremarkrequests():
             else:
                 remark.status = 0
 
-        # Commit the changes to the database
         db.session.commit()
             
     feedbacks = Feedback.query.all()
@@ -388,8 +368,8 @@ def createassessment():
             flash("Assessment created successfully!", "success")
 
         except Exception as e:
-            db.session.rollback()  # Rollback if error occurs
-            flash(f"Error creating assessment: {str(e)}", "error")
+            db.session.rollback()
+            flash("Error creating assessment: {str(e)}", "error")
     
     return render_template('createassessment.html', user=user)
 
@@ -398,10 +378,6 @@ def index():
     pagename='index'
     username = session.get('name')
     user = User.query.filter_by(username=username).first()
-    print(username)
-    print(user.user_id)
-    print(user.user_type)
-    print(user)
     return render_template('index.html', user=user)
 
 # Registration, Login, and Logout
@@ -440,7 +416,7 @@ def register():
         
         db.session.add_all([new_user])
         db.session.commit()
-        # db.session.close()
+
         return redirect(url_for('login'))
     
 @app.route('/login', methods = ['GET', 'POST'])
@@ -459,9 +435,9 @@ def login():
             session['name'] = user.username
             session.permanent=True
             if (user.user_type == 0 ): 
-                flash(f"Welcome {user.first_name}! Click the Menu button to navigate to your grades.", 'succes')
+                flash("Welcome {user.first_name}! Click the Menu button to navigate to your grades.", 'succes')
             elif (user.user_type == 1 ):
-                flash(f"Welcome instructor {user.first_name}! Click the Menu button to see all the grades of your class.", 'succes')
+                flash("Welcome instructor {user.first_name}! Click the Menu button to see all the grades of your class.", 'succes')
             
             return redirect(url_for('index'))
     return render_template('login.html')
@@ -489,7 +465,6 @@ def studentgrades():
             ).first() 
         
         if not existing_assignment:
-                # If not, assign them the assessment
                 new_assignment = AssessmentsStudent(
                     user_id=user.user_id,
                     assessment_id=assessment.assessment_id,
@@ -499,7 +474,7 @@ def studentgrades():
                 db.session.commit()
 
     if not user.user_type == 0:
-        return render_template('viewstudentgrades.html') #temp, add prof grades
+        return render_template('viewstudentgrades.html') 
     
     if not user:
         return render_template('homepage.html')
@@ -561,15 +536,13 @@ def studentgrades():
 
             flash('Regrade request submitted successfully!', 'success')
             return redirect(url_for('studentgrades'))
-    print(grades)
 
     return render_template('studentgrades.html', grades=grades, labs = labs, exams = exams, user=user)
-
-# close session at the end
-#db.session.close()
 
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
+    
